@@ -93,6 +93,12 @@ const GeometriaBasicaPage = lazy(
 const PitagorasPage = lazy(
   () => import("./pages/matematica/pitagoras/Pitagoras"),
 );
+const RelacoesMetricasPage = lazy(
+  () => import("./pages/matematica/relacoes-metricas/RelacoesMetricas"),
+);
+const TransformacoesGeometricasPage = lazy(
+  () => import("./pages/matematica/transformacoes-geometricas/TransformacoesGeometricas"),
+);
 
 export default function App() {
   return (
@@ -222,6 +228,8 @@ export default function App() {
           element={<GeometriaBasicaPage />}
         />
         <Route path="/matematica/pitagoras" element={<PitagorasPage />} />
+        <Route path="/matematica/relacoes-metricas" element={<RelacoesMetricasPage />} />
+        <Route path="/matematica/transformacoes-geometricas" element={<TransformacoesGeometricasPage />} />
         <Route
           path="*"
           element={<Navigate to="/" replace />}

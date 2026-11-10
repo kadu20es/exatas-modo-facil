@@ -59,6 +59,8 @@ const subjects: MenuNode[] = [
                 title: "Cálculo Algébrico",
               },
               { to: "/matematica/pitagoras", title: "Teorema de Pitágoras" },
+              { to: "/matematica/relacoes-metricas", title: "Relações Métricas" },
+              { to: "/matematica/transformacoes-geometricas", title: "Transformações Geométricas" },
             ],
           },
           {

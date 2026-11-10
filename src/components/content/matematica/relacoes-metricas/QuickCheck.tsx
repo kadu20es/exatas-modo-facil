@@ -13,7 +13,7 @@ const checks = [
   ["No mesmo instante, uma vara de \\(1{,}5\\text{ m}\\) tem sombra de \\(2{,}5\\text{ m}\\) e um poste tem sombra de \\(10\\text{ m}\\). Qual é a altura do poste, em metros?", "6"],
   ["Na planta de uma casa (escala \\(1 : 200\\)), uma sala tem \\(5\\text{ cm}\\) de comprimento. Quantos metros ela tem na realidade?", "10"],
   ["Na hipotenusa \\(BC = 13\\), a projeção do cateto \\(c\\) mede \\(m = 4\\). Quanto mede a outra projeção \\(n\\)?", "9"],
-  ["O triângulo \\(ABC\\) é retângulo em \\(A\\), com \\(AB = 6\\), \\(AC = 8\\) e \\(BC = 10\\). Como \\(\\triangle ABC \\sim \\triangle HBA\\), vale \\(\\dfrac{AC}{HA} = \\dfrac{BC}{BA}\\). Quanto mede a altura \\(HA\\)?", "4,8"],
+  ["O triângulo \\(ABC\\) é retângulo em \\(A\\), com \\(AB = 6\\), \\(AC = 8\\) e \\(BC = 10\\). Como \\(\\triangle ABC \\sim \\triangle HBA\\) (BC ↔ BA e AC ↔ HA), vale \\(\\dfrac{AC}{HA} = \\dfrac{BC}{BA}\\). Quanto mede a altura \\(HA\\)?", "4,8"],
   ["Em um triângulo retângulo, as projeções dos catetos sobre a hipotenusa medem \\(m = 4\\) e \\(n = 9\\). Quanto mede a altura \\(h\\)?", "6"],
   ["Um triângulo retângulo tem hipotenusa \\(a = 10\\) e cateto \\(c = 6\\). Pela relação \\(c^2 = a \\cdot m\\), quanto mede a projeção \\(m\\)?", "3,6"],
   ["Os catetos de um triângulo retângulo medem \\(9\\text{ cm}\\) e \\(12\\text{ cm}\\). Quanto mede a altura relativa à hipotenusa, em cm?", "7,2"],

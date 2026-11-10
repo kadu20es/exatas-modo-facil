@@ -7,7 +7,7 @@ const groups = [
       { grade: "5º ano", items: [["Multiplicação e Divisão", "/matematica/multiplicacao-divisao"]] },
       { grade: "6º ano", items: [["Frações", "/matematica/fracoes"], ["Decimais", "/matematica/decimais"], ["Introdução à Álgebra", "/matematica/introducao-algebra"]] },
       { grade: "7º ano", items: [["Razão e Proporção", "/matematica/razao-proporcao"], ["Regra de Três", "/matematica/regra-de-tres"], ["Equações de 1º Grau", "/matematica/equacoes-1-grau"], ["Estatística Básica", "/matematica/estatistica-basica"], ["Geometria Básica", "/matematica/geometria-basica"]] },
-      { grade: "8º ano", items: [["Potenciação", "/matematica/potenciacao"], ["Notação Científica", "/matematica/notacao-cientifica"], ["Cálculo Algébrico", "/matematica/calculo-algebrico"], ["Teorema de Pitágoras", "/matematica/pitagoras"]] },
+      { grade: "8º ano", items: [["Potenciação", "/matematica/potenciacao"], ["Notação Científica", "/matematica/notacao-cientifica"], ["Cálculo Algébrico", "/matematica/calculo-algebrico"], ["Teorema de Pitágoras", "/matematica/pitagoras"], ["Semelhança e Relações Métricas", "/matematica/relacoes-metricas"], ["Transformações Geométricas", "/matematica/transformacoes-geometricas"]] },
       { grade: "9º ano", items: [["Radiciação", "/matematica/radiciacao"], ["Geometria Plana", "/matematica/geometria-plana"], ["Equações de 2º Grau", "/matematica/equacoes-2-grau"]] },
     ],
   },
