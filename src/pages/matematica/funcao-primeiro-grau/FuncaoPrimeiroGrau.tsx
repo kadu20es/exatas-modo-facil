@@ -1,0 +1,6 @@
+import { LinearFunctionLab, LinearFunctionSolver } from '../../../components/exercises/matematica/funcao-primeiro-grau/Ferramentas';
+import { ExerciseList } from '../../../components/UI/ExerciseList';
+import { TopicPageLayout } from '../../../components/UI/TopicPageLayout';
+import { LinearFunctionExamples, LinearFunctionTheory } from '../../../components/content/matematica/funcao-primeiro-grau/Conteudo';
+import { exercisesData } from '../../../data/matematica/funcao-primeiro-grau/exercicios';
+export default function FuncaoPrimeiroGrauPage(){return <TopicPageLayout title="📈 Função do 1º Grau" tagline="Entenda a reta, os coeficientes e as aplicações" footer="Material interativo de Função do 1º Grau" tabs={[{id:'teoria',label:'📚 Teoria',content:<LinearFunctionTheory/>},{id:'exemplos',label:'💡 Exemplos',content:<LinearFunctionExamples/>},{id:'laboratorio',label:'🔬 Laboratório',content:<div className="space-y-6"><LinearFunctionLab/><LinearFunctionSolver/></div>},{id:'exercicios',label:'✏️ 30 Exercícios',content:<ExerciseList data={exercisesData} storageKey="linearFunctionSolved" total={30} levels={['L1 Calcular f(x)','L2 Raiz da função','L3 Crescente/decrescente','L4 Lei da função','L5 Problemas']}/>}]}/>}

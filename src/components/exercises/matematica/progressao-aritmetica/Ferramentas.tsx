@@ -1,0 +1,33 @@
+import { useMemo, useState } from 'react';
+import { MathRenderer } from '../../../Math/MathRenderer';
+
+export function ArithmeticProgressionLab() {
+  const [first, setFirst] = useState(2);
+  const [difference, setDifference] = useState(3);
+  const terms = useMemo(() => Array.from({ length: 8 }, (_, index) => first + index * difference), [first, difference]);
+  const points = useMemo(() => {
+    const min = Math.min(0, ...terms);
+    const max = Math.max(0, ...terms);
+    const span = max - min || 1;
+    return terms.map((term, index) => `${48 + index * 62},${205 - (term - min) / span * 165}`).join(' ');
+  }, [terms]);
+  return <section className="space-y-6"><header className="bg-white rounded-3xl border p-7 shadow-sm"><span className="text-xs font-black uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 className="text-3xl font-black mt-2">Veja a razão somar em cada passo</h1><p className="text-slate-600 mt-2">Mude o primeiro termo ou a razão e observe como todos os termos se deslocam. Cada avanço na posição acrescenta sempre o mesmo valor.</p></header><div className="grid lg:grid-cols-[minmax(260px,.8fr)_1.2fr] gap-5"><div className="bg-white rounded-2xl border p-6 space-y-6"><label className="block font-bold">Primeiro termo a₁: {first}<input aria-label="Primeiro termo da progressão aritmética" type="range" min="-20" max="20" value={first} onChange={event => setFirst(Number(event.target.value))} className="block w-full mt-3" /></label><label className="block font-bold">Razão r: {difference}<input aria-label="Razão da progressão aritmética" type="range" min="-10" max="10" value={difference} onChange={event => setDifference(Number(event.target.value))} className="block w-full mt-3" /></label><div className="rounded-xl bg-indigo-50 p-4"><p className="font-bold">Termo geral</p><MathRenderer expression={`a_n = ${first} + (n-1) \\cdot ${difference}`} display/><p className="text-sm text-slate-600">{difference > 0 ? 'Razão positiva: a sequência é crescente.' : difference < 0 ? 'Razão negativa: a sequência é decrescente.' : 'Razão zero: a sequência é constante.'}</p></div></div><div className="bg-white rounded-2xl border p-4 sm:p-6"><svg viewBox="0 0 520 250" role="img" aria-label="Gráfico dos termos da progressão aritmética" className="w-full h-auto"><line x1="25" y1="205" x2="510" y2="205" stroke="#94a3b8"/><line x1="25" y1="20" x2="25" y2="215" stroke="#94a3b8"/>{terms.map((_, index) => <g key={index}><line x1={48 + index * 62} y1="20" x2={48 + index * 62} y2="215" stroke="#e2e8f0"/><text x={48 + index * 62} y="237" textAnchor="middle" fill="#475569" fontSize="12">{index + 1}</text></g>)}<polyline points={points} fill="none" stroke="#4f46e5" strokeWidth="4" strokeLinejoin="round"/>{terms.map((term, index) => { const y = Number(points.split(' ')[index].split(',')[1]); return <g key={index}><circle cx={48 + index * 62} cy={y} r="5" fill="#f59e0b"/><text x={48 + index * 62} y={Math.max(15, y - 10)} textAnchor="middle" fill="#312e81" fontSize="11">{term}</text></g>; })}</svg><div className="overflow-x-auto"><div className="flex gap-2 min-w-max mt-3">{terms.map((term, index) => <div key={index} className="rounded-lg bg-slate-50 border px-3 py-2 text-sm"><b>a{index + 1}</b> = {term}</div>)}</div></div></div></div></section>;
+}
+
+export function ArithmeticProgressionTools() {
+  const [mode, setMode] = useState<'term' | 'sum'>('term');
+  const [a1, setA1] = useState('3');
+  const [r, setR] = useState('4');
+  const [n, setN] = useState('10');
+  const [submitted, setSubmitted] = useState(false);
+  const first = Number(a1.replace(',', '.'));
+  const difference = Number(r.replace(',', '.'));
+  const count = Number(n.replace(',', '.'));
+  const valid = Number.isFinite(first) && Number.isFinite(difference);
+  const validCount = Number.isInteger(count) && count > 0;
+  const term = first + (count - 1) * difference;
+  const sum = count * (2 * first + (count - 1) * difference) / 2;
+  const result = mode === 'term' ? term : sum;
+  const error = !valid ? 'Informe valores numéricos para a₁ e r.' : !validCount ? 'Informe n como um número inteiro positivo.' : null;
+  return <section className="space-y-6"><header className="bg-white rounded-3xl border p-7 shadow-sm"><span className="text-xs font-black uppercase tracking-widest text-indigo-600">Ferramenta de cálculo</span><h1 className="text-3xl font-black mt-2">Calculadora de PA passo a passo</h1><p className="text-slate-600 mt-2">Encontre um termo ou a soma dos primeiros termos da progressão.</p></header><div className="bg-white rounded-2xl border p-6"><div className="flex flex-wrap gap-2">{([{ id: 'term', text: 'Termo geral' }, { id: 'sum', text: 'Soma dos termos' }] as const).map(option => <button key={option.id} type="button" onClick={() => { setMode(option.id); setSubmitted(false); }} className={`rounded-xl px-4 py-2 font-bold ${mode === option.id ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>{option.text}</button>)}</div><div className="grid sm:grid-cols-3 gap-4 mt-6"><label className="text-sm font-bold">Primeiro termo a₁<input value={a1} onChange={event => setA1(event.target.value)} inputMode="decimal" className="block w-full border rounded-xl p-3 mt-1" /></label><label className="text-sm font-bold">Razão r<input value={r} onChange={event => setR(event.target.value)} inputMode="decimal" className="block w-full border rounded-xl p-3 mt-1" /></label><label className="text-sm font-bold">{mode === 'term' ? 'Posição n' : 'Quantidade n'}<input value={n} onChange={event => setN(event.target.value)} inputMode="numeric" className="block w-full border rounded-xl p-3 mt-1" /></label></div><button type="button" onClick={() => setSubmitted(true)} className="mt-5 rounded-xl bg-indigo-600 px-5 py-3 font-bold text-white">Calcular</button>{submitted && <div aria-live="polite" className={`mt-5 rounded-2xl p-5 ${error ? 'bg-rose-50 text-rose-800' : 'bg-emerald-50 text-slate-800'}`}>{error ? <p className="font-bold">{error}</p> : <><p className="font-black text-lg">Resultado: {Number(result.toPrecision(10)).toLocaleString('pt-BR', { maximumFractionDigits: 8 })}</p><p className="mt-3 text-sm">Dados: a₁ = {first}, r = {difference}, n = {count}.</p>{mode === 'term' ? <><MathRenderer expression={`a_${count} = ${first} + (${count}-1) \\cdot ${difference}`} display/><MathRenderer expression={`a_${count} = ${term}`} display/></> : <><MathRenderer expression={`S_${count} = \\frac{${count}[2\\cdot${first}+(${count}-1)\\cdot${difference}]}{2}`} display/><MathRenderer expression={`S_${count} = ${sum}`} display/></>}</>}</div>}</div></section>;
+}

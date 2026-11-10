@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplicação e Divisão — Aprenda Passo a Passo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root { --ink: #134e4a; --paper: #f0fdfa; --accent: #0d9488 }
+    body { background: #f0fdfa; color: var(--ink); font-family: sans-serif; }
+    .tab-btn.active { color: #0f766e; border-bottom-color: #0f766e; font-weight: 800; background: #ccfbf1; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem;}
+    .paper {
+      background: #ffffff;
+      background-image: linear-gradient(#e0f2fe 1px, transparent 1px);
+      background-size: 100% 2rem;
+      border: 1px solid #bae6fd;
+      box-shadow: 0 8px 24px #0c4a6e0d;
+    }
+    .step { position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: white; }
+    .step::before { content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #ccfbf1; color: #0f766e; font-weight: 800; display: grid; place-items: center; font-size: .8rem; }
+    .level-btn.active { background: #0f766e; color: white; }
+    .tip { border-left: 4px solid #f59e0b; background: #fffbeb; }
+    .success { border-left: 4px solid #10b981; background: #ecfdf5; }
+    .warning { border-left: 4px solid #ef4444; background: #fef2f2; }
+  </style>
+</head>
+<body class="min-h-screen pb-12">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-teal-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+      <div>
+        <div class="font-black text-xl text-teal-900">✖️➗ Multiplicação & Divisão</div>
+        <div class="text-[11px] text-teal-600 hidden sm:block">Operações fundamentais sem complicação</div>
+      </div>
+      <nav class="flex gap-1 overflow-x-auto ml-4 pt-1">
+        <button class="tab-btn active px-3 py-4 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+        <button class="tab-btn px-3 py-4 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Lab Visual</button>
+        <button class="tab-btn px-3 py-4 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadoras</button>
+        <button class="tab-btn px-3 py-4 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 80 Exercícios</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-7">
+        <!-- TEORIA -->
+    <section id="sec-teoria" class="space-y-7">
+      <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-teal-900 via-teal-800 to-cyan-900 text-white shadow-xl">
+        <span class="text-xs uppercase tracking-widest font-bold text-teal-200">Curso Completo</span>
+        <h1 class="text-3xl sm:text-5xl font-black mt-2">Irmãs Inversas</h1>
+        <p class="mt-4 max-w-3xl text-teal-50 leading-7">Enquanto a Multiplicação serve para somar o mesmo número várias vezes (construir grupos), a Divisão serve para pegar um montão e repartir igualmente (separar os grupos).</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <article class="bg-white rounded-2xl border p-6 shadow-sm">
+          <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">✖️</span><h2 class="text-xl font-black">Multiplicação: Soma Rápida</h2></div>
+          <p class="mt-4 text-slate-600 leading-7">Se você comprar 3 caixas de ovos, e cada caixa tem 6 ovos, quantos ovos você tem? Em vez de fazer \(6 + 6 + 6\), você usa a multiplicação: \(3 \times 6\).</p>
+          <div class="my-5 paper rounded-xl p-5 text-center text-xl font-mono text-teal-800">
+            \[ 3 \times 6 = 18 \]
+          </div>
+          <div class="grid sm:grid-cols-2 gap-3 text-sm">
+            <div class="bg-teal-50 rounded-xl p-4"><b>Fatores</b><br>Os números que se multiplicam (3 e 6). A ordem não importa!</div>
+            <div class="bg-teal-50 rounded-xl p-4"><b>Produto</b><br>O resultado final (18).</div>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-2xl border p-6 shadow-sm">
+          <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-cyan-100 text-cyan-700 grid place-items-center font-black">➗</span><h2 class="text-xl font-black">Divisão: Repartição Justa</h2></div>
+          <p class="mt-4 text-slate-600 leading-7">Se você tem 18 ovos e quer dividir igualmente em 3 caixas, você faz o caminho inverso: \(18 \div 3\). A resposta será quantos ovos ficam em cada caixa.</p>
+          <div class="my-5 paper rounded-xl p-5 text-center text-xl font-mono text-cyan-800">
+            \[ 18 \div 3 = 6 \]
+          </div>
+          <div class="grid sm:grid-cols-2 gap-3 text-sm">
+            <div class="bg-cyan-50 rounded-xl p-4"><b>Dividendo / Divisor</b><br>O total (18) e em quantas partes será dividido (3).</div>
+            <div class="bg-cyan-50 rounded-xl p-4"><b>Quociente e Resto</b><br>A resposta (6) e o que sobrou (0).</div>
+          </div>
+        </article>
+      </div>
+
+      <!-- MASTERCLASS DE DIVISÃO -->
+      <article class="bg-white rounded-2xl border p-6 sm:p-8 shadow-sm">
+        <div class="inline-block px-3 py-1 bg-teal-100 text-teal-800 text-xs font-black rounded-full uppercase tracking-wider mb-4">Masterclass</div>
+        <h2 class="text-2xl sm:text-3xl font-black text-teal-900 mb-6">Guia Definitivo da Divisão</h2>
+        <p class="text-slate-600 mb-8 leading-relaxed">A divisão é a operação que mais gera dúvidas, pois ela tem regras visuais para armar a conta e se transforma quando lidamos com números decimais ou negativos. Abaixo, detalhamos todos os cenários possíveis de forma didática.</p>
+
+        <div class="space-y-10">
+          
+          <!-- 1. Método da Chave -->
+          <div class="grid lg:grid-cols-2 gap-6 items-start">
+            <div>
+              <h3 class="font-black text-xl text-teal-800 mb-3 flex items-center gap-2"><span class="text-2xl">1️⃣</span> Divisão no Papel (A Chave)</h3>
+              <p class="text-slate-600 text-sm leading-6 mb-4">Para resolver contas maiores, armamos a conta usando o famoso <b>Método da Chave</b>. Vamos usar \( 85 \div 5 \) como exemplo.</p>
+              <div class="space-y-3 text-sm text-slate-700">
+                <div class="step" data-step="1"><b>Arme a conta:</b> Coloque o \(85\) (Dividendo) do lado esquerdo e o \(5\) (Divisor) "preso" dentro da chave \(\lfloor\).</div>
+                <div class="step" data-step="2"><b>Pegue o primeiro dígito:</b> Olhe para o \(8\). Quantas vezes o \(5\) cabe no \(8\)? Cabe \(1\) vez. Anote \(1\) no quociente (embaixo da chave).</div>
+                <div class="step" data-step="3"><b>Multiplique e subtraia:</b> O que você anotou, você multiplica de volta: \(1 \times 5 = 5\). Subtraia do número que você pegou: \(8 - 5 = 3\). Esse \(3\) é o seu resto parcial.</div>
+                <div class="step" data-step="4"><b>Desça o próximo número:</b> Pegue o \(5\) que sobrou lá em cima e desça ele ao lado do resto \(3\). Você formou o número \(35\).</div>
+                <div class="step" data-step="5"><b>Repita o ciclo:</b> Quantas vezes o \(5\) cabe em \(35\)? Sabemos pela tabuada que \(7 \times 5 = 35\). Anote o \(7\) no quociente. O resto final é \(0\).</div>
+              </div>
+            </div>
+            <div class="paper p-6 rounded-xl text-center flex flex-col justify-center items-center font-mono text-xl text-slate-700 mt-2 lg:mt-0 shadow-inner">
+               <div class="text-teal-700 font-bold mb-4 font-sans text-lg">Visualizando a Chave</div>
+               <div class="text-left inline-block">
+                 <div class="flex">
+                   <div class="w-12 text-right pr-2 tracking-[0.2em]">85</div>
+                   <div class="w-12 border-l-2 border-b-2 border-teal-800 pl-2">5</div>
+                 </div>
+                 <div class="flex">
+                   <div class="w-12 text-right pr-2 text-red-500 tracking-[0.2em]">-5<br><span class="text-black border-t border-slate-400 w-full inline-block mt-1 pt-1">35</span><br><span class="text-red-500">-35</span><br><span class="text-black border-t border-slate-400 w-full inline-block mt-1 pt-1 ml-2">0</span></div>
+                   <div class="w-12 pl-2 text-teal-700 font-bold tracking-[0.2em]">17</div>
+                 </div>
+               </div>
+            </div>
+          </div>
+
+          <!-- 2. Números Grandes -->
+          <div class="bg-slate-50 border rounded-2xl p-6">
+            <h3 class="font-black text-xl text-teal-800 mb-3 flex items-center gap-2"><span class="text-2xl">2️⃣</span> Divisão de Números Grandes (Ex: \(432 \div 12\))</h3>
+            <p class="text-slate-600 text-sm leading-6 mb-4">Quando o divisor (quem está na chave) tem dois ou mais dígitos, o processo é idêntico, mas você precisará "abraçar" mais números do dividendo no começo da conta.</p>
+            <div class="space-y-3 text-sm text-slate-700">
+              <div class="step" data-step="1">Tentamos o primeiro dígito: o \(12\) não cabe no \(4\). Então juntamos os dois primeiros dígitos: \(43\).</div>
+              <div class="step" data-step="2">Construa uma "mini tabuada" do 12 mentalmente: \(12 \times 1 = 12\), \(12 \times 2 = 24\), \(12 \times 3 = 36\), \(12 \times 4 = 48\) (passou de 43!). Então usamos o \(3\).</div>
+              <div class="step" data-step="3">Anotamos o \(3\) na resposta. Subtraímos \(36\) de \(43\). Sobram \(7\).</div>
+              <div class="step" data-step="4">Descemos o próximo dígito, o \(2\), juntando com o \(7\). Formamos o número \(72\).</div>
+              <div class="step" data-step="5">Voltamos à tabuada: Quantas vezes \(12\) cabe em \(72\)? Exatamente \(6\) vezes (\(12 \times 6 = 72\)). O quociente ganha o número \(6\). A conta acaba com resto zero. Resultado final: <b>36</b>.</div>
+            </div>
+          </div>
+
+          <!-- 3. Menor por Maior -->
+          <div>
+            <h3 class="font-black text-xl text-teal-800 mb-3 flex items-center gap-2"><span class="text-2xl">3️⃣</span> Dividindo um Menor por um Maior (Ex: \(2 \div 5\))</h3>
+            <p class="text-slate-600 text-sm leading-6 mb-4">O que acontece se você tem apenas 2 balas, mas quer dividir igualmente entre 5 crianças? Nenhuma criança vai ganhar uma bala inteira. A resposta será um pedaço de bala, ou seja, "zero vírgula alguma coisa".</p>
+            <div class="tip rounded-xl p-5 text-sm space-y-2 border border-amber-200">
+              <p><b>A Regra de Ouro:</b> Como o \(5\) não cabe no \(2\), você anota imediatamente <b>\(0,\) (zero vírgula)</b> no quociente. Ao colocar essa vírgula, você ganha o "poder mágico" de adicionar um <b>\(0\)</b> ao lado do \(2\), transformando-o em \(20\).</p>
+              <ul class="list-disc pl-5 mt-3 space-y-2 text-amber-900">
+                <li><b>Conta original:</b> \( 2 \div 5 \)</li>
+                <li><b>A mágica acontece:</b> A conta vira \( 20 \div 5 \) (e você anota \(0,\) na área de resposta).</li>
+                <li><b>Resolve normalmente:</b> \(20 \div 5 = 4\)</li>
+                <li><b>Resultado final:</b> Junta o "zero vírgula" com o 4, obtendo <b>0,4</b>.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 4. Decimais -->
+          <div>
+            <h3 class="font-black text-xl text-teal-800 mb-3 flex items-center gap-2"><span class="text-2xl">4️⃣</span> Divisão de Números com Vírgula (Decimais)</h3>
+            <p class="text-slate-600 text-sm leading-6 mb-4">A vírgula costuma dar calafrios na hora de armar a chave, mas o truque matemático é maravilhoso e simples: <b>Livre-se da vírgula antes de começar a dividir!</b> Fazemos isso multiplicando os dois lados da conta por 10, 100 ou 1000.</p>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cyan-50 border border-cyan-200 rounded-xl p-5 text-sm">
+                <h4 class="font-black text-cyan-800 mb-2">Caso A: Vírgula no Divisor</h4>
+                <p class="mb-3 text-cyan-900 bg-white inline-block px-2 py-1 rounded border border-cyan-100">Ex: \( 15 \div 0,5 \)</p>
+                <p class="text-slate-600">O \(0,5\) tem uma casa depois da vírgula. Para ela desaparecer, multiplicamos ambos os números por \(10\) (que significa pular a vírgula uma vez para a direita).</p>
+                <ul class="list-disc pl-5 mt-2 text-slate-600">
+                   <li>O \(15\) ganha um zero e vira \(150\).</li>
+                   <li>O \(0,5\) pula a vírgula e vira \(5\).</li>
+                </ul>
+                <p class="font-black mt-3 text-cyan-900 text-base border-t border-cyan-200 pt-2">Nova conta: \( 150 \div 5 = 30 \)</p>
+              </div>
+              <div class="bg-cyan-50 border border-cyan-200 rounded-xl p-5 text-sm">
+                <h4 class="font-black text-cyan-800 mb-2">Caso B: Vírgula no Dividendo</h4>
+                <p class="mb-3 text-cyan-900 bg-white inline-block px-2 py-1 rounded border border-cyan-100">Ex: \( 12,6 \div 3 \)</p>
+                <p class="text-slate-600">A mesma lógica se aplica. Como o \(12,6\) tem uma casa decimal, multiplique ambos os lados por \(10\) para nivelar as coisas.</p>
+                <ul class="list-disc pl-5 mt-2 text-slate-600">
+                   <li>O \(12,6\) pula a vírgula e vira \(126\).</li>
+                   <li>O \(3\) ganha um zero e vira \(30\).</li>
+                </ul>
+                <p class="font-black mt-3 text-cyan-900 text-base border-t border-cyan-200 pt-2">Nova conta: \( 126 \div 30 = 4,2 \)</p>
+              </div>
+            </div>
+            <p class="text-sm mt-3 text-slate-500 italic text-center">Dica: Se houvesse dois números após a vírgula (como 0,25), você multiplicaria os dois lados por 100!</p>
+          </div>
+
+          <!-- 5. Negativos -->
+          <div class="border rounded-2xl p-6 sm:p-8 relative overflow-hidden bg-white">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-teal-50 rounded-full -z-10 blur-2xl"></div>
+            <h3 class="font-black text-xl text-teal-800 mb-3 flex items-center gap-2"><span class="text-2xl">5️⃣</span> Divisão com Negativos (Regra de Sinais)</h3>
+            <p class="text-slate-600 text-sm leading-6 mb-5">Você possui uma dívida de 20 reais e quer dividi-la com 4 amigos. Como fica essa conta? Trate os números de forma normal e deixe para pensar no sinal de MAIS \((+)\) ou MENOS \((-)\) apenas no resultado final. A regra é idêntica à da multiplicação:</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+              <div class="bg-emerald-50 text-emerald-900 py-4 rounded-xl border border-emerald-200 shadow-sm transition-transform hover:-translate-y-1">
+                <div class="font-black text-lg">Positivo \(\div\) Positivo</div>
+                <div class="text-xl font-black mt-2 text-emerald-600">= +</div>
+              </div>
+              <div class="bg-rose-50 text-rose-900 py-4 rounded-xl border border-rose-200 shadow-sm transition-transform hover:-translate-y-1">
+                <div class="font-black text-lg">Negativo \(\div\) Positivo</div>
+                <div class="text-xl font-black mt-2 text-rose-600">= -</div>
+              </div>
+              <div class="bg-rose-50 text-rose-900 py-4 rounded-xl border border-rose-200 shadow-sm transition-transform hover:-translate-y-1">
+                <div class="font-black text-lg">Positivo \(\div\) Negativo</div>
+                <div class="text-xl font-black mt-2 text-rose-600">= -</div>
+              </div>
+              <div class="bg-emerald-50 text-emerald-900 py-4 rounded-xl border border-emerald-200 shadow-sm transition-transform hover:-translate-y-1">
+                <div class="font-black text-lg">Negativo \(\div\) Negativo</div>
+                <div class="text-xl font-black mt-2 text-emerald-600">= +</div>
+              </div>
+            </div>
+            <div class="mt-6 text-sm text-slate-700 bg-slate-50 border p-4 rounded-xl flex items-center gap-4">
+               <div class="text-3xl">💡</div>
+               <div>
+                  <b>Resumo prático:</b> Se os números tiverem <b>sinais IGUAIS</b>, o resultado é \((+)\). Se os números tiverem <b>sinais DIFERENTES</b>, o resultado é \((-)\).<br>
+                  <span class="text-teal-700 font-bold block mt-1">Exemplo: \( -20 \div 4 = -5 \)</span>
+               </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </section>
+
+    <!-- LAB VISUAL -->
+    <section id="sec-laboratorio" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <div class="flex justify-between flex-wrap gap-4 items-center mb-4">
+          <span class="text-xs font-bold uppercase tracking-widest text-teal-600">Laboratório</span>
+          <div class="flex bg-slate-100 p-1 rounded-xl">
+             <button onclick="setLabMode('mult')" id="btn-lab-mult" class="px-4 py-1.5 rounded-lg text-sm font-bold bg-white shadow-sm text-teal-700">Multiplicação</button>
+             <button onclick="setLabMode('div')" id="btn-lab-div" class="px-4 py-1.5 rounded-lg text-sm font-bold text-slate-500 hover:text-teal-700">Divisão</button>
+          </div>
+        </div>
+        <h1 class="text-3xl font-black">Visualizando a Matemática</h1>
+        <p class="text-slate-600 mt-2">Mova os controles para ver as bolinhas sendo empilhadas (área) ou distribuídas em caixas.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+        <!-- Controls -->
+        <div class="bg-white rounded-2xl border p-6 shadow-sm min-h-[250px]">
+          
+          <!-- Mult Controls -->
+          <div id="lab-mult-controls">
+            <label class="font-bold text-sm block">Colunas (\(a\)): <span id="lab-m-a-lbl" class="text-teal-600">5</span></label>
+            <input id="lab-m-a" type="range" min="1" max="12" value="5" class="w-full mt-2" oninput="drawLab()">
+            
+            <label class="font-bold text-sm block mt-5">Linhas (\(b\)): <span id="lab-m-b-lbl" class="text-teal-600">3</span></label>
+            <input id="lab-m-b" type="range" min="1" max="12" value="3" class="w-full mt-2" oninput="drawLab()">
+            
+            <div class="tip rounded-xl p-3 mt-6 text-sm">A multiplicação calcula o total de bolinhas formando um retângulo.</div>
+          </div>
+
+          <!-- Div Controls -->
+          <div id="lab-div-controls" class="hidden">
+            <label class="font-bold text-sm block">Total de Bolinhas (Dividendo): <span id="lab-d-a-lbl" class="text-teal-600">14</span></label>
+            <input id="lab-d-a" type="range" min="1" max="40" value="14" class="w-full mt-2" oninput="drawLab()">
+            
+            <label class="font-bold text-sm block mt-5">Caixas (Divisor): <span id="lab-d-b-lbl" class="text-teal-600">4</span></label>
+            <input id="lab-d-b" type="range" min="1" max="10" value="4" class="w-full mt-2" oninput="drawLab()">
+            
+            <div class="tip rounded-xl p-3 mt-6 text-sm">A divisão distribui as bolinhas igualmente. O que não cabe nas caixas fica de "Resto".</div>
+          </div>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col justify-center items-center overflow-x-auto min-h-[300px]">
+          <div id="lab-visual" class="w-full"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FERRAMENTAS -->
+    <section id="sec-ferramentas" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-teal-600">Assistente Matemático</span>
+        <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+        <p class="text-slate-600 mt-2">Cansou de errar contas grandes? Insira os valores para ver a lógica detalhada da resolução.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Mult Tool -->
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+          <h2 class="font-black text-xl mb-4">Multiplicação (\( \times \))</h2>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Fator 1</label><input id="tool-m-a" type="number" value="15" class="border rounded-xl p-2 w-full text-center text-lg"></div>
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Fator 2</label><input id="tool-m-b" type="number" value="12" class="border rounded-xl p-2 w-full text-center text-lg"></div>
+          </div>
+          <button onclick="renderMultTool()" class="w-full bg-teal-600 text-white rounded-xl py-3 font-bold hover:bg-teal-700">Calcular Passo a Passo</button>
+          <div id="tool-m-out" class="paper rounded-xl p-5 mt-4 hidden space-y-3 text-sm"></div>
+        </div>
+
+        <!-- Div Tool -->
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+          <h2 class="font-black text-xl mb-4">Divisão (\( \div \))</h2>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Dividendo</label><input id="tool-d-a" type="number" value="144" class="border rounded-xl p-2 w-full text-center text-lg"></div>
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Divisor</label><input id="tool-d-b" type="number" value="5" min="1" class="border rounded-xl p-2 w-full text-center text-lg"></div>
+          </div>
+          <button onclick="renderDivTool()" class="w-full bg-cyan-600 text-white rounded-xl py-3 font-bold hover:bg-cyan-700">Calcular Passo a Passo</button>
+          <div id="tool-d-out" class="paper rounded-xl p-5 mt-4 hidden space-y-3 text-sm"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIOS -->
+    <section id="sec-exercicios" class="hidden space-y-6">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm flex flex-col lg:flex-row justify-between gap-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-teal-600">Bateria Completa</span>
+          <h1 class="text-3xl font-black mt-2">80 Exercícios com Resolução</h1>
+          <p class="text-slate-600 mt-2">40 para Multiplicação e 40 para Divisão. Pratique e suba de nível.</p>
+        </div>
+        <div class="min-w-[210px]">
+          <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 80</span></div>
+          <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-teal-500 rounded-full transition-all w-0"></div></div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl border p-4 shadow-sm flex flex-wrap gap-2" id="filters">
+        <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+        <button data-level="m1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">✖️ Tabuada</button>
+        <button data-level="m2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">✖️ 2Dx1D</button>
+        <button data-level="m3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">✖️ 2Dx2D</button>
+        <button data-level="m4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">✖️ 3Dx1D</button>
+        <button data-level="d1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 text-teal-800">➗ Tabuada</button>
+        <button data-level="d2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 text-teal-800">➗ C/ Resto</button>
+        <button data-level="d3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 text-teal-800">➗ 2/3D x 1D</button>
+        <button data-level="d4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 text-teal-800">➗ 3Dx2D</button>
+      </div>
+      
+      <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+    </section>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const exercisesData = [{"id": 1, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(3 \\times 5\\)", "ans": "15", "rawAns": "15", "type": "mult_basica", "a": 3, "b": 5}, {"id": 2, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(4 \\times 6\\)", "ans": "24", "rawAns": "24", "type": "mult_basica", "a": 4, "b": 6}, {"id": 3, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(5 \\times 7\\)", "ans": "35", "rawAns": "35", "type": "mult_basica", "a": 5, "b": 7}, {"id": 4, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(6 \\times 8\\)", "ans": "48", "rawAns": "48", "type": "mult_basica", "a": 6, "b": 8}, {"id": 5, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(7 \\times 2\\)", "ans": "14", "rawAns": "14", "type": "mult_basica", "a": 7, "b": 2}, {"id": 6, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(8 \\times 3\\)", "ans": "24", "rawAns": "24", "type": "mult_basica", "a": 8, "b": 3}, {"id": 7, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(9 \\times 4\\)", "ans": "36", "rawAns": "36", "type": "mult_basica", "a": 9, "b": 4}, {"id": 8, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(2 \\times 5\\)", "ans": "10", "rawAns": "10", "type": "mult_basica", "a": 2, "b": 5}, {"id": 9, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(3 \\times 6\\)", "ans": "18", "rawAns": "18", "type": "mult_basica", "a": 3, "b": 6}, {"id": 10, "level": "m1", "title": "Multiplicação Nível 1: Tabuada Básica", "expr": "\\(4 \\times 7\\)", "ans": "28", "rawAns": "28", "type": "mult_basica", "a": 4, "b": 7}, {"id": 11, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(30 \\times 5\\)", "ans": "150", "rawAns": "150", "type": "mult_dezena", "a": 30, "b": 5}, {"id": 12, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(40 \\times 2\\)", "ans": "80", "rawAns": "80", "type": "mult_dezena", "a": 40, "b": 2}, {"id": 13, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(50 \\times 3\\)", "ans": "150", "rawAns": "150", "type": "mult_dezena", "a": 50, "b": 3}, {"id": 14, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(60 \\times 4\\)", "ans": "240", "rawAns": "240", "type": "mult_dezena", "a": 60, "b": 4}, {"id": 15, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(20 \\times 5\\)", "ans": "100", "rawAns": "100", "type": "mult_dezena", "a": 20, "b": 5}, {"id": 16, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(30 \\times 2\\)", "ans": "60", "rawAns": "60", "type": "mult_dezena", "a": 30, "b": 2}, {"id": 17, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(40 \\times 3\\)", "ans": "120", "rawAns": "120", "type": "mult_dezena", "a": 40, "b": 3}, {"id": 18, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(50 \\times 4\\)", "ans": "200", "rawAns": "200", "type": "mult_dezena", "a": 50, "b": 4}, {"id": 19, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(60 \\times 5\\)", "ans": "300", "rawAns": "300", "type": "mult_dezena", "a": 60, "b": 5}, {"id": 20, "level": "m2", "title": "Multiplicação Nível 2: Dezenas por 1 Dígito", "expr": "\\(20 \\times 2\\)", "ans": "40", "rawAns": "40", "type": "mult_dezena", "a": 20, "b": 2}, {"id": 21, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(76 \\times 7\\)", "ans": "532", "rawAns": "532", "type": "mult_2x1", "a": 76, "b": 7}, {"id": 22, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(79 \\times 8\\)", "ans": "632", "rawAns": "632", "type": "mult_2x1", "a": 79, "b": 8}, {"id": 23, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(82 \\times 9\\)", "ans": "738", "rawAns": "738", "type": "mult_2x1", "a": 82, "b": 9}, {"id": 24, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(15 \\times 6\\)", "ans": "90", "rawAns": "90", "type": "mult_2x1", "a": 15, "b": 6}, {"id": 25, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(18 \\times 7\\)", "ans": "126", "rawAns": "126", "type": "mult_2x1", "a": 18, "b": 7}, {"id": 26, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(21 \\times 8\\)", "ans": "168", "rawAns": "168", "type": "mult_2x1", "a": 21, "b": 8}, {"id": 27, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(24 \\times 9\\)", "ans": "216", "rawAns": "216", "type": "mult_2x1", "a": 24, "b": 9}, {"id": 28, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(27 \\times 6\\)", "ans": "162", "rawAns": "162", "type": "mult_2x1", "a": 27, "b": 6}, {"id": 29, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(30 \\times 7\\)", "ans": "210", "rawAns": "210", "type": "mult_2x1", "a": 30, "b": 7}, {"id": 30, "level": "m3", "title": "Multiplicação Nível 3: 2 Dígitos x 1 Dígito", "expr": "\\(33 \\times 8\\)", "ans": "264", "rawAns": "264", "type": "mult_2x1", "a": 33, "b": 8}, {"id": 31, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(14 \\times 18\\)", "ans": "252", "rawAns": "252", "type": "mult_2x2", "a": 14, "b": 18}, {"id": 32, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(16 \\times 11\\)", "ans": "176", "rawAns": "176", "type": "mult_2x2", "a": 16, "b": 11}, {"id": 33, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(18 \\times 12\\)", "ans": "216", "rawAns": "216", "type": "mult_2x2", "a": 18, "b": 12}, {"id": 34, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(20 \\times 13\\)", "ans": "260", "rawAns": "260", "type": "mult_2x2", "a": 20, "b": 13}, {"id": 35, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(22 \\times 14\\)", "ans": "308", "rawAns": "308", "type": "mult_2x2", "a": 22, "b": 14}, {"id": 36, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(24 \\times 15\\)", "ans": "360", "rawAns": "360", "type": "mult_2x2", "a": 24, "b": 15}, {"id": 37, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(26 \\times 16\\)", "ans": "416", "rawAns": "416", "type": "mult_2x2", "a": 26, "b": 16}, {"id": 38, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(28 \\times 17\\)", "ans": "476", "rawAns": "476", "type": "mult_2x2", "a": 28, "b": 17}, {"id": 39, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(30 \\times 18\\)", "ans": "540", "rawAns": "540", "type": "mult_2x2", "a": 30, "b": 18}, {"id": 40, "level": "m4", "title": "Multiplicação Nível 4: 2 Dígitos x 2 Dígitos", "expr": "\\(32 \\times 11\\)", "ans": "352", "rawAns": "352", "type": "mult_2x2", "a": 32, "b": 11}, {"id": 41, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(32 \\div 8\\)", "ans": "4", "rawAns": "4", "type": "div_exata", "a": 32, "b": 8, "q": 4, "r": 0}, {"id": 42, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(10 \\div 2\\)", "ans": "5", "rawAns": "5", "type": "div_exata", "a": 10, "b": 2, "q": 5, "r": 0}, {"id": 43, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(18 \\div 3\\)", "ans": "6", "rawAns": "6", "type": "div_exata", "a": 18, "b": 3, "q": 6, "r": 0}, {"id": 44, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(28 \\div 4\\)", "ans": "7", "rawAns": "7", "type": "div_exata", "a": 28, "b": 4, "q": 7, "r": 0}, {"id": 45, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(40 \\div 5\\)", "ans": "8", "rawAns": "8", "type": "div_exata", "a": 40, "b": 5, "q": 8, "r": 0}, {"id": 46, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(54 \\div 6\\)", "ans": "9", "rawAns": "9", "type": "div_exata", "a": 54, "b": 6, "q": 9, "r": 0}, {"id": 47, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(14 \\div 7\\)", "ans": "2", "rawAns": "2", "type": "div_exata", "a": 14, "b": 7, "q": 2, "r": 0}, {"id": 48, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(24 \\div 8\\)", "ans": "3", "rawAns": "3", "type": "div_exata", "a": 24, "b": 8, "q": 3, "r": 0}, {"id": 49, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(8 \\div 2\\)", "ans": "4", "rawAns": "4", "type": "div_exata", "a": 8, "b": 2, "q": 4, "r": 0}, {"id": 50, "level": "d1", "title": "Divisão Nível 1: Tabuada Inversa Exata", "expr": "\\(15 \\div 3\\)", "ans": "5", "rawAns": "5", "type": "div_exata", "a": 15, "b": 3, "q": 5, "r": 0}, {"id": 51, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(246 \\div 6\\)", "ans": "41", "rawAns": "41", "type": "div_exata", "a": 246, "b": 6, "q": 41, "r": 0}, {"id": 52, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(315 \\div 7\\)", "ans": "45", "rawAns": "45", "type": "div_exata", "a": 315, "b": 7, "q": 45, "r": 0}, {"id": 53, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(112 \\div 8\\)", "ans": "14", "rawAns": "14", "type": "div_exata", "a": 112, "b": 8, "q": 14, "r": 0}, {"id": 54, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(54 \\div 3\\)", "ans": "18", "rawAns": "18", "type": "div_exata", "a": 54, "b": 3, "q": 18, "r": 0}, {"id": 55, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(88 \\div 4\\)", "ans": "22", "rawAns": "22", "type": "div_exata", "a": 88, "b": 4, "q": 22, "r": 0}, {"id": 56, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(130 \\div 5\\)", "ans": "26", "rawAns": "26", "type": "div_exata", "a": 130, "b": 5, "q": 26, "r": 0}, {"id": 57, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(180 \\div 6\\)", "ans": "30", "rawAns": "30", "type": "div_exata", "a": 180, "b": 6, "q": 30, "r": 0}, {"id": 58, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(238 \\div 7\\)", "ans": "34", "rawAns": "34", "type": "div_exata", "a": 238, "b": 7, "q": 34, "r": 0}, {"id": 59, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(304 \\div 8\\)", "ans": "38", "rawAns": "38", "type": "div_exata", "a": 304, "b": 8, "q": 38, "r": 0}, {"id": 60, "level": "d2", "title": "Divisão Nível 2: Maior por 1 Dígito Exata", "expr": "\\(126 \\div 3\\)", "ans": "42", "rawAns": "42", "type": "div_exata", "a": 126, "b": 3, "q": 42, "r": 0}, {"id": 61, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(37 \\div 5\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "7 com resto 2", "rawAns": "7r2", "type": "div_resto", "a": 37, "b": 5, "q": 7, "r": 2}, {"id": 62, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(57 \\div 6\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "9 com resto 3", "rawAns": "9r3", "type": "div_resto", "a": 57, "b": 6, "q": 9, "r": 3}, {"id": 63, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(81 \\div 7\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "11 com resto 4", "rawAns": "11r4", "type": "div_resto", "a": 81, "b": 7, "q": 11, "r": 4}, {"id": 64, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(106 \\div 8\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "13 com resto 2", "rawAns": "13r2", "type": "div_resto", "a": 106, "b": 8, "q": 13, "r": 2}, {"id": 65, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(63 \\div 4\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "15 com resto 3", "rawAns": "15r3", "type": "div_resto", "a": 63, "b": 4, "q": 15, "r": 3}, {"id": 66, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(88 \\div 5\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "17 com resto 3", "rawAns": "17r3", "type": "div_resto", "a": 88, "b": 5, "q": 17, "r": 3}, {"id": 67, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(117 \\div 6\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "19 com resto 3", "rawAns": "19r3", "type": "div_resto", "a": 117, "b": 6, "q": 19, "r": 3}, {"id": 68, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(45 \\div 7\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "6 com resto 3", "rawAns": "6r3", "type": "div_resto", "a": 45, "b": 7, "q": 6, "r": 3}, {"id": 69, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(71 \\div 8\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "8 com resto 7", "rawAns": "8r7", "type": "div_resto", "a": 71, "b": 8, "q": 8, "r": 7}, {"id": 70, "level": "d3", "title": "Divisão Nível 3: Divisão com Resto", "expr": "\\(42 \\div 4\\) <br><span class='text-[11px] font-normal text-slate-500'>Digite 'Quociente r Resto' (ex: 5 r 2)</span>", "ans": "10 com resto 2", "rawAns": "10r2", "type": "div_resto", "a": 42, "b": 4, "q": 10, "r": 2}, {"id": 71, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(418 \\div 19\\)", "ans": "22", "rawAns": "22", "type": "div_exata", "a": 418, "b": 19, "q": 22, "r": 0}, {"id": 72, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(132 \\div 12\\)", "ans": "11", "rawAns": "11", "type": "div_exata", "a": 132, "b": 12, "q": 11, "r": 0}, {"id": 73, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(156 \\div 13\\)", "ans": "12", "rawAns": "12", "type": "div_exata", "a": 156, "b": 13, "q": 12, "r": 0}, {"id": 74, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(182 \\div 14\\)", "ans": "13", "rawAns": "13", "type": "div_exata", "a": 182, "b": 14, "q": 13, "r": 0}, {"id": 75, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(210 \\div 15\\)", "ans": "14", "rawAns": "14", "type": "div_exata", "a": 210, "b": 15, "q": 14, "r": 0}, {"id": 76, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(240 \\div 16\\)", "ans": "15", "rawAns": "15", "type": "div_exata", "a": 240, "b": 16, "q": 15, "r": 0}, {"id": 77, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(272 \\div 17\\)", "ans": "16", "rawAns": "16", "type": "div_exata", "a": 272, "b": 17, "q": 16, "r": 0}, {"id": 78, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(306 \\div 18\\)", "ans": "17", "rawAns": "17", "type": "div_exata", "a": 306, "b": 18, "q": 17, "r": 0}, {"id": 79, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(342 \\div 19\\)", "ans": "18", "rawAns": "18", "type": "div_exata", "a": 342, "b": 19, "q": 18, "r": 0}, {"id": 80, "level": "d4", "title": "Divisão Nível 4: 3 Dígitos por 2 Dígitos", "expr": "\\(228 \\div 12\\)", "ans": "19", "rawAns": "19", "type": "div_exata", "a": 228, "b": 12, "q": 19, "r": 0}];
+    let solved = new Set(JSON.parse(localStorage.getItem('multDivSolved') || '[]'));
+    let currentLevel = 'all';
+
+    function renderAll() {
+      if (window.renderMathInElement) {
+        document.querySelectorAll('body').forEach(el => {
+          renderMathInElement(el, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }] })
+        });
+      }
+    }
+
+    // Tabs
+    const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+      const t = btn.dataset.tab;
+      sections.forEach(s => $('sec-' + s).classList.toggle('hidden', s !== t));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      if (t === 'exercicios') renderExercises();
+      if (t === 'laboratorio') drawLab();
+    }));
+
+    // Lab
+    let labMode = 'mult';
+    function setLabMode(mode) {
+       labMode = mode;
+       if (mode === 'mult') {
+         $('btn-lab-mult').className = "px-4 py-1.5 rounded-lg text-sm font-bold bg-white shadow-sm text-teal-700";
+         $('btn-lab-div').className = "px-4 py-1.5 rounded-lg text-sm font-bold text-slate-500 hover:text-teal-700";
+         $('lab-mult-controls').classList.remove('hidden');
+         $('lab-div-controls').classList.add('hidden');
+       } else {
+         $('btn-lab-div').className = "px-4 py-1.5 rounded-lg text-sm font-bold bg-white shadow-sm text-teal-700";
+         $('btn-lab-mult').className = "px-4 py-1.5 rounded-lg text-sm font-bold text-slate-500 hover:text-teal-700";
+         $('lab-div-controls').classList.remove('hidden');
+         $('lab-mult-controls').classList.add('hidden');
+       }
+       drawLab();
+    }
+
+    function drawLab() {
+      if (labMode === 'mult') {
+        const A = +$('lab-m-a').value;
+        const B = +$('lab-m-b').value;
+        $('lab-m-a-lbl').textContent = A;
+        $('lab-m-b-lbl').textContent = B;
+        
+        let html = `<div style="display: grid; grid-template-columns: repeat(${A}, minmax(0, 1fr)); gap: 0.5rem; max-width: 400px; margin: 0 auto;">`;
+        for (let i = 0; i < A * B; i++) {
+           html += `<div class="aspect-square bg-teal-500 rounded-full shadow-sm w-full max-w-[2rem] mx-auto"></div>`;
+        }
+        html += `</div>`;
+        html += `<div class="mt-6 text-center font-black text-2xl text-teal-900 border-t pt-4">\\(${A} \\times ${B} = ${A*B}\\)</div>`;
+        $('lab-visual').innerHTML = html;
+      } else {
+        const total = +$('lab-d-a').value;
+        const groups = +$('lab-d-b').value;
+        $('lab-d-a-lbl').textContent = total;
+        $('lab-d-b-lbl').textContent = groups;
+        
+        const q = Math.floor(total / groups);
+        const r = total % groups;
+
+        let html = `<div style="display: grid; grid-template-columns: repeat(${Math.min(groups, 5)}, minmax(0, 1fr)); gap: 1rem; width: 100%;">`;
+        for(let i=0; i<groups; i++) {
+            html += `<div class="border-2 border-teal-200 rounded-xl p-3 bg-teal-50 min-h-[60px] flex flex-wrap gap-2 content-start shadow-inner">`;
+            for(let j=0; j<q; j++) {
+                html += `<div class="w-4 h-4 bg-teal-500 rounded-full shadow-sm"></div>`;
+            }
+            if(q===0) html += `<span class="text-xs text-slate-400">Vazia</span>`;
+            html += `</div>`;
+        }
+        html += `</div>`;
+        if (r > 0) {
+            html += `<div class="mt-6 border-2 border-amber-300 rounded-xl p-4 bg-amber-50 flex flex-wrap gap-2 content-start relative shadow-sm max-w-sm mx-auto">
+                        <span class="absolute -top-3 left-4 bg-amber-200 text-xs px-2 py-0.5 font-bold rounded text-amber-800">O que sobrou (Resto = ${r})</span>`;
+            for(let j=0; j<r; j++) {
+                html += `<div class="w-4 h-4 bg-amber-500 rounded-full"></div>`;
+            }
+            html += `</div>`;
+        }
+        html += `<div class="mt-6 text-center font-black text-2xl text-teal-900 border-t pt-4">\\(${total} \\div ${groups} = ${q}\\) ${r > 0 ? `com resto ${r}` : ''}</div>`;
+        $('lab-visual').innerHTML = html;
+      }
+      renderAll();
+    }
+
+    // Ferramentas
+    function renderMultTool() {
+      const a = +$('tool-m-a').value, b = +$('tool-m-b').value;
+      if (a < 0 || b < 0) return;
+      let ans = a * b;
+      let html = `<div class="step" data-step="1">Vamos multiplicar \\(${a} \\times ${b}\\).</div>`;
+      
+      if (b < 10) {
+         html += `<div class="step" data-step="2">O segundo número tem apenas 1 dígito. A resposta direta é \\(${ans}\\).</div>`;
+      } else {
+         let strB = b.toString();
+         let parts = [];
+         for(let i=0; i<strB.length; i++) {
+             let val = parseInt(strB[strB.length-1-i]) * Math.pow(10, i);
+             if(val > 0) parts.push(val);
+         }
+         let currentStep = 2;
+         parts.forEach(p => {
+             html += `<div class="step" data-step="${currentStep++}">Multiplicando a parte de valor ${p}: \\(${a} \\times ${p} = ${a * p}\\).</div>`;
+         });
+         html += `<div class="step" data-step="${currentStep}">Somando as partes: \\(${parts.map(p => (p*a)).join(' + ')} = ${ans}\\).</div>`;
+      }
+      html += `<div class="success rounded-xl p-4 font-bold text-center">Resposta: \\(${ans}\\)</div>`;
+      $('tool-m-out').innerHTML = html; $('tool-m-out').classList.remove('hidden'); renderAll();
+    }
+
+    function renderDivTool() {
+      const a = +$('tool-d-a').value, b = +$('tool-d-b').value;
+      if (b <= 0) {
+         $('tool-d-out').innerHTML = '<div class="warning p-4 rounded-xl">O divisor deve ser maior que 0!</div>';
+         $('tool-d-out').classList.remove('hidden'); return;
+      }
+      const q = Math.floor(a / b);
+      const r = a % b;
+      let html = `<div class="step" data-step="1">Divisão: Queremos descobrir quantas vezes o ${b} cabe em ${a}.</div>`;
+      html += `<div class="step" data-step="2">Sabemos que \\(${b} \\times ${q} = ${b * q}\\). Este é o valor mais próximo de ${a} sem ultrapassar.</div>`;
+      html += `<div class="step" data-step="3">Subtraímos isso do total: \\(${a} - ${b * q} = ${r}\\). Este será o nosso resto.</div>`;
+      
+      html += `<div class="success rounded-xl p-4 font-bold text-center">Quociente = ${q}${r>0 ? `<br>Resto = ${r}` : ''}</div>`;
+      $('tool-d-out').innerHTML = html; $('tool-d-out').classList.remove('hidden'); renderAll();
+    }
+
+    // Exercícios
+    function solutionSteps(ex) {
+      const S = [];
+      if (ex.type.startsWith('mult')) {
+        S.push(['1', `Queremos resolver: \\(${ex.a} \\times ${ex.b}\\).`]);
+        if (ex.b < 10) {
+            S.push(['2', `Multiplicando os valores chegamos ao produto final: ${ex.ans}.`]);
+        } else {
+            let u = ex.b % 10;
+            let d = Math.floor(ex.b / 10) * 10;
+            S.push(['2', `Quebre o segundo número (\\(${ex.b}\\)) em dezenas (\\(${d}\\)) e unidades (\\(${u}\\)).`]);
+            if (u>0) S.push(['3', `Multiplique pela unidade: \\(${ex.a} \\times ${u} = ${ex.a * u}\\).`]);
+            if (d>0) S.push(['4', `Multiplique pela dezena: \\(${ex.a} \\times ${d} = ${ex.a * d}\\).`]);
+            S.push(['5', `Some os resultados parciais: \\(${ex.a * u} + ${ex.a * d} = ${ex.ans}\\).`]);
+        }
+      } else if (ex.type.startsWith('div')) {
+        S.push(['1', `Queremos dividir \\(${ex.a}\\) por \\(${ex.b}\\).`]);
+        S.push(['2', `Procuramos um número que multiplicado por ${ex.b} resulte em ${ex.a} ou chegue bem perto.`]);
+        S.push(['3', `Tentando: \\(${ex.b} \\times ${ex.q} = ${ex.b * ex.q}\\).`]);
+        if (ex.r === 0) {
+           S.push(['4', `A multiplicação deu exatamente ${ex.a}. Logo, o quociente é ${ex.q} (Divisão Exata).`]);
+        } else {
+           S.push(['4', `O valor chegou a ${ex.b * ex.q}. Fazemos a subtração para achar o resto: \\(${ex.a} - ${ex.b * ex.q} = ${ex.r}\\).`]);
+        }
+      }
+      return S;
+    }
+
+    function renderExercises() {
+      let list = exercisesData.filter(e => currentLevel === 'all' || e.level === currentLevel);
+      
+      $('exercise-list').innerHTML = list.map(ex => {
+        const done = solved.has(ex.id);
+        const accent = ex.type.startsWith('mult') ? 'text-teal-700 bg-teal-50 border-teal-200' : 'text-cyan-700 bg-cyan-50 border-cyan-200';
+        const btnAccent = ex.type.startsWith('mult') ? 'bg-teal-600 hover:bg-teal-700' : 'bg-cyan-600 hover:bg-cyan-700';
+        
+        return `<article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-500/10 shadow-lg' : 'border-slate-200 shadow-sm'} p-5 transition-all">
+          <div class="flex justify-between gap-3 mb-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full ${accent} border">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400 font-bold">${ex.title}</span>
+          </div>
+          <div class="bg-slate-50 rounded-xl border border-dashed p-6 text-center text-xl text-slate-700 mb-4">${ex.expr}</div>
+          <div class="flex gap-2">
+            <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-teal-500" placeholder="Sua resposta">
+            <button onclick="check(${ex.id})" class="text-white rounded-xl px-4 py-2 text-sm font-bold ${btnAccent}">Conferir</button>
+          </div>
+          <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+          <button onclick="$('solution-${ex.id}').classList.toggle('hidden')" class="mt-3 text-xs font-bold text-slate-400 hover:text-teal-700 transition-colors uppercase tracking-wider block text-center w-full">👁 Resolução Passo a Passo</button>
+          <div id="solution-${ex.id}" class="hidden mt-4 border-t pt-4">
+            ${solutionSteps(ex).map(s => `<div class="step mb-3 text-sm" data-step="${s[0]}">${s[1]}</div>`).join('')}
+            <div class="success rounded-xl p-4 text-center font-bold">Resposta Correta: ${ex.ans}</div>
+          </div>
+        </article>`;
+      }).join('');
+      
+      $('progress-text').textContent = `${solved.size} / 80`;
+      $('progress-bar').style.width = ((solved.size / 80) * 100) + '%';
+      renderAll();
+    }
+
+    function check(id) {
+      const ex = exercisesData.find(x => x.id === id);
+      let val = $('answer-' + id).value.trim().toLowerCase().replace(/\s+/g, '');
+      val = val.replace('resto', 'r'); // normalize
+      
+      let expected = ex.rawAns.toLowerCase().replace(/\s+/g, '');
+      const fb = $('feedback-' + id);
+      
+      if (val === expected) {
+        solved.add(id);
+        localStorage.setItem('multDivSolved', JSON.stringify([...solved]));
+        fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fb.textContent = '✓ Correto! Mandou bem.';
+      } else {
+        fb.className = 'text-sm font-bold mt-2 text-red-600';
+        fb.textContent = '✗ Ops, tente novamente ou veja a resolução.';
+      }
+      renderExercises();
+    }
+
+    document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+      currentLevel = b.dataset.level;
+      document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      renderExercises();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => { drawLab(); renderAll(); renderExercises(); });
+  </script>
+</body>
+</html>

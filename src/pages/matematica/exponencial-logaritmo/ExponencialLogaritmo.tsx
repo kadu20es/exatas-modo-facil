@@ -1,0 +1,6 @@
+import { ExponentialLogLab, ExponentialLogTools } from '../../../components/exercises/matematica/exponencial-logaritmo/Ferramentas';
+import { ExerciseList } from '../../../components/UI/ExerciseList';
+import { TopicPageLayout } from '../../../components/UI/TopicPageLayout';
+import { ExponentialLogTheory } from '../../../components/content/matematica/exponencial-logaritmo/Conteudo';
+import { exponentialLogExercises } from '../../../data/matematica/exponencial-logaritmo/exercicios';
+export default function ExponentialLogPage(){return <TopicPageLayout title="📈 Exponencial e Logaritmo" tagline="Entenda potências, logaritmos e funções inversas" footer="Material interativo de Exponencial e Logaritmo" tabs={[{id:'teoria',label:'📚 Teoria',content:<ExponentialLogTheory/>},{id:'laboratorio',label:'📈 Laboratório',content:<ExponentialLogLab/>},{id:'ferramentas',label:'🧮 Calculadoras',content:<ExponentialLogTools/>},{id:'exercicios',label:'✏️ 100 Exercícios',content:<ExerciseList data={exponentialLogExercises} storageKey="exponentialLogSolved" total={100} levels={['L1 Potências','L2 Expoentes especiais','L3 Definição de logaritmo','L4 Propriedades','L5 Equações exponenciais','L6 Equações logarítmicas']}/>} ]}/>}

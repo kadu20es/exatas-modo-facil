@@ -1,0 +1,14 @@
+[Unit]
+Description=Exatas local learning site
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/caduzera/exatas-react
+ExecStart=/home/caduzera/.nvm/versions/node/v26.13.0/bin/node /home/caduzera/exatas-react/scripts/serve-dist.mjs
+Restart=on-failure
+RestartSec=3
+Environment=PORT=4173
+
+[Install]
+WantedBy=default.target

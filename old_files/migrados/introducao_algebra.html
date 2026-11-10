@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introdução à Álgebra — Curso Completo do Zero (6º ano)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root { --ink: #1f2a44; --paper: #fffef9; --accent: #4f46e5 }
+    html { scroll-behavior: smooth; overflow-x: hidden }
+    body { background: #eef2ff; color: var(--ink); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    .tab-btn.active { color: #4338ca; border-bottom-color: #4f46e5; font-weight: 800 }
+    .paper {
+      background: var(--paper);
+      background-image: linear-gradient(#e0e7ff 1px, transparent 1px);
+      background-size: 100% 2rem;
+      border: 1px solid #c7d2fe;
+      box-shadow: 0 8px 24px #1e1b4b0d;
+    }
+    .hand { font-family: 'Caveat', 'Segoe Print', cursive; font-size: 1.35rem; line-height: 2rem; color: #1e3a8a; }
+    .hand .katex { font-size: 1.05em; }
+    .step { position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: white; }
+    .step::before { content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #e0e7ff; color: #3730a3; font-weight: 800; display: grid; place-items: center; font-size: .8rem; }
+    .level-btn.active { background: #4f46e5; color: white; }
+    .tip { border-left: 4px solid #f59e0b; background: #fffbeb; }
+    .success { border-left: 4px solid #10b981; background: #ecfdf5; }
+    .warning { border-left: 4px solid #ef4444; background: #fef2f2; }
+    .info { border-left: 4px solid #3b82f6; background: #eff6ff; }
+    .bar-col { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .lesson { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 1.5rem; box-shadow: 0 1px 3px #0000000d; scroll-margin-top: 5.5rem; }
+    @media (min-width: 640px) { .lesson { padding: 2rem; } }
+    .lesson .lesson-tag { font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #4f46e5; }
+    .lesson h2 { font-size: 1.6rem; font-weight: 900; margin-top: .25rem; color: #1f2937; }
+    .lesson h3 { font-weight: 800; font-size: 1.1rem; margin-top: 1.75rem; color: #3730a3; }
+    .lesson p { line-height: 1.85; color: #475569; margin-top: .75rem; }
+    .lesson ul, .lesson ol { padding-left: 1.5rem; color: #475569; line-height: 1.85; margin-top: .6rem; }
+    .lesson ul { list-style: disc; }
+    .lesson ol { list-style: decimal; }
+    .lesson li { margin-top: .25rem; }
+    .lesson b, .lesson strong { color: #1f2937; }
+    .callout { border-radius: .9rem; padding: .9rem 1.1rem; margin-top: 1rem; font-size: .95rem; line-height: 1.75; color: #374151; }
+    .callout > b:first-child { display: block; margin-bottom: .15rem; }
+    .formula { background: var(--paper); border: 2px solid #a5b4fc; border-radius: 1rem; padding: 1.1rem; margin-top: 1rem; text-align: center; font-size: 1.2rem; overflow-x: auto; }
+    table.tb { position: relative; width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: .9rem; display: block; overflow-x: auto; }
+    table.tb th { background: #e0e7ff; color: #312e81; text-align: left; padding: .55rem .75rem; font-weight: 800; white-space: nowrap; }
+    table.tb td { border-top: 1px solid #f1f5f9; padding: .55rem .75rem; color: #475569; vertical-align: top; }
+    .seq { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .35rem; margin-top: 1rem; font-family: ui-monospace, monospace; }
+    .seq .t { background: #eef2ff; border: 2px solid #a5b4fc; border-radius: .6rem; padding: .35rem .8rem; font-weight: 800; color: #3730a3; font-size: 1.1rem; }
+    .seq .a { font-size: .75rem; font-weight: 800; color: #d97706; background: #fffbeb; border-radius: 999px; padding: .15rem .5rem; }
+    .cmp { display: grid; gap: .75rem; margin-top: 1rem; }
+    @media (min-width: 640px) { .cmp { grid-template-columns: 1fr 1fr; } }
+    .cmp > div { border-radius: .9rem; padding: .9rem 1.1rem; font-size: .92rem; line-height: 1.7; color: #374151; }
+    .bad { background: #fef2f2; border: 1px solid #fecaca; }
+    .good { background: #ecfdf5; border: 1px solid #a7f3d0; }
+    .toc a { display: block; padding: .4rem .7rem; border-radius: .6rem; font-size: .85rem; color: #475569; font-weight: 600; }
+    .toc a:hover { background: #e0e7ff; color: #3730a3; }
+    .toc a.on { background: #e0e7ff; color: #3730a3; font-weight: 800; }
+    .quick { background: #f0f9ff; border: 1px dashed #7dd3fc; border-radius: 1rem; padding: 1rem 1.1rem; margin-top: 1.25rem; }
+    .quick input { border: 1px solid #cbd5e1; border-radius: .7rem; padding: .45rem .7rem; font-size: .9rem; width: 9rem; background: #fff; }
+    .gobtn { display: inline-block; margin-top: 1rem; background: #4f46e5; color: #fff; font-weight: 800; border-radius: .8rem; padding: .6rem 1rem; font-size: .85rem; }
+    .gobtn:hover { background: #4338ca; }
+    .lvl-head { background: linear-gradient(135deg, #312e81, #4f46e5); color: #fff; border-radius: 1.1rem; padding: 1rem 1.25rem; }
+    kbd { background: #f1f5f9; border: 1px solid #cbd5e1; border-bottom-width: 2px; border-radius: .35rem; padding: 0 .35rem; font-size: .8rem; }
+    .cards3 { display: grid; gap: .75rem; margin-top: 1rem; }
+    @media (min-width: 700px) { .cards3 { grid-template-columns: repeat(3, 1fr); } }
+    .cards3 > div { border-radius: 1rem; padding: 1rem 1.1rem; font-size: .92rem; line-height: 1.7; color: #374151; }
+    .mc-opt { text-align: left; border: 2px solid #e2e8f0; background: #fff; border-radius: .8rem; padding: .6rem .9rem; font-size: .95rem; width: 100%; }
+    .mc-opt:hover { border-color: #a5b4fc; background: #eef2ff; }
+    .mc-opt.right { border-color: #10b981; background: #ecfdf5; }
+    .mc-opt.wrong { border-color: #ef4444; background: #fef2f2; }
+    .figbox { background: #fff; border: 2px dashed #c7d2fe; border-radius: 1rem; padding: .75rem; margin-top: 1rem; overflow-x: auto; text-align: center; }
+    .machine { display: flex; align-items: center; justify-content: center; gap: .6rem; flex-wrap: wrap; margin-top: 1rem; }
+    .machine .io { background: #eef2ff; border: 2px solid #a5b4fc; border-radius: .8rem; padding: .5rem 1rem; font-weight: 800; color: #3730a3; min-width: 4.5rem; text-align: center; }
+    .machine .box { background: #4f46e5; color: #fff; border-radius: .9rem; padding: .7rem 1.1rem; font-weight: 800; }
+    @media print { header, .toc, .gobtn { display: none !important } }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-indigo-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 flex items-center justify-between h-16 gap-2">
+      <div class="shrink-0">
+        <div class="font-black text-lg sm:text-xl text-indigo-900 whitespace-nowrap">🔤 <span class="hidden sm:inline">Introdução à Álgebra</span><span class="sm:hidden">Álgebra</span></div>
+        <div class="text-[11px] text-slate-500 hidden sm:block">Expressões algébricas e valor numérico · 6º ano</div>
+      </div>
+      <nav class="flex gap-1 overflow-x-auto ml-2 min-w-0">
+        <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Aprender</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadoras</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-7">
+    <!-- ================= TEORIA ================= -->
+    <section id="sec-teoria" class="space-y-6">
+      <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 text-white shadow-xl">
+        <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso completo · 6º ano · do zero</span>
+        <h1 class="text-3xl sm:text-5xl font-black mt-2">Introdução à Álgebra</h1>
+        <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Expressões algébricas e valor numérico. Você não precisa saber nada sobre o assunto: aqui você vai entender <b>o que é</b>, <b>como funciona</b>, <b>para que serve</b>, <b>como armar cada conta no papel</b> e <b>como resolver problemas que pedem interpretação</b>, com exemplos passo a passo e mais de 100 exercícios do mais fácil ao mais difícil.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-6 items-start">
+        <aside class="toc lg:sticky lg:top-20 bg-white rounded-2xl border p-3 shadow-sm lg:max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <div class="text-[11px] font-black uppercase tracking-widest text-indigo-600 px-2 pb-1">Lições</div>
+          <a href="#l0">0 · Comece por aqui</a>
+          <a href="#l1">1 · Revisão rápida</a>
+          <a href="#l2">2 · Por que usar letras?</a>
+          <a href="#l3">3 · Da frase para a álgebra</a>
+          <a href="#l4">4 · Como se escreve e as partes</a>
+          <a href="#l5">5 · Valor numérico</a>
+          <a href="#l6">6 · Tabelas e padrões</a>
+          <a href="#l7">7 · Igualdades e valor desconhecido</a>
+          <a href="#l8">8 · Expressões equivalentes</a>
+          <a href="#l9">9 · Para que serve?</a>
+          <a href="#l10">10 · Resolvendo problemas no papel</a>
+          <a href="#l11">11 · Erros comuns</a>
+          <a href="#l12">12 · Resumo e folha de cola</a>
+        </aside>
+
+        <div class="space-y-6 min-w-0">
+
+          <!-- L0 -->
+          <article class="lesson" id="l0">
+            <div class="lesson-tag">Lição 0</div>
+            <h2>Comece por aqui</h2>
+            <p><b>Álgebra</b> é a parte da matemática que usa <b>letras</b> para representar números. Parece estranho misturar letras com números, mas você já faz isso sem perceber: quando diz “o dobro de um número qualquer”, você está falando de algo que pode ser 2, 10 ou 1.000, e a regra é sempre a mesma. A álgebra serve para <b>escrever essa regra de forma curta</b>.</p>
+            <div class="cards3">
+              <div class="bg-indigo-50"><b>1 · Letras guardam números</b><br>Uma letra é como uma caixinha com um número dentro. Às vezes não sabemos qual é; às vezes ele pode mudar.</div>
+              <div class="bg-amber-50"><b>2 · Expressões são receitas</b><br>\(3x + 5\) é uma “receita de cálculo”: pegue um número, multiplique por 3 e some 5.</div>
+              <div class="bg-emerald-50"><b>3 · Valor numérico</b><br>Quando escolhemos o número da caixinha e fazemos a conta, achamos o <b>valor numérico</b> da expressão.</div>
+            </div>
+            <h3>Como estudar</h3>
+            <ol>
+              <li>Leia as lições <b>na ordem</b>. Cada uma usa o que a anterior ensinou.</li>
+              <li>Tenha <b>caderno e lápis</b>. Copie cada exemplo no caderno e refaça antes de olhar a solução. É assim que se aprende matemática.</li>
+              <li>Responda os <b>“Teste rápido”</b> (caixas azuis) para ver se pode seguir em frente.</li>
+              <li>Depois de cada bloco de lições, faça os <b>exercícios do nível correspondente</b>. Eles começam fáceis e vão ficando mais difíceis. Há <b>contas</b> e também <b>problemas que pedem interpretação</b>.</li>
+              <li>Travou? Use a <b>💡 Dica</b>; ainda travado? Abra a <b>resolução passo a passo</b> e depois tente outro exercício parecido.</li>
+              <li>Use o <b>Laboratório</b> para “brincar” com os números e as <b>Calculadoras</b> para conferir suas contas.</li>
+            </ol>
+            <h3>Mapa do curso</h3>
+            <table class="tb">
+              <thead><tr><th>Lição</th><th>O que você aprende</th><th>Exercícios</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Revisão: ordem das operações, potências, dobro, triplo, metade</td><td>—</td></tr>
+                <tr><td>2 e 4</td><td>Por que usar letras; como escrever expressões; termos e coeficientes</td><td>Nível 1</td></tr>
+                <tr><td>3</td><td>Traduzir frases para a linguagem algébrica (e o contrário)</td><td>Níveis 2 e 3</td></tr>
+                <tr><td>5</td><td>Valor numérico: trocar letras por números e calcular</td><td>Níveis 4 a 8</td></tr>
+                <tr><td>6</td><td>Tabelas, sequências e regras gerais</td><td>Nível 9</td></tr>
+                <tr><td>9</td><td>Fórmulas do dia a dia (perímetro, área, preços…)</td><td>Nível 10</td></tr>
+                <tr><td>10</td><td>Resolver problemas com interpretação, no papel</td><td>Nível 11</td></tr>
+                <tr><td>7</td><td>Igualdades e descobrir o valor desconhecido</td><td>Níveis 12 e 13</td></tr>
+                <tr><td>8, 11 e 12</td><td>Expressões equivalentes, erros comuns, resumo</td><td>Nível 14 (desafios)</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <!-- L1 -->
+          <article class="lesson" id="l1">
+            <div class="lesson-tag">Lição 1</div>
+            <h2>Revisão rápida: o que você precisa saber</h2>
+            <p>Quase todo erro em álgebra vem de uma conta básica mal feita. Vale gastar cinco minutos aqui.</p>
+
+            <h3>1.1 Palavras que viram contas</h3>
+            <table class="tb">
+              <thead><tr><th>Palavra</th><th>Significa</th><th>Exemplo com 7</th></tr></thead>
+              <tbody>
+                <tr><td><b>dobro</b></td><td>vezes 2</td><td>\(2 \times 7 = 14\)</td></tr>
+                <tr><td><b>triplo</b></td><td>vezes 3</td><td>\(3 \times 7 = 21\)</td></tr>
+                <tr><td><b>quádruplo</b></td><td>vezes 4</td><td>\(4 \times 7 = 28\)</td></tr>
+                <tr><td><b>metade</b></td><td>dividido por 2</td><td>\(14 \div 2 = 7\), a metade de 14</td></tr>
+                <tr><td><b>sucessor</b></td><td>o próximo número (mais 1)</td><td>\(7 + 1 = 8\)</td></tr>
+                <tr><td><b>antecessor</b></td><td>o número anterior (menos 1)</td><td>\(7 - 1 = 6\)</td></tr>
+                <tr><td><b>quadrado</b></td><td>o número vezes ele mesmo</td><td>\(7 \times 7 = 49\)</td></tr>
+              </tbody>
+            </table>
+
+            <h3>1.2 Potência: multiplicação repetida</h3>
+            <p>Uma potência é um jeito curto de escrever uma multiplicação de números iguais. O número que se repete é a <b>base</b>; quantas vezes ele aparece é o <b>expoente</b>.</p>
+            <div class="formula">\[\begin{gathered}3^2 = 3 \times 3 = 9 \\ 2^3 = 2 \times 2 \times 2 = 8\end{gathered}\]</div>
+            <div class="callout warning"><b>Cuidado!</b>\(3^2\) <u>não</u> é \(3 \times 2\). É \(3 \times 3\). O expoente diz <i>quantas vezes</i> o número se repete na multiplicação.</div>
+
+            <h3>1.3 Ordem das operações</h3>
+            <p>Quando há várias contas juntas, a ordem importa. Siga sempre:</p>
+            <ol>
+              <li><b>Parênteses</b> primeiro (de dentro para fora).</li>
+              <li>Depois as <b>potências</b>.</li>
+              <li>Depois <b>multiplicações e divisões</b>, da esquerda para a direita.</li>
+              <li>Por último, <b>somas e subtrações</b>, da esquerda para a direita.</li>
+            </ol>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO: \(2 + 3 \times 4\)</div>
+              <div class="hand">
+                <div>Primeiro a multiplicação: \(3 \times 4 = 12\)</div>
+                <div>Depois a soma: \(2 + 12 = 14\)</div>
+              </div>
+            </div>
+            <div class="callout tip"><b>Dica de papel</b>Escreva <u>a conta inteira de novo</u> a cada passo, resolvendo só uma parte. Assim você não perde nada no caminho: \(2 + 3 \times 4 \to 2 + 12 \to 14\).</div>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO COM PARÊNTESES E POTÊNCIA: \(2 \times (1 + 3)^2 - 5\)</div>
+              <div class="hand">
+                <div>Parênteses: \(1 + 3 = 4\) &nbsp;⇒&nbsp; \(2 \times 4^2 - 5\)</div>
+                <div>Potência: \(4^2 = 16\) &nbsp;⇒&nbsp; \(2 \times 16 - 5\)</div>
+                <div>Multiplicação: \(2 \times 16 = 32\) &nbsp;⇒&nbsp; \(32 - 5\)</div>
+                <div>Subtração: \(32 - 5 = 27\)</div>
+              </div>
+            </div>
+
+            <h3>1.4 Três jeitos de escrever “vezes”</h3>
+            <p>\(3 \times 4\), \(3 \cdot 4\) e \(3(4)\) significam a mesma coisa: <b>12</b>. Em álgebra vamos usar muito o ponto e, principalmente, o jeito mais curto de todos: <b>não escrever sinal nenhum</b> entre um número e uma letra (você verá na lição 4).</p>
+
+            <h3>1.5 Decimais e frações que aparecem muito</h3>
+            <ul>
+              <li>\(0{,}5 = \tfrac{1}{2}\) (metade) &nbsp;·&nbsp; \(0{,}25 = \tfrac{1}{4}\) &nbsp;·&nbsp; \(0{,}1 = \tfrac{1}{10}\)</li>
+              <li>Dividir por 2 é o mesmo que tirar a metade: \(10 \div 2 = 5\).</li>
+              <li>\(x \div 2\) também pode ser escrito como fração: \(\dfrac{x}{2}\).</li>
+            </ul>
+
+            <div class="quick" data-qi="0"></div>
+            <div class="quick" data-qi="1"></div>
+          </article>
+
+          <!-- L2 -->
+          <article class="lesson" id="l2">
+            <div class="lesson-tag">Lição 2</div>
+            <h2>Por que usar letras na matemática?</h2>
+
+            <h3>2.1 Uma história de papelaria</h3>
+            <p>Um caderno custa <b>R$ 8</b>. Quanto se paga por vários cadernos? Veja:</p>
+            <table class="tb">
+              <thead><tr><th>Cadernos</th><th>Conta</th><th>Preço</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>\(8 \times 1\)</td><td>R$ 8</td></tr>
+                <tr><td>2</td><td>\(8 \times 2\)</td><td>R$ 16</td></tr>
+                <tr><td>3</td><td>\(8 \times 3\)</td><td>R$ 24</td></tr>
+                <tr><td>10</td><td>\(8 \times 10\)</td><td>R$ 80</td></tr>
+                <tr><td>?</td><td>\(8 \times ?\)</td><td>…</td></tr>
+              </tbody>
+            </table>
+            <p>A <b>regra é sempre a mesma</b>: multiplicar a quantidade por 8. E se não soubermos quantos cadernos vão ser comprados? Chamamos essa quantidade de <b>n</b> e escrevemos a regra de uma vez só:</p>
+            <div class="formula">\[\text{preço} = 8 \times n \quad\text{ou, mais curto:}\quad 8n\]</div>
+            <p>Pronto! \(8n\) vale para 1 caderno, 10 cadernos, 1.000 cadernos… Esse é o poder da álgebra: <b>uma regra para infinitos casos</b>.</p>
+
+            <h3>2.2 A máquina de expressões</h3>
+            <p>Pense em uma máquina: você coloca um número, ela faz sempre a mesma conta e devolve outro número.</p>
+            <div class="machine"><span class="io">entra: \(n\)</span><span>➜</span><span class="box">multiplica por 8</span><span>➜</span><span class="io">sai: \(8n\)</span></div>
+            <p class="text-center">Se entra 3, sai \(8 \times 3 = 24\). Se entra 10, sai 80.</p>
+
+            <h3>2.3 O que é uma letra em álgebra?</h3>
+            <p>Uma letra representa um <b>número</b>. Ela pode ser de dois jeitos:</p>
+            <div class="cmp">
+              <div class="bad" style="background:#eef2ff;border-color:#c7d2fe"><b>Variável</b><br>um número que <u>pode mudar</u>. Em \(8n\), o número de cadernos \(n\) varia: 1, 2, 3…</div>
+              <div class="bad" style="background:#fffbeb;border-color:#fde68a"><b>Incógnita</b><br>um número que <u>não conhecemos</u> e queremos descobrir. Ex.: “pensei num número, somei 5 e deu 12”.</div>
+            </div>
+            <div class="callout info"><b>Regras importantes sobre as letras</b>
+              <ul>
+                <li>Pode ser <b>qualquer letra</b>: \(x\), \(n\), \(a\), \(b\)… A letra é só um nome.</li>
+                <li>Em um mesmo problema, <b>a mesma letra representa o mesmo número</b>.</li>
+                <li>Letras diferentes <b>podem</b> ter valores diferentes (ou até iguais).</li>
+              </ul>
+            </div>
+
+            <h3>2.4 O que é uma expressão algébrica?</h3>
+            <div class="callout info"><b>Expressão algébrica</b>É uma expressão matemática que tem <b>letras</b> (e, em geral, números e operações) misturados.</div>
+            <table class="tb">
+              <thead><tr><th>É expressão algébrica ✅</th><th>Não é (só números) ❌</th></tr></thead>
+              <tbody>
+                <tr><td>\(8n\), \(x + 5\), \(2a + 3b\), \(\dfrac{y}{2}\), \(x^2\)</td><td>\(3 + 5\), \(8 \times 4\), \(2^3 - 1\) (essas são <b>expressões numéricas</b>)</td></tr>
+              </tbody>
+            </table>
+
+            <h3>2.5 Onde você já viu isso?</h3>
+            <ul>
+              <li>Fórmulas: “perímetro de um quadrado = 4 × lado”.</li>
+              <li>Jogos: “pontos = 10 × número de moedas”.</li>
+              <li>Planilhas e programação: as células e as “variáveis” guardam números que mudam.</li>
+            </ul>
+
+            <div class="quick" data-qi="2"></div>
+          </article>
+
+          <!-- L3 -->
+          <article class="lesson" id="l3">
+            <div class="lesson-tag">Lição 3</div>
+            <h2>Da frase para a álgebra: a linguagem algébrica</h2>
+            <p>Escrever uma situação em linguagem algébrica é como <b>traduzir</b> do português para a matemática. Quem domina essa tradução resolve qualquer problema depois.</p>
+
+            <h3>3.1 O dicionário (com n = 6 como exemplo)</h3>
+            <table class="tb">
+              <thead><tr><th>Em português</th><th>Em álgebra</th><th>Se n = 6</th></tr></thead>
+              <tbody>
+                <tr><td>o <b>dobro</b> de um número</td><td>\(2n\)</td><td>12</td></tr>
+                <tr><td>o <b>triplo</b> de um número</td><td>\(3n\)</td><td>18</td></tr>
+                <tr><td>o <b>quádruplo</b> de um número</td><td>\(4n\)</td><td>24</td></tr>
+                <tr><td>a <b>metade</b> de um número</td><td>\(\dfrac{n}{2}\)</td><td>3</td></tr>
+                <tr><td>a <b>terça parte</b> de um número</td><td>\(\dfrac{n}{3}\)</td><td>2</td></tr>
+                <tr><td>o <b>sucessor</b> de um número</td><td>\(n + 1\)</td><td>7</td></tr>
+                <tr><td>o <b>antecessor</b> de um número</td><td>\(n - 1\)</td><td>5</td></tr>
+                <tr><td>um número <b>mais</b> 5 &nbsp;·&nbsp; 5 <b>a mais</b> que um número &nbsp;·&nbsp; aumentado em 5</td><td>\(n + 5\)</td><td>11</td></tr>
+                <tr><td>um número <b>menos</b> 3 &nbsp;·&nbsp; 3 <b>a menos</b> que um número &nbsp;·&nbsp; diminuído em 3</td><td>\(n - 3\)</td><td>3</td></tr>
+                <tr><td>o <b>quadrado</b> de um número</td><td>\(n^2\)</td><td>36</td></tr>
+                <tr><td>o <b>cubo</b> de um número</td><td>\(n^3\)</td><td>216</td></tr>
+                <tr><td>um número <b>par</b> (n é natural)</td><td>\(2n\)</td><td>12</td></tr>
+                <tr><td>um número <b>ímpar</b></td><td>\(2n + 1\)</td><td>13</td></tr>
+                <tr><td>um <b>múltiplo de 5</b></td><td>\(5n\)</td><td>30</td></tr>
+              </tbody>
+            </table>
+            <table class="tb">
+              <thead><tr><th>Com duas letras</th><th>Em álgebra</th></tr></thead>
+              <tbody>
+                <tr><td>a <b>soma</b> de \(a\) e \(b\)</td><td>\(a + b\)</td></tr>
+                <tr><td>a <b>diferença</b> entre \(a\) e \(b\) (nessa ordem)</td><td>\(a - b\)</td></tr>
+                <tr><td>o <b>produto</b> de \(a\) por \(b\)</td><td>\(ab\) (ou \(a \cdot b\))</td></tr>
+                <tr><td>o <b>quociente</b> de \(a\) por \(b\)</td><td>\(\dfrac{a}{b}\)</td></tr>
+              </tbody>
+            </table>
+
+            <h3>3.2 O método da tradução (4 passos)</h3>
+            <ol>
+              <li><b>Descubra o que é desconhecido</b> (ou o que muda) e dê uma <b>letra</b> a ele.</li>
+              <li><b>Quebre a frase em pedaços</b> (palavra por palavra).</li>
+              <li><b>Traduza cada pedaço</b> com o dicionário e junte.</li>
+              <li><b>Teste com um número</b>: a expressão e a frase dão o mesmo resultado?</li>
+            </ol>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 1 — “O dobro de um número, mais 5”</div>
+              <div class="hand">
+                <div>Número desconhecido → \(n\)</div>
+                <div>“o dobro de um número” → \(2n\)</div>
+                <div>“mais 5” → \(+ 5\)</div>
+                <div>Expressão: \(2n + 5\)</div>
+                <div>Teste com \(n = 3\): dobro de 3 é 6, mais 5 dá 11. E \(2 \cdot 3 + 5 = 11\) ✓</div>
+              </div>
+            </div>
+
+            <h3>3.3 Cuidado com a vírgula e com a ordem!</h3>
+            <p>A mesma sequência de palavras pode dar expressões diferentes. Repare:</p>
+            <div class="cmp">
+              <div class="good"><b>“O dobro <u>da soma</u> de um número com 5”</b><br>Primeiro soma: \(n + 5\). Depois dobra <u>tudo</u>: <b>\(2(n + 5)\)</b>.</div>
+              <div class="good"><b>“A soma <u>do dobro</u> de um número com 5”</b><br>Primeiro dobra: \(2n\). Depois soma 5: <b>\(2n + 5\)</b>.</div>
+            </div>
+            <p>Teste com \(n = 3\): \(2(3 + 5) = 16\), mas \(2 \cdot 3 + 5 = 11\). São expressões <b>diferentes</b>! Os parênteses mostram “o que é dobrado”.</p>
+            <div class="callout warning"><b>A ordem da subtração importa</b>“A diferença entre \(a\) e 7” é \(a - 7\). “7 menos \(a\)” é \(7 - a\). Se \(a = 10\): \(10 - 7 = 3\), mas \(7 - 10\) nem existe ainda nos naturais. Leia a ordem que a frase manda.</div>
+
+            <h3>3.4 Tradução ao contrário (da álgebra para o português)</h3>
+            <table class="tb">
+              <thead><tr><th>Expressão</th><th>Uma frase que a descreve</th></tr></thead>
+              <tbody>
+                <tr><td>\(x + 8\)</td><td>um número aumentado em 8; 8 a mais que um número</td></tr>
+                <tr><td>\(3x - 1\)</td><td>o triplo de um número, menos 1</td></tr>
+                <tr><td>\(3(x - 1)\)</td><td>o triplo do antecessor de um número</td></tr>
+                <tr><td>\(\dfrac{x}{2} + 4\)</td><td>a metade de um número, mais 4</td></tr>
+              </tbody>
+            </table>
+
+            <div class="quick" data-qi="3"></div>
+            <button class="gobtn" data-goto="2">✏️ Treinar: Níveis 2 e 3</button>
+          </article>
+
+          <!-- L4 -->
+          <article class="lesson" id="l4">
+            <div class="lesson-tag">Lição 4</div>
+            <h2>Como se escreve uma expressão e quais são as partes dela</h2>
+
+            <h3>4.1 As regras de escrita</h3>
+            <p>Para economizar espaço, a álgebra tem combinações. Elas valem o tempo todo:</p>
+            <table class="tb">
+              <thead><tr><th>Regra</th><th>Em vez de…</th><th>Escreva</th></tr></thead>
+              <tbody>
+                <tr><td><b>1.</b> Entre número e letra, o sinal de vezes some</td><td>\(3 \cdot x\) ou \(3 \times x\)</td><td>\(3x\)</td></tr>
+                <tr><td><b>2.</b> O número vai na frente da letra</td><td>\(x3\)</td><td>\(3x\)</td></tr>
+                <tr><td><b>3.</b> Entre duas letras o sinal de vezes também some</td><td>\(a \cdot b\)</td><td>\(ab\)</td></tr>
+                <tr><td><b>4.</b> Letra vezes ela mesma vira potência</td><td>\(x \cdot x\)</td><td>\(x^2\)</td></tr>
+                <tr><td><b>5.</b> O número 1 na frente da letra não aparece</td><td>\(1x\)</td><td>\(x\)</td></tr>
+                <tr><td><b>6.</b> Divisão pode virar fração</td><td>\(x \div 2\)</td><td>\(\dfrac{x}{2}\)</td></tr>
+                <tr><td><b>7.</b> Número vezes parênteses: o sinal some</td><td>\(2 \cdot (x + 1)\)</td><td>\(2(x + 1)\)</td></tr>
+              </tbody>
+            </table>
+            <div class="callout warning"><b>Atenção!</b>\(3x\) <u>não</u> é \(3 + x\) e <u>não</u> é “trinta e x”. \(3x\) significa <b>3 vezes x</b>. Se \(x = 4\), então \(3x = 3 \times 4 = 12\) (e não 34!).</div>
+
+            <h3>4.2 As partes de uma expressão</h3>
+            <p>Uma expressão é feita de pedaços ligados por <b>+</b> ou <b>−</b>. Cada pedaço é um <b>termo</b>. Veja a expressão \(4x + 3y - 7\):</p>
+            <table class="tb">
+              <thead><tr><th>Termo</th><th>Coeficiente</th><th>Parte literal</th><th>Tipo</th></tr></thead>
+              <tbody>
+                <tr><td>\(4x\)</td><td>4</td><td>\(x\)</td><td>termo com letra</td></tr>
+                <tr><td>\(3y\)</td><td>3</td><td>\(y\)</td><td>termo com letra</td></tr>
+                <tr><td>\(7\) (vem depois do sinal −)</td><td>7</td><td>— (não tem letra)</td><td><b>termo independente</b> (constante)</td></tr>
+              </tbody>
+            </table>
+            <div class="cards3">
+              <div class="bg-indigo-50"><b>Termo</b><br>cada parte separada por + ou −. Em \(4x + 3y - 7\) são <b>3 termos</b>.</div>
+              <div class="bg-amber-50"><b>Coeficiente</b><br>o número que multiplica a letra. Em \(4x\) é o 4. Em \(x\) o coeficiente é 1 (escondido).</div>
+              <div class="bg-emerald-50"><b>Parte literal</b><br>a parte com letras. Em \(4x\) é \(x\). Em \(5ab\) é \(ab\).</div>
+            </div>
+            <div class="callout info"><b>Termo independente</b>É o termo que <u>não tem letra</u>. Ele não “depende” de nenhum valor: seja qual for o \(x\), ele continua o mesmo.</div>
+
+            <h3>4.3 Contando termos</h3>
+            <ul>
+              <li>\(5x\) → 1 termo.</li>
+              <li>\(x + 8\) → 2 termos (\(x\) e \(8\)).</li>
+              <li>\(2a + 3b + 9\) → 3 termos.</li>
+              <li>\(2(x + 1)\) → 1 termo (o dobro do que está no parêntese).</li>
+            </ul>
+
+            <div class="quick" data-qi="4"></div>
+            <div class="quick" data-qi="5"></div>
+            <button class="gobtn" data-goto="1">✏️ Treinar: Nível 1</button>
+          </article>
+
+          <!-- L5 -->
+          <article class="lesson" id="l5">
+            <div class="lesson-tag">Lição 5</div>
+            <h2>Valor numérico: trocar a letra por um número e calcular</h2>
+
+            <h3>5.1 A ideia</h3>
+            <p>Uma expressão com letras só vira um <b>número</b> quando dizemos <b>quanto vale cada letra</b>. Esse número que aparece no final é o <b>valor numérico</b> da expressão.</p>
+            <div class="callout info"><b>Valor numérico</b>É o resultado que se obtém ao <b>substituir as letras por números</b> e fazer as contas na ordem certa.</div>
+            <div class="machine"><span class="io">\(x = 4\)</span><span>➜</span><span class="box">\(3x + 5\)</span><span>➜</span><span class="io">\(17\)</span></div>
+
+            <h3>5.2 A receita no papel (5 passos)</h3>
+            <ol>
+              <li><b>Escreva a expressão</b> e anote os valores das letras.</li>
+              <li><b>Troque cada letra pelo valor dela</b>. Escreva o número no lugar exato da letra.</li>
+              <li><b>Apareça com o sinal de vezes</b> que estava escondido (\(3x\) vira \(3 \cdot 4\)).</li>
+              <li><b>Resolva na ordem</b>: parênteses → potências → × e ÷ → + e −. Reescreva a conta a cada passo.</li>
+              <li><b>Escreva a resposta</b> e confira se faz sentido.</li>
+            </ol>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 1 — Valor numérico de \(3x + 5\) para \(x = 4\)</div>
+              <div class="hand">
+                <div>\(3x + 5\)</div>
+                <div>Troco \(x\) por 4: \(3 \cdot 4 + 5\)</div>
+                <div>Multiplicação primeiro: \(12 + 5\)</div>
+                <div>Soma: \(17\)</div>
+                <div>Resposta: o valor numérico é <b>17</b>.</div>
+              </div>
+            </div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 2 — Com potência: \(x^2 + 1\) para \(x = 5\)</div>
+              <div class="hand">
+                <div>\(x^2 + 1\) &nbsp;→&nbsp; \(5^2 + 1\)</div>
+                <div>Potência: \(5^2 = 5 \cdot 5 = 25\) &nbsp;→&nbsp; \(25 + 1\)</div>
+                <div>Soma: \(26\)</div>
+              </div>
+            </div>
+            <div class="callout warning"><b>\(x^2\) é diferente de \(2x\)</b>Com \(x = 5\): \(x^2 = 5 \cdot 5 = 25\), mas \(2x = 2 \cdot 5 = 10\).</div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 3 — Com parênteses: \(2(x + 3)\) para \(x = 4\)</div>
+              <div class="hand">
+                <div>\(2(x + 3)\) &nbsp;→&nbsp; \(2 \cdot (4 + 3)\)</div>
+                <div>Parênteses: \(4 + 3 = 7\) &nbsp;→&nbsp; \(2 \cdot 7\)</div>
+                <div>Multiplicação: \(14\)</div>
+              </div>
+            </div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 4 — Duas letras: \(2a + 3b\) para \(a = 5\) e \(b = 4\)</div>
+              <div class="hand">
+                <div>\(2a + 3b\) &nbsp;→&nbsp; \(2 \cdot 5 + 3 \cdot 4\)</div>
+                <div>As duas multiplicações: \(10 + 12\)</div>
+                <div>Soma: \(22\)</div>
+              </div>
+            </div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 5 — Com divisão: \(\dfrac{x}{2} + 1\) para \(x = 10\)</div>
+              <div class="hand">
+                <div>\(\dfrac{x}{2} + 1\) significa \(x \div 2 + 1\)</div>
+                <div>Troco: \(10 \div 2 + 1\) &nbsp;→&nbsp; \(5 + 1\) &nbsp;→&nbsp; \(6\)</div>
+              </div>
+            </div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 6 — Com decimal: \(4x\) para \(x = 2{,}5\)</div>
+              <div class="hand">
+                <div>\(4 \cdot 2{,}5 = 10\) &nbsp;(4 vezes 2 é 8, e 4 vezes 0,5 é 2: 8 + 2 = 10)</div>
+              </div>
+            </div>
+
+            <h3>5.3 A mesma expressão, valores diferentes</h3>
+            <p>Mudando o valor da letra, o resultado muda. Veja \(3x + 5\):</p>
+            <table class="tb">
+              <thead><tr><th>\(x\)</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>10</th></tr></thead>
+              <tbody><tr><td>\(3x + 5\)</td><td>5</td><td>8</td><td>11</td><td>14</td><td>17</td><td>35</td></tr></tbody>
+            </table>
+            <p>Uma tabela assim mostra bem a ideia de <b>variável</b>: o \(x\) varia e o valor da expressão acompanha.</p>
+
+            <h3>5.4 Dois cuidados que valem nota</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(3x\) com \(x = 4\): “34”<br>Isso é <u>juntar</u> os números, e não multiplicar.</div>
+              <div class="good"><b>✅ Certo</b><br>\(3x = 3 \cdot 4 = 12\)</div>
+              <div class="bad"><b>❌ Errado</b><br>\(2 + 3x\), \(x = 4\): \((2+3) \cdot 4 = 20\)<br>Somou antes de multiplicar.</div>
+              <div class="good"><b>✅ Certo</b><br>\(2 + 3 \cdot 4 = 2 + 12 = 14\)</div>
+            </div>
+            <div class="callout tip"><b>Substitua com cuidado em potências com número na frente</b>\(2x^2\) com \(x = 3\): o expoente 2 pertence só ao \(x\): \(2 \cdot 3^2 = 2 \cdot 9 = 18\). Já \((2x)^2\) com \(x = 3\) é \((2 \cdot 3)^2 = 6^2 = 36\). Os parênteses mudam tudo.</div>
+
+            <div class="quick" data-qi="6"></div>
+            <div class="quick" data-qi="7"></div>
+            <div class="quick" data-qi="8"></div>
+            <button class="gobtn" data-goto="4">✏️ Treinar: Níveis 4 a 8</button>
+            <button class="gobtn" data-gotab="ferramentas" style="margin-left:.5rem">🧮 Abrir a calculadora de valor numérico</button>
+          </article>
+
+          <!-- L6 -->
+          <article class="lesson" id="l6">
+            <div class="lesson-tag">Lição 6</div>
+            <h2>Tabelas e padrões: descobrindo a regra geral</h2>
+
+            <h3>6.1 Uma figura que cresce</h3>
+            <p>Com palitos de fósforo, vamos formar quadrados lado a lado. Quantos palitos precisamos?</p>
+            <div class="figbox"><div class="matchfig" data-kind="sq" data-n="1"></div><div class="matchfig" data-kind="sq" data-n="2" style="margin-top:.5rem"></div><div class="matchfig" data-kind="sq" data-n="3" style="margin-top:.5rem"></div></div>
+            <table class="tb">
+              <thead><tr><th>Quadrados (n)</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+              <tbody><tr><td>Palitos</td><td>4</td><td>7</td><td>10</td><td>13</td></tr></tbody>
+            </table>
+            <p>Cada quadrado a mais precisa de <b>3 palitos novos</b> (porque um lado já existe). Então a regra sempre soma 3.</p>
+
+            <h3>6.2 Como achar a regra geral (3 passos)</h3>
+            <ol>
+              <li><b>Veja quanto cresce</b> de um termo para o próximo (aqui, +3). Esse é o <b>coeficiente</b> de \(n\).</li>
+              <li>Monte \(3n\) e compare com a tabela: com \(n = 1\) dá 3, mas o certo é 4. <b>Falta 1</b>.</li>
+              <li>Some o que falta: regra <b>\(3n + 1\)</b>. Teste: \(n = 2 \to 7\) ✓, \(n = 3 \to 10\) ✓, \(n = 4 \to 13\) ✓.</li>
+            </ol>
+            <div class="formula">\[\text{palitos} = 3n + 1\]</div>
+            <p>Agora dá para responder sem desenhar: com <b>20 quadrados</b> são \(3 \cdot 20 + 1 = 61\) palitos. E com 100? \(3 \cdot 100 + 1 = 301\).</p>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO — Sequência 5, 8, 11, 14, … Qual é a regra?</div>
+              <div class="hand">
+                <div>Cresce de 3 em 3 &nbsp;⇒&nbsp; começa com \(3n\)</div>
+                <div>\(n = 1\): \(3 \cdot 1 = 3\), mas o 1º termo é 5. Falta 2.</div>
+                <div>Regra: \(3n + 2\)</div>
+                <div>Teste: \(n = 4 \to 3 \cdot 4 + 2 = 14\) ✓</div>
+                <div>O 10º termo é \(3 \cdot 10 + 2 = 32\)</div>
+              </div>
+            </div>
+            <div class="callout tip"><b>Truque para achar o “que falta”</b>A regra \(c \cdot n + k\): o <b>c</b> é o quanto a sequência cresce a cada passo, e o <b>k</b> é o 1º termo menos o \(c\). (Para 5, 8, 11: \(c = 3\) e \(k = 5 - 3 = 2\).)</div>
+
+            <h3>6.3 Outras regras que você vai encontrar</h3>
+            <table class="tb">
+              <thead><tr><th>Sequência</th><th>Regra</th><th>Por quê?</th></tr></thead>
+              <tbody>
+                <tr><td>4, 8, 12, 16, …</td><td>\(4n\)</td><td>múltiplos de 4</td></tr>
+                <tr><td>3, 5, 7, 9, …</td><td>\(2n + 1\)</td><td>ímpares a partir de 3</td></tr>
+                <tr><td>1, 4, 9, 16, …</td><td>\(n^2\)</td><td>quadrados perfeitos</td></tr>
+              </tbody>
+            </table>
+            <p>Brinque com o <b>Laboratório</b> (Experimento 3) para ver os palitos mudando conforme o \(n\).</p>
+
+            <div class="quick" data-qi="9"></div>
+            <button class="gobtn" data-goto="9">✏️ Treinar: Nível 9</button>
+            <button class="gobtn" data-gotab="laboratorio" style="margin-left:.5rem">🔬 Abrir o Laboratório</button>
+          </article>
+
+          <!-- L7 -->
+          <article class="lesson" id="l7">
+            <div class="lesson-tag">Lição 7</div>
+            <h2>Igualdades e valor desconhecido</h2>
+
+            <h3>7.1 A balança em equilíbrio</h3>
+            <p>O sinal de <b>igual (=)</b> diz que os dois lados têm o <b>mesmo valor</b>, como uma balança equilibrada. Se existe uma letra, ela é um número desconhecido (incógnita) e queremos descobrir seu valor.</p>
+            <div class="figbox"><div class="scalefig" data-l="x + 7" data-r="15"></div></div>
+            <p class="text-center">\(x + 7 = 15\) &nbsp;→&nbsp; “um número mais 7 dá 15”. Qual número é esse?</p>
+            <div class="callout info"><b>Regra de ouro da balança</b>O que você fizer de um lado, <b>faça do outro</b> também (somar, subtrair, multiplicar ou dividir pelo mesmo número). Assim ela continua equilibrada.</div>
+
+            <h3>7.2 Desfazendo as contas (operações inversas)</h3>
+            <p>Para deixar o \(x\) sozinho, <b>desfaça</b> o que foi feito com ele usando a operação contrária:</p>
+            <table class="tb">
+              <thead><tr><th>Se o x está…</th><th>Faça nos dois lados…</th><th>Exemplo</th></tr></thead>
+              <tbody>
+                <tr><td>somando um número</td><td><b>subtraia</b> esse número</td><td>\(x + 7 = 15 \to x = 15 - 7\)</td></tr>
+                <tr><td>subtraindo um número</td><td><b>some</b> esse número</td><td>\(x - 6 = 9 \to x = 9 + 6\)</td></tr>
+                <tr><td>multiplicado por um número</td><td><b>divida</b> por esse número</td><td>\(4x = 28 \to x = 28 \div 4\)</td></tr>
+                <tr><td>dividido por um número</td><td><b>multiplique</b> por esse número</td><td>\(\dfrac{x}{3} = 5 \to x = 5 \cdot 3\)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 1 — \(x + 7 = 15\)</div>
+              <div class="hand">
+                <div>\(x + 7 = 15\)</div>
+                <div>Tiro 7 dos dois lados: \(x + 7 - 7 = 15 - 7\)</div>
+                <div>\(x = 8\)</div>
+                <div>Confiro: \(8 + 7 = 15\) ✓</div>
+              </div>
+            </div>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 2 — \(4x = 28\)</div>
+              <div class="hand">
+                <div>\(4x\) é “4 vezes x”. Divido os dois lados por 4:</div>
+                <div>\(\dfrac{4x}{4} = \dfrac{28}{4}\) &nbsp;⇒&nbsp; \(x = 7\)</div>
+                <div>Confiro: \(4 \cdot 7 = 28\) ✓</div>
+              </div>
+            </div>
+
+            <h3>7.3 Quando há duas operações</h3>
+            <p>Desfaça <b>na ordem contrária</b> da que foi feita: primeiro a soma ou subtração, depois a multiplicação ou divisão.</p>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-2">EXEMPLO 3 — \(2x + 3 = 11\)</div>
+              <div class="hand">
+                <div>Primeiro tiro o 3 dos dois lados: \(2x = 11 - 3\) &nbsp;⇒&nbsp; \(2x = 8\)</div>
+                <div>Depois divido por 2: \(x = 8 \div 2 = 4\)</div>
+                <div>Confiro: \(2 \cdot 4 + 3 = 11\) ✓</div>
+              </div>
+            </div>
+
+            <h3>7.4 Dois casos que pedem raciocínio</h3>
+            <ul>
+              <li><b>\(10 - x = 4\)</b>: pergunte “10 menos quanto dá 4?”. Resposta: \(x = 10 - 4 = 6\).</li>
+              <li><b>\(12 \div x = 3\)</b>: pergunte “12 dividido por quanto dá 3?”. Resposta: \(x = 12 \div 3 = 4\).</li>
+            </ul>
+            <div class="callout tip"><b>Sempre confira!</b>Troque o \(x\) pelo valor que você achou na igualdade original. Se os dois lados derem o mesmo número, você acertou. Isso é um <b>valor numérico</b> (lição 5) aplicado dos dois lados.</div>
+            <div class="callout info"><b>Igualdade pode vir “virada”</b>\(15 = x + 7\) é a mesma coisa que \(x + 7 = 15\).</div>
+
+            <div class="quick" data-qi="10"></div>
+            <div class="quick" data-qi="11"></div>
+            <button class="gobtn" data-goto="12">✏️ Treinar: Níveis 12 e 13</button>
+            <button class="gobtn" data-gotab="laboratorio" style="margin-left:.5rem">🔬 Balança no Laboratório</button>
+          </article>
+
+          <!-- L8 -->
+          <article class="lesson" id="l8">
+            <div class="lesson-tag">Lição 8 · para ir além</div>
+            <h2>Expressões equivalentes: parecem diferentes, valem o mesmo</h2>
+            <p>Duas expressões são <b>equivalentes</b> quando dão o <b>mesmo valor numérico para qualquer valor da letra</b>. Veja \(x + x\) e \(2x\):</p>
+            <table class="tb">
+              <thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>5</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><td>\(x + x\)</td><td>2</td><td>4</td><td>10</td><td>20</td></tr>
+                <tr><td>\(2x\)</td><td>2</td><td>4</td><td>10</td><td>20</td></tr>
+              </tbody>
+            </table>
+            <p>Sempre iguais: então \(x + x = 2x\).</p>
+
+            <h3>8.1 Juntando termos semelhantes</h3>
+            <p><b>Termos semelhantes</b> têm a <u>mesma parte literal</u>. Eles podem ser juntados somando (ou subtraindo) os coeficientes, como juntar “3 maçãs + 2 maçãs = 5 maçãs”.</p>
+            <div class="formula">\[3x + 2x = 5x \qquad\quad 7a - 4a = 3a\]</div>
+            <div class="callout warning"><b>Só dá para juntar o que é semelhante!</b>\(3x + 2\) <u>não</u> vira \(5x\) (uma coisa tem x, a outra não). \(3x + 2y\) também não junta (letras diferentes). Teste com \(x = 1\): \(3 + 2 = 5\), mas \(5x = 5\). Parece igual! Teste com \(x = 2\): \(3 \cdot 2 + 2 = 8\), mas \(5 \cdot 2 = 10\). Diferentes, então <u>não são equivalentes</u>.</div>
+
+            <h3>8.2 Distribuindo: \(2(x + 3)\)</h3>
+            <p>\(2(x + 3)\) é “2 vezes tudo o que está no parêntese”. Pense na área de um retângulo de altura 2 e base \(x + 3\): ela é a soma das áreas de duas partes.</p>
+            <div class="formula">\[2(x + 3) = 2 \cdot x + 2 \cdot 3 = 2x + 6\]</div>
+            <p>Teste com \(x = 4\): \(2(4 + 3) = 14\) e \(2 \cdot 4 + 6 = 14\) ✓.</p>
+            <div class="callout tip"><b>Como saber se duas expressões são equivalentes?</b><br>Calcule o valor numérico das duas para <b>vários</b> valores. Se algum deles der diferente, <b>não são</b> equivalentes. Se sempre derem iguais (e você sabe a regra), são equivalentes.</div>
+
+            <div class="quick" data-qi="12"></div>
+            <button class="gobtn" data-goto="14">✏️ Treinar: Nível 14 (desafios)</button>
+          </article>
+
+          <!-- L9 -->
+          <article class="lesson" id="l9">
+            <div class="lesson-tag">Lição 9</div>
+            <h2>Para que serve a álgebra?</h2>
+            <p>Sempre que uma <b>regra</b> vale para muitos valores diferentes, a álgebra escreve essa regra uma só vez, com uma letra. Isso ajuda quem faz contas, programa, projeta, cozinha ou administra dinheiro.</p>
+
+            <h3>9.1 Fórmulas que você já conhece</h3>
+            <table class="tb">
+              <thead><tr><th>Situação</th><th>Fórmula</th><th>O que as letras são</th></tr></thead>
+              <tbody>
+                <tr><td>Perímetro do quadrado</td><td>\(P = 4 \cdot \ell\)</td><td>\(\ell\) = lado</td></tr>
+                <tr><td>Perímetro do retângulo</td><td>\(P = 2(b + h)\)</td><td>\(b\) = base, \(h\) = altura</td></tr>
+                <tr><td>Área do retângulo</td><td>\(A = b \cdot h\)</td><td>\(b\) = base, \(h\) = altura</td></tr>
+                <tr><td>Área do quadrado</td><td>\(A = \ell^2\)</td><td>\(\ell\) = lado</td></tr>
+                <tr><td>Distância percorrida</td><td>\(d = v \cdot t\)</td><td>\(v\) = velocidade, \(t\) = tempo</td></tr>
+                <tr><td>Média de dois números</td><td>\(M = \dfrac{a + b}{2}\)</td><td>\(a\) e \(b\) = os números</td></tr>
+                <tr><td>Custo com taxa fixa</td><td>\(C = f + p \cdot n\)</td><td>\(f\) = taxa fixa, \(p\) = preço de cada, \(n\) = quantidade</td></tr>
+              </tbody>
+            </table>
+
+            <h3>9.2 Exemplo: corrida de aplicativo</h3>
+            <p>Um aplicativo cobra <b>R$ 5 de taxa fixa</b> mais <b>R$ 2 por quilômetro</b>. Chamando de \(k\) os quilômetros, o preço é:</p>
+            <div class="formula">\[P = 5 + 2k\]</div>
+            <table class="tb">
+              <thead><tr><th>km (\(k\))</th><th>1</th><th>5</th><th>10</th><th>20</th></tr></thead>
+              <tbody><tr><td>Preço (R$)</td><td>7</td><td>15</td><td>25</td><td>45</td></tr></tbody>
+            </table>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-indigo-700 mb-2">Quanto custa uma corrida de 12 km?</div>
+              <div class="hand">
+                <div>\(P = 5 + 2k\), com \(k = 12\)</div>
+                <div>\(P = 5 + 2 \cdot 12\) &nbsp;→&nbsp; \(5 + 24\) &nbsp;→&nbsp; \(29\)</div>
+                <div>Resposta: <b>R$ 29</b></div>
+              </div>
+            </div>
+
+            <h3>9.3 Álgebra em todo lugar</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3 text-sm">
+              <div class="bg-emerald-50 rounded-xl p-4"><b>🍳 Cozinha</b><br>Uma receita usa 2 ovos para cada pessoa: ovos = \(2p\). Para 7 pessoas, \(2 \cdot 7 = 14\) ovos.</div>
+              <div class="bg-sky-50 rounded-xl p-4"><b>📱 Celular</b><br>Plano: R$ 30 fixos + R$ 0,50 por GB extra. Custo = \(30 + 0{,}5g\).</div>
+              <div class="bg-amber-50 rounded-xl p-4"><b>🎮 Jogos</b><br>Pontuação = \(10m + 50\) (10 por moeda e 50 de bônus). Os desenvolvedores escrevem isso em código com “variáveis”.</div>
+              <div class="bg-rose-50 rounded-xl p-4"><b>🏗️ Construção</b><br>Para cercar um terreno quadrado de lado \(\ell\): arame = \(4\ell\) metros.</div>
+            </div>
+            <div class="callout success"><b>Por que a letra ajuda tanto?</b>Você escreve a regra <b>uma vez</b> e depois só troca o número. É por isso que planilhas, aplicativos e calculadoras funcionam: eles guardam fórmulas.</div>
+
+            <button class="gobtn" data-goto="10">✏️ Treinar: Nível 10</button>
+            <button class="gobtn" data-gotab="laboratorio" style="margin-left:.5rem">🔬 Simulador de preços</button>
+          </article>
+
+          <!-- L10 -->
+          <article class="lesson" id="l10">
+            <div class="lesson-tag">Lição 10</div>
+            <h2>Resolvendo problemas no papel: o método completo</h2>
+            <p>Problemas que pedem <b>interpretação</b> costumam assustar por causa do texto. A solução é um passo a passo fixo. Use esta folha-modelo sempre:</p>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-indigo-700 mb-3">📝 FOLHA-MODELO (copie no caderno)</div>
+              <div class="hand">
+                <div><b>1. Leia</b> o problema duas vezes. Sublinhe os números e a pergunta.</div>
+                <div><b>2. O que muda?</b> (ou o que não sei?) Dê uma <b>letra</b> a isso.</div>
+                <div><b>3. Expressão</b> — traduza a regra do problema para a álgebra.</div>
+                <div><b>4a. Se pede um valor</b>: substitua a letra e calcule (valor numérico).</div>
+                <div><b>4b. Se há um total dado</b>: monte uma <b>igualdade</b> e descubra a letra.</div>
+                <div><b>5. Responda</b> com uma frase e a <b>unidade</b> (reais, anos, cm…).</div>
+                <div><b>6. Confira</b> se a resposta faz sentido no problema.</div>
+              </div>
+            </div>
+
+            <h3>Como saber se é “valor numérico” ou “igualdade”?</h3>
+            <table class="tb">
+              <thead><tr><th>Se o problema…</th><th>Você faz…</th></tr></thead>
+              <tbody>
+                <tr><td>diz o valor da letra (ex.: “10 km”) e pergunta o resultado</td><td><b>valor numérico</b>: substitui e calcula</td></tr>
+                <tr><td>diz o resultado (ex.: “pagou R$ 31”) e pergunta o valor da letra</td><td><b>igualdade</b>: monta a equação e descobre o desconhecido</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Exemplo 1 — Pedindo um valor</h3>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-indigo-700 mb-3">“Uma lanchonete cobra R$ 6 por sanduíche e R$ 4 por um suco. Quanto custa um pedido com 3 sanduíches e 1 suco?”</div>
+              <div class="hand">
+                <div><b>O que muda?</b> O número de sanduíches → \(s\)</div>
+                <div><b>Expressão:</b> cada sanduíche custa 6, e o suco soma 4: \(6s + 4\)</div>
+                <div>Substituo \(s = 3\): \(6 \cdot 3 + 4\)</div>
+                <div>Multiplicação: \(18 + 4\) &nbsp;→&nbsp; \(22\)</div>
+                <div><b>Resposta:</b> o pedido custa R$ 22.</div>
+              </div>
+            </div>
+
+            <h3>Exemplo 2 — Descobrindo o desconhecido</h3>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-indigo-700 mb-3">“Um táxi cobra R$ 5 fixos mais R$ 2 por km. Rita pagou R$ 31. Quantos km ela rodou?”</div>
+              <div class="hand">
+                <div><b>O que não sei?</b> Os quilômetros → \(k\)</div>
+                <div><b>Preço:</b> \(5 + 2k\). Rita pagou 31, então: \(5 + 2k = 31\)</div>
+                <div>Tiro 5 dos dois lados: \(2k = 26\)</div>
+                <div>Divido por 2: \(k = 13\)</div>
+                <div><b>Confiro:</b> \(5 + 2 \cdot 13 = 31\) ✓</div>
+                <div><b>Resposta:</b> Rita rodou 13 km.</div>
+              </div>
+            </div>
+
+            <h3>Exemplo 3 — “Pensei em um número”</h3>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-indigo-700 mb-3">“Pensei em um número, multipliquei por 3 e somei 4. O resultado foi 25. Que número pensei?”</div>
+              <div class="hand">
+                <div>Número desconhecido: \(n\)</div>
+                <div>Multiplicou por 3: \(3n\); somou 4: \(3n + 4\)</div>
+                <div>Resultado 25: \(3n + 4 = 25\)</div>
+                <div>Tiro 4: \(3n = 21\) &nbsp;→&nbsp; divido por 3: \(n = 7\)</div>
+                <div>Confiro: \(3 \cdot 7 + 4 = 25\) ✓</div>
+              </div>
+            </div>
+
+            <h3>Truques quando travar</h3>
+            <ul>
+              <li><b>Teste com números fáceis</b>: se não sabe a regra, calcule o preço de 1, 2 e 3 itens e veja o padrão.</li>
+              <li><b>Desenhe</b> uma barra ou um esquema.</li>
+              <li><b>Palavras-chave</b>: “a mais”, “ganhou”, “total” → soma; “a menos”, “gastou”, “sobrou” → subtração; “cada”, “por”, “vezes” → multiplicação; “repartiu”, “igualmente” → divisão.</li>
+            </ul>
+            <h3>Checklist final</h3>
+            <ul>
+              <li>Escrevi o que a letra significa?</li>
+              <li>A resposta tem unidade e faz sentido (por exemplo, não existe “−3 pessoas”)?</li>
+              <li>Substituí na história para conferir?</li>
+            </ul>
+            <div class="callout success"><b>Calculadoras</b>Na aba “Calculadoras” você digita a expressão e os valores e vê o passo a passo no formato desta folha-modelo.</div>
+            <button class="gobtn" data-goto="11">✏️ Treinar: Nível 11 (interpretação)</button>
+            <button class="gobtn" data-goto="13" style="margin-left:.5rem">✏️ Nível 13 (interpretação com igualdade)</button>
+          </article>
+
+          <!-- L11 -->
+          <article class="lesson" id="l11">
+            <div class="lesson-tag">Lição 11</div>
+            <h2>Erros comuns (e como evitar)</h2>
+
+            <h3>1. Juntar os números em vez de multiplicar</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(3x\) com \(x = 4\) → “34”</div>
+              <div class="good"><b>✅ Certo</b><br>\(3x = 3 \cdot 4 = 12\)</div>
+            </div>
+            <h3>2. Confundir \(x^2\) com \(2x\)</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(x^2\) com \(x = 5\) → \(2 \cdot 5 = 10\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(x^2 = 5 \cdot 5 = 25\)</div>
+            </div>
+            <h3>3. Elevar também o número da frente</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(2x^2\) com \(x = 3\) → \((2 \cdot 3)^2 = 36\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(2 \cdot 3^2 = 2 \cdot 9 = 18\)</div>
+            </div>
+            <h3>4. Errar a ordem das operações</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(2 + 3x\), \(x = 4\) → \(5 \cdot 4 = 20\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(2 + 3 \cdot 4 = 2 + 12 = 14\)</div>
+            </div>
+            <h3>5. Traduzir “o dobro da soma” sem parênteses</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>“o dobro da soma de \(x\) e 3” → \(2x + 3\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(2(x + 3)\)</div>
+            </div>
+            <h3>6. Juntar termos que não são semelhantes</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(3x + 2 = 5x\) (ou \(x + x = x^2\))</div>
+              <div class="good"><b>✅ Certo</b><br>\(3x + 2\) não se junta. E \(x + x = 2x\).</div>
+            </div>
+            <h3>7. Fazer a operação errada ao desfazer</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(x + 5 = 12 \to x = 12 + 5 = 17\)</div>
+              <div class="good"><b>✅ Certo</b><br>Para desfazer “+ 5”, subtraia: \(x = 12 - 5 = 7\)</div>
+            </div>
+            <h3>8. Esquecer de conferir e de dar a unidade</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>“A resposta é 13.”</div>
+              <div class="good"><b>✅ Certo</b><br>“Rita rodou 13 km.” (e confiro: \(5 + 2 \cdot 13 = 31\) ✓)</div>
+            </div>
+            <h3>9. Achar que letras diferentes têm valores diferentes sempre</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>“\(a\) e \(b\) nunca podem valer o mesmo número.”</div>
+              <div class="good"><b>✅ Certo</b><br>Podem sim! Só não é obrigatório. A mesma letra, no mesmo problema, vale sempre o mesmo número.</div>
+            </div>
+          </article>
+
+          <!-- L12 -->
+          <article class="lesson" id="l12">
+            <div class="lesson-tag">Lição 12</div>
+            <h2>Resumo e folha de cola</h2>
+            <p>Se for imprimir, esta é a lição para guardar.</p>
+
+            <table class="tb">
+              <thead><tr><th>Assunto</th><th>Resumo</th></tr></thead>
+              <tbody>
+                <tr><td><b>Letra</b></td><td>representa um número (que pode variar ou ser desconhecido)</td></tr>
+                <tr><td><b>Expressão algébrica</b></td><td>tem letras, números e operações. Ex.: \(3x + 5\)</td></tr>
+                <tr><td><b>Notação</b></td><td>\(3 \cdot x = 3x\) &nbsp;·&nbsp; \(a \cdot b = ab\) &nbsp;·&nbsp; \(x \cdot x = x^2\) &nbsp;·&nbsp; \(1x = x\) &nbsp;·&nbsp; \(x \div 2 = \tfrac{x}{2}\) &nbsp;·&nbsp; \(2 \cdot (x+1) = 2(x+1)\)</td></tr>
+                <tr><td><b>Termo</b></td><td>cada parte separada por + ou −</td></tr>
+                <tr><td><b>Coeficiente</b></td><td>número que multiplica a letra (\(4x\) → 4)</td></tr>
+                <tr><td><b>Parte literal</b></td><td>a parte com letras (\(4x\) → \(x\))</td></tr>
+                <tr><td><b>Termo independente</b></td><td>termo sem letra (constante)</td></tr>
+                <tr><td><b>Valor numérico</b></td><td>resultado da expressão depois de trocar as letras por números</td></tr>
+                <tr><td><b>Ordem das operações</b></td><td>parênteses → potências → × e ÷ → + e −</td></tr>
+                <tr><td><b>Regra de um padrão</b></td><td>cresce \(c\) por passo ⇒ \(c \cdot n + k\), com \(k = 1^\circ\ \text{termo} - c\)</td></tr>
+                <tr><td><b>Igualdade</b></td><td>faça nos dois lados a operação <b>inversa</b>; confira no final</td></tr>
+                <tr><td><b>Equivalentes</b></td><td>mesmo valor para qualquer valor da letra (\(x + x = 2x\))</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Dicionário rápido</h3>
+            <table class="tb">
+              <thead><tr><th>dobro</th><th>triplo</th><th>metade</th><th>sucessor</th><th>antecessor</th><th>quadrado</th></tr></thead>
+              <tbody><tr><td>\(2n\)</td><td>\(3n\)</td><td>\(\tfrac{n}{2}\)</td><td>\(n+1\)</td><td>\(n-1\)</td><td>\(n^2\)</td></tr></tbody>
+            </table>
+
+            <h3>Receita do valor numérico</h3>
+            <ol>
+              <li>Escreva a expressão e os valores.</li>
+              <li>Troque a letra pelo número.</li>
+              <li>Mostre o “vezes” escondido.</li>
+              <li>Resolva na ordem, reescrevendo a conta a cada passo.</li>
+              <li>Escreva a resposta e confira.</li>
+            </ol>
+
+            <h3>Glossário</h3>
+            <ul>
+              <li><b>Variável</b>: letra que pode assumir vários valores. <b>Incógnita</b>: letra cujo valor queremos descobrir.</li>
+              <li><b>Substituir</b>: trocar a letra pelo número. <b>Equivalentes</b>: expressões com o mesmo valor para qualquer número.</li>
+            </ul>
+
+            <div class="callout success"><b>Você chegou ao fim da teoria! 🎉</b>Agora vá para os exercícios e avance nível por nível. Se travar, volte à lição indicada no <a href="#l0" class="underline font-bold text-indigo-700">mapa do curso</a>.</div>
+            <button class="gobtn" data-goto="all">✏️ Ir para os exercícios</button>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LABORATÓRIO ================= -->
+    <section id="sec-laboratorio" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório</span>
+        <h1 class="text-3xl font-black mt-2">Experimente: mexa nos números e veja a álgebra funcionando</h1>
+        <p class="text-slate-600 mt-2">Quatro experimentos para você “sentir” as expressões, o valor numérico, os padrões e as igualdades. É só arrastar os controles.</p>
+      </div>
+
+      <!-- Lab 1 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 1 · A máquina de expressões (valor numérico)</h2>
+        <p class="text-sm text-slate-600 mt-1">Escolha uma expressão e um valor para \(x\). A máquina mostra a conta <b>passo a passo</b>, na ordem certa.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block" for="m-expr">Expressão</label>
+            <select id="m-expr" class="border rounded-xl p-2 w-full mt-2 text-sm bg-white">
+              <option value="3x+5">3x + 5</option>
+              <option value="2(x+3)">2(x + 3)</option>
+              <option value="x^2+1">x² + 1</option>
+              <option value="5x-4">5x − 4</option>
+              <option value="x/2+3">x/2 + 3</option>
+              <option value="(x+1)^2">(x + 1)²</option>
+              <option value="2x^2">2x²</option>
+              <option value="(2x)^2">(2x)²</option>
+              <option value="10-x">10 − x</option>
+              <option value="__custom">Outra (digite)…</option>
+            </select>
+            <input id="m-custom" type="text" value="4x+2(x-1)" class="hidden border rounded-xl p-2 w-full mt-2 text-sm" placeholder="ex.: 4x + 2(x - 1)" autocomplete="off">
+            <label class="font-bold text-sm block mt-5">Valor de \(x\): <span id="m-x-label" class="text-indigo-600">4</span></label>
+            <input id="m-x" type="range" min="0" max="20" value="4" step="1" class="w-full mt-2">
+            <div id="m-info" class="tip rounded-xl p-3 mt-5 text-sm leading-6">Arraste o controle e veja o resultado mudar.</div>
+          </div>
+          <div>
+            <div id="m-machine" class="machine"></div>
+            <div id="m-steps" class="paper rounded-xl p-4 mt-4 text-sm hand" style="font-size:1.2rem"></div>
+            <div id="m-table" class="mt-4 overflow-x-auto"></div>
+            <div id="m-bars" class="flex gap-1 h-32 items-end mt-3 border-b-2 border-slate-300"></div>
+            <div class="text-xs text-slate-500 mt-1">As barras mostram o valor da expressão para \(x\) de 0 a 10.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab 2 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 2 · A balança: descubra o valor de \(x\)</h2>
+        <p class="text-sm text-slate-600 mt-1">Dê palpites para \(x\) com o controle. Quando a balança <b>equilibrar</b>, você descobriu! Depois clique em “Mostrar o passo a passo” para ver como resolver no papel.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block" for="b-level">Tipo de igualdade</label>
+            <select id="b-level" class="border rounded-xl p-2 w-full mt-2 text-sm bg-white">
+              <option value="1">Fácil: x + a = b</option>
+              <option value="2">Médio: a·x = b</option>
+              <option value="3">Difícil: a·x + b = c</option>
+            </select>
+            <button id="b-new" class="mt-3 w-full bg-indigo-600 text-white rounded-xl py-2 font-bold">🎲 Nova balança</button>
+            <label class="font-bold text-sm block mt-5">Meu palpite para \(x\): <span id="b-guess-label" class="text-indigo-600">0</span></label>
+            <input id="b-guess" type="range" min="0" max="30" value="0" step="1" class="w-full mt-2">
+            <button id="b-show" class="mt-3 w-full bg-white border-2 border-indigo-300 text-indigo-700 rounded-xl py-2 font-bold text-sm">👁 Mostrar o passo a passo</button>
+          </div>
+          <div>
+            <div id="b-scale" class="figbox"></div>
+            <div id="b-msg" class="text-center font-bold mt-3"></div>
+            <div id="b-steps" class="hidden mt-3 space-y-2 text-sm"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab 3 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 3 · Padrões com palitos de fósforo</h2>
+        <p class="text-sm text-slate-600 mt-1">Aumente o número de figuras e veja a <b>regra geral</b> contando os palitos por você.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block" for="p-kind">Figura</label>
+            <select id="p-kind" class="border rounded-xl p-2 w-full mt-2 text-sm bg-white">
+              <option value="sq">Quadrados em fila</option>
+              <option value="tri">Triângulos em fila</option>
+            </select>
+            <label class="font-bold text-sm block mt-5">Quantidade de figuras (\(n\)): <span id="p-n-label" class="text-indigo-600">4</span></label>
+            <input id="p-n" type="range" min="1" max="10" value="4" step="1" class="w-full mt-2">
+            <div id="p-info" class="tip rounded-xl p-3 mt-5 text-sm leading-6"></div>
+          </div>
+          <div>
+            <div id="p-fig" class="figbox"></div>
+            <div id="p-table" class="mt-4 overflow-x-auto"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab 4 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 4 · Simulador de preços (taxa fixa + preço por unidade)</h2>
+        <p class="text-sm text-slate-600 mt-1">Dois planos: cada um tem uma <b>taxa fixa</b> e um <b>preço por unidade</b> (por km, por GB…). Compare os dois e descubra quando custam o mesmo.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div class="space-y-4">
+            <div class="bg-indigo-50 rounded-xl p-3">
+              <div class="font-black text-sm text-indigo-800">Plano A</div>
+              <label class="text-xs font-bold block mt-2">Taxa fixa: R$ <span id="s-fa-l">20</span></label>
+              <input id="s-fa" type="range" min="0" max="30" value="20" class="w-full">
+              <label class="text-xs font-bold block mt-2">Por unidade: R$ <span id="s-pa-l">2</span></label>
+              <input id="s-pa" type="range" min="1" max="10" value="2" class="w-full">
+            </div>
+            <div class="bg-amber-50 rounded-xl p-3">
+              <div class="font-black text-sm text-amber-800">Plano B</div>
+              <label class="text-xs font-bold block mt-2">Taxa fixa: R$ <span id="s-fb-l">10</span></label>
+              <input id="s-fb" type="range" min="0" max="30" value="10" class="w-full">
+              <label class="text-xs font-bold block mt-2">Por unidade: R$ <span id="s-pb-l">4</span></label>
+              <input id="s-pb" type="range" min="1" max="10" value="4" class="w-full">
+            </div>
+            <div>
+              <label class="font-bold text-sm block">Quantidade usada (\(k\)): <span id="s-k-l" class="text-indigo-600">3</span></label>
+              <input id="s-k" type="range" min="0" max="20" value="3" class="w-full mt-1">
+            </div>
+          </div>
+          <div>
+            <div id="s-formulas" class="text-center text-lg"></div>
+            <div id="s-msg" class="tip rounded-xl p-3 mt-3 text-sm leading-6"></div>
+            <div id="s-table" class="mt-4 overflow-x-auto"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CALCULADORAS ================= -->
+    <section id="sec-ferramentas" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadoras passo a passo</span>
+        <h1 class="text-3xl font-black mt-2">Digite o seu problema e veja a resolução</h1>
+        <p class="text-slate-600 mt-2">Cada calculadora mostra a conta no formato da folha-modelo. Aceita números inteiros, decimais (<kbd>0,5</kbd>) e frações (<kbd>1/2</kbd>). Nas expressões, escreva <kbd>3x</kbd>, <kbd>2(x+1)</kbd>, <kbd>x^2</kbd> (potência) e <kbd>x/2</kbd> (divisão). Use para <b>conferir</b> o que você fez no papel.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="tools-grid"></div>
+    </section>
+
+    <!-- ================= EXERCÍCIOS ================= -->
+    <section id="sec-exercicios" class="hidden space-y-6">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm flex flex-col lg:flex-row justify-between gap-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo · do mais fácil ao mais difícil</span>
+          <h1 class="text-3xl font-black mt-2"><span id="total-ex">100</span> exercícios em 14 níveis</h1>
+          <p class="text-slate-600 mt-2 max-w-2xl">Comece pelo Nível 1 e vá avançando. Há <b>contas</b>, <b>questões de escolha</b> e <b>problemas de interpretação</b>. Cada exercício tem <b>💡 dica</b> e <b>resolução passo a passo</b>. Digite decimais como <kbd>2,5</kbd> e frações como <kbd>1/2</kbd>.</p>
+        </div>
+        <div class="min-w-[230px]">
+          <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 0</span></div>
+          <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all w-0"></div></div>
+          <button id="reset-progress" class="mt-3 text-xs text-slate-400 hover:text-red-600 underline">Zerar meu progresso</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border p-4 shadow-sm space-y-3">
+        <div class="flex flex-wrap gap-2" id="filters"></div>
+        <div class="flex flex-wrap items-center gap-4">
+          <label class="text-xs font-bold text-slate-600 flex items-center gap-2"><input id="only-open" type="checkbox"> Mostrar só os não resolvidos</label>
+          <input id="search" placeholder="Buscar (ex.: táxi, dobro, balança)…" class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[200px]">
+        </div>
+      </div>
+
+      <div id="exercise-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 pb-10 text-center text-xs text-slate-400">Introdução à Álgebra · 6º ano · seu progresso fica salvo neste navegador.</footer>
+  <script>
+// ==ENGINE-START==
+const T = String.raw;
+const M = s => '\\(' + s + '\\)';
+
+/* ---------- Frações exatas (BigInt) ---------- */
+const gcd = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b] = [b, a % b]; } return a; };
+class F {
+  constructor(n, d = 1n) {
+    n = BigInt(n); d = BigInt(d);
+    if (d === 0n) throw new Error('Não dá para dividir por zero.');
+    if (d < 0n) { n = -n; d = -d; }
+    const g = gcd(n, d) || 1n;
+    this.n = n / g; this.d = d / g;
+  }
+  add(o) { return new F(this.n * o.d + o.n * this.d, this.d * o.d); }
+  sub(o) { return new F(this.n * o.d - o.n * this.d, this.d * o.d); }
+  mul(o) { return new F(this.n * o.n, this.d * o.d); }
+  div(o) { return new F(this.n * o.d, this.d * o.n); }
+  pow(k) { let r = new F(1n), b = this, e = k; while (e > 0) { if (e & 1) r = r.mul(b); b = b.mul(b); e = Math.floor(e / 2); } return r; }
+  eq(o) { return this.n === o.n && this.d === o.d; }
+  isInt() { return this.d === 1n; }
+  isNeg() { return this.n < 0n; }
+  isZero() { return this.n === 0n; }
+  neg() { return new F(-this.n, this.d); }
+  num() { return Number(this.n) / Number(this.d); }
+}
+const f = (n, d = 1) => new F(BigInt(n), BigInt(d));
+
+function parseDec(s) {
+  const m = /^(\d+)(?:\.(\d+))?$/.exec(s);
+  if (!m) return null;
+  const fr = m[2] || '';
+  return new F(BigInt(m[1] + fr), 10n ** BigInt(fr.length));
+}
+function parseF(str) {
+  if (str == null) return null;
+  let s = String(str).trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,/g, '.');
+  if (!s) return null;
+  let neg = false;
+  if (s[0] === '-') { neg = true; s = s.slice(1); } else if (s[0] === '+') s = s.slice(1);
+  const parts = s.split('/');
+  if (parts.length > 2) return null;
+  const a = parseDec(parts[0]);
+  if (!a) return null;
+  let r = a;
+  if (parts.length === 2) {
+    const b = parseDec(parts[1]);
+    if (!b || b.isZero()) return null;
+    r = a.div(b);
+  }
+  if (neg) r = r.neg();
+  if (parts.length === 2) r.fracSrc = true;
+  return r;
+}
+
+/* ---------- Formatação ---------- */
+function fmtInt(b) {
+  let s = (b < 0n ? -b : b).toString();
+  if (s.length >= 5) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, '\\,');
+  return (b < 0n ? '-' : '') + s;
+}
+function decStr(x) {
+  let d = x.d, c2 = 0, c5 = 0;
+  while (d % 2n === 0n) { d /= 2n; c2++; }
+  while (d % 5n === 0n) { d /= 5n; c5++; }
+  if (d !== 1n) return null;
+  const k = Math.max(c2, c5);
+  if (k === 0) return null;
+  const scaled = (x.n < 0n ? -x.n : x.n) * (10n ** BigInt(k)) / x.d;
+  const s = scaled.toString().padStart(k + 1, '0');
+  return (x.n < 0n ? '-' : '') + s.slice(0, -k) + '{,}' + s.slice(-k);
+}
+function fracTex(x) {
+  const neg = x.n < 0n, nn = neg ? -x.n : x.n;
+  return (neg ? '-' : '') + '\\frac{' + fmtInt(nn) + '}{' + fmtInt(x.d) + '}';
+}
+// número em TeX: inteiro, decimal (se terminar) ou fração
+function numTex(x) {
+  if (x.isInt()) return fmtInt(x.n);
+  if (x.fracSrc) return fracTex(x);
+  return decStr(x) || fracTex(x);
+}
+function numPlain(x) { // texto simples (fora do KaTeX)
+  if (x.isInt()) return x.n.toString();
+  const d = decStr(x);
+  if (d) return d.replace('{,}', ',');
+  return x.n.toString() + '/' + x.d.toString();
+}
+function texAns(x) {
+  if (x.isInt()) return fmtInt(x.n);
+  const dec = decStr(x);
+  return fracTex(x) + (dec ? ' = ' + dec : '');
+}
+
+/* ---------- Expressões algébricas: tokens, árvore, passos ---------- */
+function tokenize(src) {
+  const s = String(src).replace(/\s+/g, '').replace(/[×·]/g, '*').replace(/[÷:]/g, '/').replace(/[−–]/g, '-').replace(/²/g, '^2').replace(/³/g, '^3');
+  const toks = []; let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (/[0-9]/.test(c)) {
+      let j = i; while (j < s.length && /[0-9]/.test(s[j])) j++;
+      if ((s[j] === '.' || s[j] === ',') && /[0-9]/.test(s[j + 1] || '')) { j++; while (j < s.length && /[0-9]/.test(s[j])) j++; }
+      toks.push({ t: 'num', v: parseF(s.slice(i, j)) }); i = j;
+    } else if (/[a-zA-Z]/.test(c)) { toks.push({ t: 'var', name: c }); i++; }
+    else if ('+-*/^'.includes(c)) { toks.push({ t: 'op', op: c }); i++; }
+    else if (c === '(' || c === '[') { toks.push({ t: 'lp' }); i++; }
+    else if (c === ')' || c === ']') { toks.push({ t: 'rp' }); i++; }
+    else throw new Error('Símbolo não reconhecido: “' + c + '”.');
+  }
+  const out = [];
+  for (let k = 0; k < toks.length; k++) {
+    const a = toks[k - 1], b = toks[k];
+    if (a) {
+      const aEnd = a.t === 'num' || a.t === 'var' || a.t === 'rp';
+      const bStart = b.t === 'var' || b.t === 'lp' || b.t === 'num';
+      if (aEnd && bStart) {
+        if (b.t === 'num') throw new Error('Escreva o sinal de multiplicação antes de um número (por exemplo, x·2 em vez de x2).');
+        out.push({ t: 'op', op: '*', implicit: true });
+      }
+    }
+    out.push(b);
+  }
+  return out;
+}
+function parseExpr(src) {
+  const toks = tokenize(src);
+  if (!toks.length) throw new Error('Digite uma expressão.');
+  let p = 0;
+  const peek = () => toks[p], next = () => toks[p++];
+  const isOp = (t, ...ops) => t && t.t === 'op' && ops.includes(t.op);
+  function expr() { let l = term(); while (isOp(peek(), '+', '-')) { const op = next().op; const r = term(); l = { t: 'bin', op, l, r }; } return l; }
+  function term() { let l = power(); while (isOp(peek(), '*', '/')) { const o = next(); const r = power(); l = { t: 'bin', op: o.op, l, r, implicit: !!o.implicit }; } return l; }
+  function power() { const b = atom(); if (isOp(peek(), '^')) { next(); const e = power(); return { t: 'bin', op: '^', l: b, r: e }; } return b; }
+  function atom() {
+    const k = next();
+    if (!k) throw new Error('A expressão parece incompleta.');
+    if (k.t === 'num') return { t: 'num', v: k.v };
+    if (k.t === 'var') return { t: 'var', name: k.name };
+    if (k.t === 'lp') { const e = expr(); const c = next(); if (!c || c.t !== 'rp') throw new Error('Faltou fechar um parêntese.'); return { t: 'par', e }; }
+    if (k.t === 'op' && k.op === '-') throw new Error('Números negativos ainda não aparecem no 6º ano: use a subtração entre dois números (como 10 − x).');
+    throw new Error('Não entendi a expressão perto de “' + (k.op || ')') + '”.');
+  }
+  const r = expr();
+  if (p < toks.length) throw new Error('Sobrou algo no final da expressão. Confira os parênteses e os sinais.');
+  return r;
+}
+const strip = n => n.t === 'par' ? n.e : n;
+function toTex(n, mode) {
+  switch (n.t) {
+    case 'num': return numTex(n.v);
+    case 'var': return n.name;
+    case 'par': return '\\left(' + toTex(n.e, mode) + '\\right)';
+    case 'bin': {
+      if (n.op === '/' && mode === 'lit') return '\\frac{' + toTex(strip(n.l), mode) + '}{' + toTex(strip(n.r), mode) + '}';
+      const L = toTex(n.l, mode);
+      let R = toTex(n.r, mode);
+      if (n.op === '+') return L + ' + ' + R;
+      if (n.op === '-') return L + ' - ' + R;
+      if (n.op === '*') return (mode === 'lit' && n.implicit) ? L + R : L + ' \\cdot ' + R;
+      if (n.op === '/') return L + ' \\div ' + R;
+      if (n.op === '^') {
+        const base = (n.l.t === 'num' && !n.l.v.isInt()) ? '\\left(' + L + '\\right)' : L;
+        return base + '^{' + R + '}';
+      }
+    }
+  }
+  return '';
+}
+function collectVars(n, set) {
+  if (n.t === 'var') set.add(n.name);
+  else if (n.t === 'bin') { collectVars(n.l, set); collectVars(n.r, set); }
+  else if (n.t === 'par') collectVars(n.e, set);
+  return set;
+}
+const hasImplicit = n => n.t === 'bin' ? ((n.op === '*' && n.implicit) || hasImplicit(n.l) || hasImplicit(n.r)) : n.t === 'par' ? hasImplicit(n.e) : false;
+function substitute(n, vars) {
+  if (n.t === 'var') {
+    const v = vars[n.name];
+    if (!v) throw new Error('Falta o valor da letra ' + n.name + '.');
+    const leaf = { t: 'num', v };
+    return v.isInt() ? leaf : { t: 'par', e: leaf };
+  }
+  if (n.t === 'bin') return Object.assign({}, n, { l: substitute(n.l, vars), r: substitute(n.r, vars) });
+  if (n.t === 'par') return { t: 'par', e: substitute(n.e, vars) };
+  return n;
+}
+function calc(op, a, b) {
+  if (op === '+') return a.add(b);
+  if (op === '-') return a.sub(b);
+  if (op === '*') return a.mul(b);
+  if (op === '/') { if (b.isZero()) throw new Error('Não dá para dividir por zero.'); return a.div(b); }
+  if (op === '^') {
+    if (!b.isInt() || b.isNeg()) throw new Error('O expoente precisa ser um número natural.');
+    const e = Number(b.n); if (e > 12) throw new Error('Expoente grande demais para esta calculadora.');
+    return a.pow(e);
+  }
+  throw new Error('Operação desconhecida.');
+}
+function evalNode(n, vars) {
+  if (n.t === 'num') return n.v;
+  if (n.t === 'var') { const v = vars[n.name]; if (!v) throw new Error('Falta o valor da letra ' + n.name + '.'); return v; }
+  if (n.t === 'par') return evalNode(n.e, vars);
+  return calc(n.op, evalNode(n.l, vars), evalNode(n.r, vars));
+}
+const cls = op => op === '^' ? 3 : (op === '*' || op === '/') ? 2 : 1;
+const hasPar = n => n.t === 'par' || (n.t === 'bin' && (hasPar(n.l) || hasPar(n.r)));
+function candidates(n, out) {
+  if (n.t === 'bin') { if (n.l.t === 'num' && n.r.t === 'num') out.push(n); else { candidates(n.l, out); candidates(n.r, out); } }
+}
+function reduceRegion(R) {
+  const list = []; candidates(R, list);
+  if (!list.length) return { node: R, classes: [] };
+  const max = Math.max(...list.map(x => cls(x.op)));
+  const rb = n => {
+    if (n.t === 'bin') {
+      if (n.l.t === 'num' && n.r.t === 'num' && cls(n.op) === max) return { t: 'num', v: calc(n.op, n.l.v, n.r.v) };
+      return Object.assign({}, n, { l: rb(n.l), r: rb(n.r) });
+    }
+    return n;
+  };
+  return { node: rb(R), classes: [max] };
+}
+function stepTree(n) {
+  if (!hasPar(n)) { const r = reduceRegion(n); return { node: r.node, classes: new Set(r.classes), inPar: false }; }
+  const classes = new Set();
+  const go = x => {
+    if (x.t === 'par') {
+      if (!hasPar(x.e)) { const r = reduceRegion(x.e); r.classes.forEach(c => classes.add(c)); return { t: 'par', e: r.node }; }
+      return { t: 'par', e: go(x.e) };
+    }
+    if (x.t === 'bin') return Object.assign({}, x, { l: go(x.l), r: go(x.r) });
+    return x;
+  };
+  return { node: go(n), classes, inPar: true };
+}
+function cleanup(x) {
+  if (x.t === 'par') { const e = cleanup(x.e); return e.t === 'num' ? e : { t: 'par', e }; }
+  if (x.t === 'bin') return Object.assign({}, x, { l: cleanup(x.l), r: cleanup(x.r) });
+  return x;
+}
+function stepLabel(r) {
+  const nm = { 3: 'as potências', 2: 'as multiplicações e divisões (da esquerda para a direita)', 1: 'as somas e subtrações (da esquerda para a direita)' };
+  const cs = [...r.classes].sort((a, b) => b - a);
+  if (r.inPar) return 'Primeiro os parênteses' + (cs.length === 1 ? ' (dentro deles: ' + nm[cs[0]] + ')' : '');
+  return cs.length === 1 ? 'Resolva ' + nm[cs[0]] : 'Resolva as operações';
+}
+// passo a passo do valor numérico
+function stepsVN(src, vars, opts = {}) {
+  const ast = parseExpr(src);
+  const names = [...collectVars(ast, new Set())].sort();
+  names.forEach(nm => { if (!vars[nm]) throw new Error('Falta o valor da letra ' + nm + '.'); });
+  const S = [];
+  if (!opts.skipExpr) {
+    S.push('Escreva a expressão' + (names.length ? ' e os valores das letras' : '') + ': ' + M(toTex(ast, 'lit')) +
+      (names.length ? ', com ' + names.map(nm => M(nm + ' = ' + numTex(vars[nm]))).join(' e ') : '') + '.');
+  }
+  let cur;
+  if (names.length) {
+    const sub = substitute(ast, vars);
+    S.push('Troque ' + (names.length > 1 ? 'cada letra pelo valor dela' : 'a letra pelo valor dela') + (hasImplicit(ast) ? ' e mostre o sinal de vezes que estava escondido' : '') + ': ' + M(toTex(sub, 'num')) + '.');
+    cur = cleanup(sub);
+  } else cur = cleanup(ast);
+  let guard = 0;
+  while (cur.t !== 'num') {
+    if (++guard > 60) throw new Error('A conta ficou longa demais.');
+    const r = stepTree(cur);
+    cur = cleanup(r.node);
+    S.push(stepLabel(r) + ': ' + M(toTex(cur, 'num')) + '.');
+  }
+  S.res = cur.v;
+  if (opts.final) S.push('Resultado: o valor numérico é ' + M(numTex(cur.v)) + '.');
+  return S;
+}
+
+/* ---------- Igualdades (valor desconhecido) ---------- */
+const pn = x => x.isInt() ? x.n.toString() : numPlain(x).replace(',', '.');
+const EQ = {
+  'x+a=b': { lhs: p => 'x+' + pn(p.a), rhs: p => p.b, solve: p => p.b.sub(p.a) },
+  'x-a=b': { lhs: p => 'x-' + pn(p.a), rhs: p => p.b, solve: p => p.b.add(p.a) },
+  'ax=b': { lhs: p => pn(p.a) + 'x', rhs: p => p.b, solve: p => p.b.div(p.a) },
+  'x/a=b': { lhs: p => 'x/' + pn(p.a), rhs: p => p.b, solve: p => p.b.mul(p.a) },
+  'a-x=b': { lhs: p => pn(p.a) + '-x', rhs: p => p.b, solve: p => p.a.sub(p.b) },
+  'a/x=b': { lhs: p => pn(p.a) + '/x', rhs: p => p.b, solve: p => p.a.div(p.b) },
+  'ax+b=c': { lhs: p => pn(p.a) + 'x+' + pn(p.b), rhs: p => p.c, solve: p => p.c.sub(p.b).div(p.a) },
+  'ax-b=c': { lhs: p => pn(p.a) + 'x-' + pn(p.b), rhs: p => p.c, solve: p => p.c.add(p.b).div(p.a) },
+  'x/a+b=c': { lhs: p => 'x/' + pn(p.a) + '+' + pn(p.b), rhs: p => p.c, solve: p => p.c.sub(p.b).mul(p.a) }
+};
+function eqTex(type, p, rev) {
+  const L = toTex(parseExpr(EQ[type].lhs(p)), 'lit'), R = numTex(EQ[type].rhs(p));
+  return rev ? R + ' = ' + L : L + ' = ' + R;
+}
+function eqSteps(type, p) {
+  const { a, b, c } = p, S = [], x = EQ[type].solve(p);
+  const A = numTex(a), B = b ? numTex(b) : '', C = c ? numTex(c) : '';
+  const balance = 'Lembre: a igualdade é uma balança; o que fizer de um lado, faça do outro.';
+  switch (type) {
+    case 'x+a=b':
+      S.push(balance + ' Aqui o ' + M('x') + ' está <b>somando ' + A + '</b>. Para desfazer, <b>subtraia ' + A + '</b> dos dois lados: ' + M('x + ' + A + ' - ' + A + ' = ' + B + ' - ' + A) + '.');
+      S.push('Resolva: ' + M('x = ' + B + ' - ' + A + ' = ' + numTex(x)) + '.'); break;
+    case 'x-a=b':
+      S.push(balance + ' Aqui o ' + M('x') + ' está <b>subtraindo ' + A + '</b>. Para desfazer, <b>some ' + A + '</b> dos dois lados: ' + M('x - ' + A + ' + ' + A + ' = ' + B + ' + ' + A) + '.');
+      S.push('Resolva: ' + M('x = ' + B + ' + ' + A + ' = ' + numTex(x)) + '.'); break;
+    case 'ax=b':
+      S.push(balance + ' ' + M(A + 'x') + ' significa ' + M(A + ' \\cdot x') + ': o ' + M('x') + ' está <b>multiplicado por ' + A + '</b>. Para desfazer, <b>divida por ' + A + '</b> os dois lados: ' + M('\\dfrac{' + A + 'x}{' + A + '} = \\dfrac{' + B + '}{' + A + '}') + '.');
+      S.push('Resolva: ' + M('x = ' + B + ' \\div ' + A + ' = ' + numTex(x)) + '.'); break;
+    case 'x/a=b':
+      S.push(balance + ' Aqui o ' + M('x') + ' está <b>dividido por ' + A + '</b>. Para desfazer, <b>multiplique por ' + A + '</b> os dois lados: ' + M('\\dfrac{x}{' + A + '} \\cdot ' + A + ' = ' + B + ' \\cdot ' + A) + '.');
+      S.push('Resolva: ' + M('x = ' + B + ' \\cdot ' + A + ' = ' + numTex(x)) + '.'); break;
+    case 'a-x=b':
+      S.push('Aqui o ' + M('x') + ' está sendo <b>subtraído de ' + A + '</b>. Pergunte: <i>“' + A + ' menos quanto dá ' + B + '?”</i> A resposta é a diferença: ' + M('x = ' + A + ' - ' + B + ' = ' + numTex(x)) + '.'); break;
+    case 'a/x=b':
+      S.push('Aqui ' + A + ' está sendo <b>dividido pelo ' + M('x') + '</b>. Pergunte: <i>“' + A + ' dividido por quanto dá ' + B + '?”</i> Então ' + M('x = ' + A + ' \\div ' + B + ' = ' + numTex(x)) + '.'); break;
+    case 'ax+b=c': {
+      const d = c.sub(b);
+      S.push('Desfaça na ordem contrária. Primeiro a soma: <b>subtraia ' + B + '</b> dos dois lados: ' + M(A + 'x + ' + B + ' - ' + B + ' = ' + C + ' - ' + B) + ', ou seja, ' + M(A + 'x = ' + numTex(d)) + '.');
+      S.push('Agora a multiplicação: <b>divida por ' + A + '</b> os dois lados: ' + M('x = ' + numTex(d) + ' \\div ' + A + ' = ' + numTex(x)) + '.'); break;
+    }
+    case 'ax-b=c': {
+      const d = c.add(b);
+      S.push('Desfaça na ordem contrária. Primeiro a subtração: <b>some ' + B + '</b> dos dois lados: ' + M(A + 'x - ' + B + ' + ' + B + ' = ' + C + ' + ' + B) + ', ou seja, ' + M(A + 'x = ' + numTex(d)) + '.');
+      S.push('Agora a multiplicação: <b>divida por ' + A + '</b> os dois lados: ' + M('x = ' + numTex(d) + ' \\div ' + A + ' = ' + numTex(x)) + '.'); break;
+    }
+    case 'x/a+b=c': {
+      const d = c.sub(b);
+      S.push('Desfaça na ordem contrária. Primeiro a soma: <b>subtraia ' + B + '</b> dos dois lados: ' + M('\\dfrac{x}{' + A + '} + ' + B + ' - ' + B + ' = ' + C + ' - ' + B) + ', ou seja, ' + M('\\dfrac{x}{' + A + '} = ' + numTex(d)) + '.');
+      S.push('Agora a divisão: <b>multiplique por ' + A + '</b> os dois lados: ' + M('x = ' + numTex(d) + ' \\cdot ' + A + ' = ' + numTex(x)) + '.'); break;
+    }
+  }
+  const lhs = parseExpr(EQ[type].lhs(p)), sub = substitute(lhs, { x }), val = evalNode(lhs, { x });
+  S.push('<b>Conferência:</b> troque ' + M('x') + ' por ' + M(numTex(x)) + ' na igualdade: ' + M(toTex(sub, 'num') + ' = ' + numTex(val)) + (val.eq(EQ[type].rhs(p)) ? ' ✓' : ' ✗') + '.');
+  S.res = x;
+  return S;
+}
+
+// troca a letra x por outra letra, só dentro das fórmulas \( ... \)
+function renameVar(S, L) {
+  if (L === 'x') return S;
+  const out = S.map(s => s.replace(/\\\((.*?)\\\)/g, (m0, inner) => '\\(' + inner.replace(/x/g, L) + '\\)'));
+  out.res = S.res; return out;
+}
+
+/* ---------- Regra de um padrão (sequência com diferença constante) ---------- */
+function ruleExpr(r, k) {
+  let s = r.eq(f(1)) ? 'n' : numPlain(r).replace(',', '.') + 'n';
+  if (r.isZero()) s = '';
+  if (!k.isZero()) s += (s ? (k.isNeg() ? '-' : '+') : (k.isNeg() ? '-' : '')) + pn(k.isNeg() ? k.neg() : k);
+  return s || '0';
+}
+function stepsRule(terms) {
+  const S = []; S.res = null;
+  if (terms.length < 3) { S.push('Informe pelo menos 3 termos para descobrir a regra.'); return S; }
+  const ds = []; for (let i = 0; i < terms.length - 1; i++) ds.push(terms[i + 1].sub(terms[i]));
+  S.push('Veja quanto a sequência cresce de um termo para o próximo: ' + M(ds.map((d, i) => numTex(terms[i + 1]) + ' - ' + numTex(terms[i]) + ' = ' + numTex(d)).join(';\\ ')) + '.');
+  if (ds.some(d => d.isNeg())) { S.push('Aqui os números <b>diminuem</b>. Regras de sequências que diminuem pedem números negativos, assunto dos próximos anos. Aqui, use sequências que crescem.'); return S; }
+  if (!ds.every(d => d.eq(ds[0]))) { S.push('Os aumentos <b>não são todos iguais</b>, então essa sequência não segue uma regra do tipo ' + M('c \\cdot n + k') + ' (regra com crescimento constante).'); return S; }
+  const r = ds[0], k = terms[0].sub(r);
+  S.push('O aumento é sempre ' + M(numTex(r)) + '. Esse é o número que multiplica o ' + M('n') + ': a regra começa com ' + M(numTex(r) + 'n') + '.');
+  S.push('Compare com o 1º termo: com ' + M('n = 1') + ' a regra dá ' + M(numTex(r) + ' \\cdot 1 = ' + numTex(r)) + ', mas o 1º termo é ' + M(numTex(terms[0])) + '. ' + (k.isZero() ? 'Já bate, não falta nada.' : 'Falta ' + M(numTex(k)) + ' (' + M(numTex(terms[0]) + ' - ' + numTex(r) + ' = ' + numTex(k)) + ').'));
+  const re = ruleExpr(r, k), rexp = parseExpr(re);
+  S.push('A regra é ' + M(toTex(rexp, 'lit')) + '.');
+  const at = n => evalNode(rexp, { n: f(n) });
+  const ok = terms.every((t, i) => at(i + 1).eq(t));
+  S.push('<b>Teste:</b> ' + terms.slice(0, 4).map((t, i) => M('n = ' + (i + 1) + ' \\to ' + toTex(substitute(rexp, { n: f(i + 1) }), 'num') + ' = ' + numTex(at(i + 1)))).join(' · ') + (ok ? ' ✓' : ''));
+  S.push('Agora dá para prever qualquer termo: o 10º é ' + M(numTex(at(10))) + ', o 50º é ' + M(numTex(at(50))) + ' e o 100º é ' + M(numTex(at(100))) + '.');
+  S.res = { r, k, expr: re };
+  return S;
+}
+
+/* ---------- Partes de uma expressão ---------- */
+function analyzeTerms(src) {
+  const s = String(src).replace(/\s+/g, '').replace(/[×·]/g, '*').replace(/[−–]/g, '-');
+  if (!s) throw new Error('Digite uma expressão.');
+  if (/[()\[\]/÷]/.test(s)) throw new Error('Esta ferramenta analisa somas e subtrações simples, sem parênteses nem divisões (ex.: 4x + 3y - 7).');
+  const parts = s.match(/[+-]?[^+-]+/g);
+  if (!parts || parts.join('') !== s) throw new Error('Confira os sinais da expressão.');
+  return parts.map(t => {
+    const sign = t[0] === '-' ? '-' : '+', body = t.replace(/^[+-]/, '');
+    const m = /^(\d+(?:[.,]\d+)?)?\*?((?:[a-zA-Z](?:\^\d+)?\*?)+)?$/.exec(body);
+    if (!m || (!m[1] && !m[2])) throw new Error('Não consegui entender o termo “' + t + '”.');
+    const coef = m[1] ? m[1].replace('.', ',') : '1';
+    const lit = (m[2] || '').replace(/\*/g, '');
+    return { sign, coef, lit, text: t };
+  });
+}
+function litTex(lit) { return lit.replace(/([a-zA-Z])\^(\d+)/g, '$1^{$2}'); }
+
+/* ---------- Banco de exercícios ---------- */
+const LEVELS = [null,
+  { name: 'Letras, termos e coeficientes', desc: 'Entenda o que é uma letra, um termo, um coeficiente e um termo independente.', rem: T`Termo = parte separada por + ou −. Coeficiente = número que multiplica a letra (\(x\) tem coeficiente 1).`, lesson: 'l4' },
+  { name: 'Traduzindo frases para a álgebra', desc: 'Escolha a expressão que corresponde à frase.', rem: T`dobro \(2n\) · triplo \(3n\) · metade \(\tfrac{n}{2}\) · sucessor \(n+1\) · antecessor \(n-1\) · quadrado \(n^2\).`, lesson: 'l3' },
+  { name: 'Traduções com mais atenção (e ao contrário)', desc: 'Parênteses, ordem e situações do dia a dia.', rem: T`“O dobro <b>da soma</b>” usa parênteses: \(2(x+3)\). “A soma <b>do dobro</b>” não: \(2x+3\).`, lesson: 'l3' },
+  { name: 'Valor numérico — um passo', desc: 'Troque a letra pelo número e faça uma conta.', rem: T`\(3x\) significa \(3 \cdot x\), e não “3 e x juntos”.`, lesson: 'l5' },
+  { name: 'Valor numérico — duas operações', desc: 'Respeite a ordem: multiplicação antes de soma e subtração.', rem: T`Ordem: parênteses → potências → × e ÷ → + e −.`, lesson: 'l5' },
+  { name: 'Parênteses e potências', desc: 'Cuidado com \\(x^2\\), \\(2x^2\\) e \\((2x)^2\\).', rem: T`\(x^2 = x \cdot x\). Em \(2x^2\) o expoente é só do \(x\); em \((2x)^2\) é de tudo.`, lesson: 'l5' },
+  { name: 'Valor numérico com duas letras', desc: 'Cada letra recebe o seu valor.', rem: T`Troque <b>cada</b> letra pelo valor dela e resolva na ordem certa.`, lesson: 'l5' },
+  { name: 'Decimais e frações', desc: 'As mesmas contas, agora com números decimais e frações.', rem: T`\(0{,}5 = \tfrac{1}{2}\). Em potência, use o decimal entre parênteses: \((0{,}5)^2\).`, lesson: 'l5' },
+  { name: 'Tabelas, sequências e regras', desc: 'Descubra e use a regra geral de um padrão.', rem: T`Cresce \(c\) por passo ⇒ regra \(c \cdot n + k\), com \(k = (1^\circ\ \text{termo}) - c\).`, lesson: 'l6' },
+  { name: 'Fórmulas do dia a dia', desc: 'Perímetro, área, custo, distância e média.', rem: T`Troque as letras da fórmula pelos valores do problema e calcule.`, lesson: 'l9' },
+  { name: 'Problemas: interprete e calcule', desc: 'Sem a expressão pronta: você monta e depois calcula o valor numérico.', rem: T`Dê uma letra ao que muda, escreva a expressão, substitua e responda com a unidade.`, lesson: 'l10' },
+  { name: 'Igualdades: descubra o valor desconhecido', desc: 'Desfaça as operações nos dois lados da balança.', rem: T`Desfaça a operação com a <b>inversa</b>: soma ↔ subtração, vezes ↔ divisão. Confira no final.`, lesson: 'l7' },
+  { name: 'Problemas: interprete e monte a igualdade', desc: 'Leia a história, escreva a igualdade e descubra o valor desconhecido.', rem: T`Se o problema dá o <b>resultado</b> e pergunta o valor da letra, monte uma igualdade.`, lesson: 'l10' },
+  { name: 'Desafios finais', desc: 'Equivalência, padrões, comparações e problemas que misturam tudo.', rem: T`Quando travar: faça uma tabela de valores ou teste com números pequenos.`, lesson: 'l8' }
+];
+
+function buildExercises() {
+  const E = []; let id = 0;
+  const add = (level, o) => E.push(Object.assign({ id: ++id, level, kind: 'num', common: [] }, o));
+  const V = o => { const r = {}; for (const k in o) r[k] = (o[k] instanceof F) ? o[k] : parseF(String(o[k])); return r; };
+  const mc = (level, expr, options, ans, hint, steps) => add(level, { kind: 'mc', expr, options, ans, ansTex: options[ans], hint, steps });
+  const numq = (level, expr, ans, hint, steps, common) => add(level, { expr, ans: f(ans), hint, steps, common: common || [] });
+  const vlist = vars => Object.keys(vars).map(k => M(k + ' = ' + numTex(vars[k])));
+  const joinE = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1] : a[0];
+  const vnItem = (level, src, vars0, commons, hintExtra, custom) => {
+    const vars = V(vars0), S = stepsVN(src, vars);
+    const lit = M(toTex(parseExpr(src), 'lit'));
+    add(level, {
+      expr: custom || ('Calcule o valor numérico de ' + lit + ' para ' + joinE(vlist(vars)) + '.'), ans: S.res, steps: S,
+      hint: 'Troque cada letra pelo valor dela, mostre o “vezes” escondido e resolva na ordem: parênteses → potências → × e ÷ → + e −.' + (hintExtra ? ' ' + hintExtra : ''),
+      common: (commons || []).map(c => ({ v: f(c[0]), msg: c[1] }))
+    });
+  };
+
+  /* N1 — letras, termos, coeficientes */
+  numq(1, T`Na expressão \(3x + 5\), quantos <b>termos</b> existem?`, 2, 'Termos são as partes separadas por + ou −. Conte os pedaços.',
+    [T`Termos são as partes separadas por \(+\) ou \(-\).`, T`Em \(3x + 5\) temos o termo \(3x\) e o termo \(5\): são <b>2 termos</b>.`]);
+  numq(1, T`Na expressão \(7y\), qual é o <b>coeficiente</b> (o número que multiplica a letra)?`, 7, 'O coeficiente é o número que aparece junto da letra.',
+    [T`\(7y\) significa \(7 \cdot y\).`, T`O número que multiplica a letra é o <b>7</b>, o coeficiente.`]);
+  numq(1, T`Em \(4a + 2b + 9\), qual é o <b>termo independente</b> (o termo que não tem letra)?`, 9, 'É o termo sem letra.',
+    [T`Os termos são \(4a\), \(2b\) e \(9\).`, T`Só o \(9\) não tem letra: é o termo independente.`]);
+  mc(1, T`Em \(5x\), a letra \(x\) representa:`, ['um número (desconhecido ou que pode variar)', 'a letra X maiúscula', 'sempre o número 10', 'o resultado de 5 + 5'], 0,
+    'Na álgebra, as letras ficam no lugar de números.',
+    [T`Em álgebra, uma letra representa um <b>número</b>.`, T`Esse número pode ser desconhecido (incógnita) ou pode mudar (variável). \(5x\) significa \(5\) vezes esse número.`]);
+  numq(1, T`Quantas letras <b>diferentes</b> aparecem em \(3a + 2b - c\)?`, 3, 'Conte letras distintas.',
+    [T`As letras que aparecem são \(a\), \(b\) e \(c\).`, T`São <b>3</b> letras diferentes.`]);
+  numq(1, T`Qual é o coeficiente de \(x\) em \(x + 8\)?`, 1, 'Quando não aparece número na frente da letra, ele existe escondido.',
+    [T`Quando não aparece número na frente da letra, ele é o <b>1</b> escondido: \(x = 1 \cdot x\).`, T`Então o coeficiente é <b>1</b>.`]);
+  mc(1, T`O que significa \(6n\)?`, ['6 vezes n (6 · n)', '6 mais n', 'o número 6 seguido do n', '6 elevado a n'], 0,
+    'Entre número e letra o sinal de vezes fica escondido.',
+    [T`Entre um número e uma letra, o sinal de vezes não é escrito.`, T`Então \(6n = 6 \cdot n\): <b>6 vezes n</b>.`]);
+  numq(1, T`Em \(2x + 3y + 4\), quantos termos <b>têm letra</b>?`, 2, 'Veja quais termos têm letra e quais são só números.',
+    [T`Os termos são \(2x\), \(3y\) e \(4\).`, T`\(2x\) e \(3y\) têm letra; \(4\) não tem. Resposta: <b>2</b>.`]);
+
+  /* N2 — traduzir frases */
+  const tr = (level, frase, opts, ans, steps, hint) => mc(level, frase, opts.map(o => M(o)), ans, hint || 'Traduza a frase palavra por palavra e teste com um número.', steps);
+  tr(2, T`Qual expressão representa <b>o dobro de um número</b> \(n\)?`, ['n + 2', '2n', 'n^2', '\\dfrac{n}{2}'], 1, [T`“Dobro” significa vezes 2.`, T`O dobro de \(n\) é \(2 \cdot n = 2n\). Teste: se \(n = 5\), o dobro é 10 e \(2 \cdot 5 = 10\) ✓.`]);
+  tr(2, T`Qual expressão representa <b>a metade de um número</b> \(y\)?`, ['2y', 'y - 2', '\\dfrac{y}{2}', 'y + 2'], 2, [T`“Metade” significa dividir por 2.`, T`A metade de \(y\) é \(y \div 2 = \dfrac{y}{2}\). Teste: se \(y = 10\), metade é 5.`]);
+  tr(2, T`Qual expressão representa <b>o sucessor</b> de um número \(n\)?`, ['n + 1', 'n - 1', '2n', 'n^2'], 0, [T`O sucessor é o próximo número: soma 1.`, T`Sucessor de \(n\): \(n + 1\). Teste: sucessor de 7 é 8.`]);
+  tr(2, T`Qual expressão representa <b>o antecessor</b> de um número \(n\)?`, ['n + 1', 'n - 1', 'n - 2', '\\dfrac{n}{2}'], 1, [T`O antecessor é o número anterior: tira 1.`, T`Antecessor de \(n\): \(n - 1\). Teste: antecessor de 7 é 6.`]);
+  tr(2, T`Qual expressão representa <b>o quadrado</b> de um número \(a\)?`, ['2a', 'a + 2', 'a^2', '\\dfrac{a}{2}'], 2, [T`Quadrado é o número vezes ele mesmo.`, T`\(a \cdot a = a^2\). Teste: o quadrado de 5 é 25 e \(5^2 = 25\) ✓ (e não \(2 \cdot 5 = 10\)).`]);
+  tr(2, T`Qual expressão representa <b>o triplo de \(x\), mais 5</b>?`, ['3(x + 5)', '3x + 5', 'x + 15', '5x + 3'], 1, [T`“O triplo de \(x\)” é \(3x\).`, T`“Mais 5” soma 5 depois: \(3x + 5\). Teste: \(x = 2\): triplo é 6, mais 5 dá 11, e \(3 \cdot 2 + 5 = 11\) ✓.`]);
+  tr(2, T`Qual expressão representa <b>a soma de \(x\) e \(y\)</b>?`, ['xy', 'x - y', 'x + y', '\\dfrac{x}{y}'], 2, [T`“Soma” é a operação de adicionar.`, T`A soma de \(x\) e \(y\) é \(x + y\).`]);
+  tr(2, T`Qual expressão representa <b>a diferença entre \(a\) e 7</b>, nessa ordem?`, ['7 - a', 'a - 7', 'a + 7', '7a'], 1, [T`“Diferença” é subtração e a frase manda a ordem: primeiro \(a\), depois 7.`, T`Resposta: \(a - 7\). Teste: \(a = 10\): \(10 - 7 = 3\).`]);
+
+  /* N3 — traduções mais atentas */
+  tr(3, T`Qual expressão representa <b>o dobro da soma de \(x\) e 3</b>?`, ['2x + 3', '2(x + 3)', 'x + 6', '2 + x + 3'], 1, [T`“A soma de \(x\) e 3” é \(x + 3\), e <u>tudo</u> é dobrado.`, T`Parênteses mostram o que é dobrado: \(2(x + 3)\). Teste: \(x = 1\): soma 4, dobro 8, e \(2(1 + 3) = 8\) ✓ (já \(2 \cdot 1 + 3 = 5\) ✗).`]);
+  tr(3, T`Qual expressão representa <b>a soma do dobro de \(x\) com 3</b>?`, ['2x + 3', '2(x + 3)', '3x + 2', 'x + 5'], 0, [T`Primeiro o dobro de \(x\): \(2x\). Depois soma 3.`, T`\(2x + 3\). Só o \(x\) é dobrado.`]);
+  tr(3, T`Qual expressão representa <b>cinco a mais que o triplo de \(n\)</b>?`, ['3(n + 5)', '5n + 3', '3n + 5', 'n + 8'], 2, [T`“O triplo de \(n\)” é \(3n\).`, T`“Cinco a mais” soma 5: \(3n + 5\).`]);
+  mc(3, T`Qual frase corresponde a \(n - 4\)?`, ['4 menos n', 'n dividido por 4', 'n menos 4 (4 a menos que n)', 'o quádruplo de n'], 2, 'Leia da esquerda para a direita.',
+    [T`\(n - 4\) lê-se “n menos 4”.`, T`É o mesmo que “4 a menos que \(n\)”. Não confunda com “4 menos \(n\)”, que seria \(4 - n\).`]);
+  mc(3, T`Qual frase corresponde a \(2(n + 1)\)?`, ['o dobro do sucessor de n', 'o sucessor do dobro de n', 'n mais 2', 'o dobro de n'], 0, 'O que está dentro do parêntese é feito primeiro.',
+    [T`Dentro do parêntese: \(n + 1\), o sucessor de \(n\).`, T`Fora: vezes 2. Então é <b>o dobro do sucessor de \(n\)</b>.`]);
+  mc(3, T`Um número <b>par</b> pode ser escrito como (com \(n\) natural):`, [M('2n + 1'), M('2n'), M('n + 2'), M('\\dfrac{n}{2}')], 1, 'Par é múltiplo de 2.',
+    [T`Número par é múltiplo de 2: 0, 2, 4, 6, …`, T`Isso é \(2 \cdot n = 2n\) (com \(n\) = 0, 1, 2, 3…). Já \(2n + 1\) dá os ímpares.`]);
+  mc(3, T`Qual expressão representa o <b>perímetro de um quadrado</b> de lado \(\ell\)?`, [M('\\ell^2'), M('4\\ell'), M('2\\ell'), M('\\ell + 4')], 1, 'O perímetro é a soma dos 4 lados.',
+    [T`Perímetro é a soma dos lados. O quadrado tem 4 lados iguais.`, T`\(\ell + \ell + \ell + \ell = 4\ell\). (\(\ell^2\) seria a área.)`]);
+  mc(3, T`Ana tem \(a\) reais. Bia tem <b>o dobro do que Ana tem, mais 3 reais</b>. Quantos reais tem Bia?`, [M('2(a + 3)'), M('2a + 3'), M('a + 6'), M('3a + 2')], 1, 'Primeiro o dobro de a; depois “mais 3”.',
+    [T`O dobro do que Ana tem: \(2a\).`, T`“Mais 3 reais”: \(2a + 3\). (Não é \(2(a + 3)\), porque o 3 não é dobrado.)`]);
+
+  /* N4 — valor numérico, um passo */
+  vnItem(4, '3x', { x: 4 }, [[34, '3x significa 3 · x (3 vezes 4), e não o número 34.']]);
+  vnItem(4, 'x+9', { x: 6 });
+  vnItem(4, 'x-2', { x: 10 });
+  vnItem(4, '5y', { y: 7 }, [[57, '5y significa 5 · y, e não o número 57.']]);
+  vnItem(4, 'a/2', { a: 14 });
+  vnItem(4, '10-n', { n: 3 });
+  vnItem(4, 'x^2', { x: 6 }, [[12, 'x² é x · x (6 · 6), e não 2 · x.']]);
+  vnItem(4, 'x^3', { x: 2 }, [[6, 'x³ é x · x · x (2 · 2 · 2), e não 3 · x.']]);
+
+  /* N5 — duas operações */
+  vnItem(5, '2x+3', { x: 5 }, [[25, 'Faça a multiplicação antes da soma: 2 · 5 primeiro.']]);
+  vnItem(5, '5x-4', { x: 3 }, [[3, 'Faça a multiplicação 5 · 3 antes de subtrair.']]);
+  vnItem(5, 'x/2+1', { x: 10 });
+  vnItem(5, '3n+7', { n: 4 });
+  vnItem(5, '20-2x', { x: 6 }, [[108, 'Faça a multiplicação 2 · 6 antes de subtrair de 20.']]);
+  vnItem(5, 'x^2+1', { x: 5 });
+  vnItem(5, '100-8x', { x: 9 });
+  vnItem(5, '10+3x', { x: 0 }, [], 'Quando x vale 0, o termo 3x vale 0.');
+
+  /* N6 — parênteses e potências */
+  vnItem(6, '2(x+3)', { x: 4 }, [[11, 'O 2 multiplica TUDO que está nos parênteses; resolva (4 + 3) primeiro.']]);
+  vnItem(6, '3(x-1)', { x: 6 }, [[17, 'Resolva primeiro o parêntese: (6 − 1).']]);
+  vnItem(6, '(x+2)^2', { x: 3 }, [[11, 'O expoente vale para o parêntese todo: (3 + 2)².']]);
+  vnItem(6, 'x^2+2x', { x: 4 });
+  vnItem(6, '5(2x+1)', { x: 3 });
+  vnItem(6, '(x+4)/2', { x: 8 });
+  vnItem(6, '2x^2', { x: 3 }, [[36, 'Em 2x² o expoente 2 é só do x: 2 · 3², e não (2 · 3)².']]);
+  vnItem(6, '(3x)^2', { x: 2 }, [[12, 'Em (3x)² o expoente vale para o 3 e para o x: (3 · 2)².']]);
+
+  /* N7 — duas letras */
+  vnItem(7, 'a+b', { a: 3, b: 5 });
+  vnItem(7, '2a+b', { a: 4, b: 3 });
+  vnItem(7, '3x+2y', { x: 2, y: 5 });
+  vnItem(7, 'ab', { a: 6, b: 7 }, [[67, 'ab significa a · b (6 vezes 7), e não o número 67.']]);
+  vnItem(7, 'a^2+b^2', { a: 3, b: 4 }, [[14, 'Calcule cada potência: 3² e 4², depois some.']]);
+  vnItem(7, '2(a+b)', { a: 5, b: 3 });
+  vnItem(7, 'xy+x', { x: 4, y: 3 });
+  vnItem(7, '(a+b)(a-b)', { a: 7, b: 3 });
+
+  /* N8 — decimais e frações */
+  vnItem(8, '2x+1', { x: '0,5' });
+  vnItem(8, '4x', { x: '2,5' });
+  vnItem(8, '3x', { x: '0,2' });
+  vnItem(8, '10x-3', { x: '1,5' });
+  vnItem(8, 'x^2', { x: '0,5' }, [[1, 'Atenção: 0,5² é 0,5 · 0,5, e não 1.']]);
+  vnItem(8, '2x+3y', { x: '1/2', y: '1/3' }, [], 'Multiplique: 2 · (1/2) = 1 e 3 · (1/3) = 1.');
+  vnItem(8, 'x/2+1', { x: 5 });
+
+  /* N9 — padrões */
+  numq(9, T`Uma tabela mostra o valor de \(2n + 1\): para \(n = 1\) dá 3, para \(n = 2\) dá 5, para \(n = 3\) dá 7. Qual é o valor para \(n = 10\)?`, 21,
+    'Troque n por 10.', stepsVN('2n+1', V({ n: 10 })));
+  numq(9, T`Os números 3, 6, 9, 12, … seguem a regra \(3n\) (\(n\) é a posição). Qual é o <b>20º termo</b>?`, 60, 'Troque n por 20.', stepsVN('3n', V({ n: 20 })));
+  numq(9, T`A sequência 5, 7, 9, 11, … segue a regra \(2n + 3\). Qual é o <b>15º termo</b>?`, 33, 'Troque n por 15.', stepsVN('2n+3', V({ n: 15 })));
+  mc(9, T`Qual regra gera os números 4, 8, 12, 16, …?`, [M('n + 4'), M('4n'), M('n^2'), M('2n + 2')], 1, 'Teste cada regra com n = 1, 2 e 3.',
+    [T`Teste com \(n = 1, 2, 3\): a regra deve dar 4, 8, 12.`, T`\(4n\): \(4 \cdot 1 = 4\), \(4 \cdot 2 = 8\), \(4 \cdot 3 = 12\) ✓. As outras falham: \(n + 4\) dá 5 para \(n = 1\); \(n^2\) dá 1.`]);
+  mc(9, T`Qual regra gera os números 3, 5, 7, 9, …?`, [M('3n'), M('n + 2'), M('2n + 1'), M('n^2 + 2')], 2, 'A sequência cresce de 2 em 2.',
+    [T`A sequência cresce de 2 em 2, então a regra começa com \(2n\).`, T`Com \(n = 1\), \(2n = 2\), mas o 1º termo é 3: falta 1. Regra: \(2n + 1\) (\(n = 2 \to 5\) ✓, \(n = 3 \to 7\) ✓).`]);
+  numq(9, T`A regra \(5n - 2\) gera uma sequência. Qual é o <b>4º termo</b>?`, 18, 'Troque n por 4.', stepsVN('5n-2', V({ n: 4 })));
+  numq(9, T`Com palitos, 1 triângulo usa 3 palitos, 2 triângulos em fila usam 5 e 3 triângulos usam 7. A regra é \(2n + 1\). Quantos palitos são necessários para <b>30 triângulos</b>?`, 61,
+    'Troque n por 30.', stepsVN('2n+1', V({ n: 30 })));
+  numq(9, T`Descubra a regra da sequência 6, 11, 16, 21, … e use-a para achar o <b>12º termo</b>.`, 61, 'Veja quanto cresce a cada passo; depois ajuste o que falta.',
+    [T`A sequência cresce de 5 em 5, então a regra começa com \(5n\).`, T`Com \(n = 1\), \(5n = 5\), mas o 1º termo é 6: falta 1. Regra: \(5n + 1\) (confira: \(n = 2 \to 11\) ✓).`]
+      .concat(stepsVN('5n+1', V({ n: 12 }), { skipExpr: false })));
+
+  /* N10 — fórmulas */
+  const fx = (src, vars0, text, hint) => { const vars = V(vars0), S = stepsVN(src, vars); add(10, { expr: text, ans: S.res, steps: S, hint: hint || 'Troque as letras da fórmula pelos valores e calcule na ordem certa.' }); };
+  fx('4a', { a: 9 }, T`O perímetro \(P\) de um quadrado de lado \(a\) é \(P = 4a\). Qual é o perímetro (em cm) de um quadrado de lado \(9\) cm?`);
+  fx('2(b+h)', { b: 8, h: 5 }, T`O perímetro de um retângulo é \(P = 2(b + h)\). Qual é o perímetro (em m) de um retângulo com base \(8\) m e altura \(5\) m?`);
+  fx('bh', { b: 12, h: 7 }, T`A área de um retângulo é \(A = b \cdot h\). Qual é a área (em m²) de um retângulo com base \(12\) m e altura \(7\) m?`);
+  fx('a^2', { a: 11 }, T`A área de um quadrado de lado \(a\) é \(A = a^2\). Qual é a área (em cm²) de um quadrado de lado \(11\) cm?`);
+  fx('10+3n', { n: 8 }, T`Uma loja de festas cobra R$ 10 de entrega mais R$ 3 por balão: \(C = 10 + 3n\). Quanto custa uma encomenda com \(8\) balões (em reais)?`);
+  fx('vt', { v: 60, t: 3 }, T`A distância percorrida é \(d = v \cdot t\), com velocidade \(v\) e tempo \(t\). Qual é a distância (em km) de um carro a \(60\) km/h durante \(3\) horas?`);
+  fx('(a+b)/2', { a: 7, b: 9 }, T`A média de duas notas é \(M = \dfrac{a + b}{2}\). Qual é a média de quem tirou \(7\) e \(9\)?`);
+  fx('bh/2', { b: 10, h: 6 }, T`A área de um triângulo é \(A = \dfrac{b \cdot h}{2}\). Qual é a área (em cm²) de um triângulo com base \(10\) cm e altura \(6\) cm?`);
+
+  /* N11 — problemas: interprete e calcule */
+  const wp = (q, letters, meaning, exprExplain, src, vars0, sentence, hint) => {
+    const vars = V(vars0), expr = M(toTex(parseExpr(src), 'lit')), S0 = stepsVN(src, vars, { skipExpr: true });
+    const steps = ['<b>O que muda?</b> ' + meaning + ' Vamos chamar de ' + letters + '.', '<b>Escreva a expressão:</b> ' + exprExplain + ' ' + expr + '.'].concat(S0).concat(['<b>Responda com a unidade:</b> ' + sentence]);
+    add(11, { expr: q, ans: S0.res, steps, hint: hint || 'Dê uma letra ao que muda, escreva a expressão e só depois troque a letra pelo número.' });
+  };
+  wp(T`Cada caderno custa R$ 8. Quanto se paga por <b>6 cadernos</b>?`, M('n'), 'O número de cadernos.', 'cada caderno custa 8, então o preço é 8 vezes a quantidade:', '8n', { n: 6 }, 'Seis cadernos custam <b>R$ 48</b>.');
+  wp(T`Pedro tem 12 anos. Sua irmã tem <b>5 anos a mais</b> que ele. Quantos anos tem a irmã?`, M('x'), 'A idade de Pedro.', '“5 anos a mais” significa somar 5:', 'x+5', { x: 12 }, 'A irmã tem <b>17 anos</b>.');
+  wp(T`Uma fábrica produz 120 peças por dia. Quantas peças produz em <b>15 dias</b>?`, M('d'), 'O número de dias.', 'são 120 peças em cada dia:', '120d', { d: 15 }, 'Em 15 dias a fábrica produz <b>1.800 peças</b>.');
+  wp(T`Um terreno quadrado tem 15 m de lado. Quantos metros de arame são necessários para dar <b>uma volta</b> completa em torno dele?`, M('a'), 'O lado do quadrado.', 'dar uma volta é somar os 4 lados (o perímetro):', '4a', { a: 15 }, 'São necessários <b>60 metros</b> de arame.');
+  wp(T`Uma lanchonete cobra R$ 6 por sanduíche e R$ 4 pelo suco (um suco por pedido). Quanto custa um pedido com <b>3 sanduíches e 1 suco</b>?`, M('s'), 'O número de sanduíches.', 'cada sanduíche custa 6 e o suco soma 4:', '6s+4', { s: 3 }, 'O pedido custa <b>R$ 22</b>.');
+  wp(T`Um aplicativo de transporte cobra R$ 5 de taxa fixa mais R$ 2 por quilômetro. Quanto custa uma corrida de <b>10 km</b>?`, M('k'), 'Os quilômetros rodados.', 'taxa fixa 5 mais 2 vezes os quilômetros:', '5+2k', { k: 10 }, 'A corrida custa <b>R$ 25</b>.');
+  wp(T`Marcos tinha R$ 50 e comprou <b>4 revistas</b> de R$ 7 cada. Quantos reais sobraram?`, M('r'), 'O número de revistas.', 'sobra o que tinha (50) menos o gasto (7 por revista):', '50-7r', { r: 4 }, 'Sobraram <b>R$ 22</b>.');
+  wp(T`João tem 20 reais. Maria tem <b>o dobro do que João tem, mais 3 reais</b>. Quantos reais tem Maria?`, M('j'), 'O dinheiro de João.', 'o dobro de ' + M('j') + ' é ' + M('2j') + ', e soma-se 3:', '2j+3', { j: 20 }, 'Maria tem <b>R$ 43</b>.');
+  wp(T`Um plano de celular custa R$ 30 por mês, mais R$ 0,50 por cada GB extra. Quanto se paga em um mês com <b>8 GB extras</b>?`, M('g'), 'A quantidade de GB extras.', 'valor fixo 30 mais 0,50 por GB extra:', '30+0,5g', { g: 8 }, 'Paga-se <b>R$ 34</b> no mês.');
+  wp(T`Camila já tinha lido 40 páginas de um livro e lê 15 páginas por dia. Quantas páginas terá lido ao todo depois de <b>8 dias</b> de leitura?`, M('d'), 'O número de dias de leitura.', 'as 40 que já leu mais 15 por dia:', '40+15d', { d: 8 }, 'Camila terá lido <b>160 páginas</b>.');
+  wp(T`Em um sítio há galinhas (2 pés cada) e coelhos (4 pés cada). Com <b>7 galinhas e 5 coelhos</b>, quantos pés há ao todo?`, M('g') + ' (galinhas) e ' + M('c') + ' (coelhos)', 'O número de galinhas e o de coelhos.', 'cada galinha tem 2 pés e cada coelho 4:', '2g+4c', { g: 7, c: 5 }, 'Há <b>34 pés</b> ao todo.', 'São duas letras: uma para as galinhas e outra para os coelhos.');
+
+  /* N12 — igualdades */
+  const eqItem = (level, type, p0, rev) => {
+    const p = V(p0), S = eqSteps(type, p), x = S.res;
+    const common = [];
+    if (type === 'x+a=b') common.push({ v: p.b.add(p.a), msg: 'Para desfazer a soma, subtraia (não some de novo).' });
+    if (type === 'x-a=b') common.push({ v: p.b.sub(p.a), msg: 'Para desfazer a subtração, some.' });
+    if (type === 'ax=b') common.push({ v: p.b.mul(p.a), msg: 'Para desfazer a multiplicação, divida.' });
+    if (type === 'x/a=b') common.push({ v: p.b.div(p.a), msg: 'Para desfazer a divisão, multiplique.' });
+    if (type === 'ax+b=c') common.push({ v: p.c.div(p.a), msg: 'Primeiro tire o que está somando (subtraia dos dois lados), depois divida.' });
+    add(level, {
+      expr: 'Descubra o valor de ' + M('x') + ' que torna verdadeira a igualdade ' + M(eqTex(type, p, rev)) + '.', ans: x, steps: S, common,
+      hint: 'Desfaça cada operação feita com o x usando a operação inversa, nos dois lados. Depois confira.'
+    });
+  };
+  eqItem(12, 'x+a=b', { a: 7, b: 15 });
+  eqItem(12, 'x-a=b', { a: 6, b: 9 });
+  eqItem(12, 'ax=b', { a: 4, b: 28 });
+  eqItem(12, 'x/a=b', { a: 3, b: 5 });
+  eqItem(12, 'x+a=b', { a: 5, b: 12 }, true);
+  eqItem(12, 'a-x=b', { a: 10, b: 4 });
+  eqItem(12, 'a/x=b', { a: 12, b: 3 });
+  eqItem(12, 'ax+b=c', { a: 2, b: 3, c: 11 });
+  eqItem(12, 'ax-b=c', { a: 5, b: 4, c: 21 });
+  eqItem(12, 'x/a+b=c', { a: 2, b: 1, c: 6 });
+
+  /* N13 — problemas com igualdade */
+  const eqp = (q, L, meaning, setup, type, p0, sentence) => {
+    const p = V(p0), S0 = renameVar(eqSteps(type, p), L);
+    const steps = ['<b>O que não sei?</b> ' + meaning + ' Vamos chamar de ' + M(L) + '.', '<b>Monte a igualdade:</b> ' + setup + ' ' + M(eqTex(type, p, false).replace(/x/g, L)) + '.']
+      .concat(S0, ['<b>Responda:</b> ' + sentence]);
+    add(13, { expr: q, ans: S0.res, steps, hint: 'Dê uma letra ao que você não sabe, escreva a igualdade da história e desfaça as operações. Depois confira na história.' });
+  };
+  eqp(T`Pensei em um número, somei 9 e obtive 21. Que número pensei?`, 'x', 'O número em que pensei.', 'o número mais 9 resulta em 21:', 'x+a=b', { a: 9, b: 21 }, 'Pensei no número <b>12</b>.');
+  eqp(T`Lucas tinha algum dinheiro, gastou R$ 15 e ficou com R$ 28. Quanto ele tinha antes?`, 'x', 'O dinheiro que Lucas tinha.', 'o que tinha menos 15 resulta em 28:', 'x-a=b', { a: 15, b: 28 }, 'Lucas tinha <b>R$ 43</b>.');
+  eqp(T`Camila comprou 3 canetas iguais e pagou R$ 18. Quanto custa cada caneta?`, 'x', 'O preço de uma caneta.', '3 canetas custam 18:', 'ax=b', { a: 3, b: 18 }, 'Cada caneta custa <b>R$ 6</b>.');
+  eqp(T`Pensei em um número, multipliquei por 4 e obtive 36. Que número pensei?`, 'x', 'O número em que pensei.', 'quatro vezes o número resulta em 36:', 'ax=b', { a: 4, b: 36 }, 'Pensei no número <b>9</b>.');
+  eqp(T`Pedro tem 19 anos, que são 7 anos a mais do que a idade de sua prima. Quantos anos tem a prima?`, 'x', 'A idade da prima.', 'a idade da prima mais 7 é 19:', 'x+a=b', { a: 7, b: 19 }, 'A prima tem <b>12 anos</b>.');
+  eqp(T`Uma escola dividiu 60 livros igualmente entre algumas salas. Cada sala recebeu 12 livros. Quantas salas há?`, 's', 'O número de salas.', '60 livros divididos entre as salas dá 12 para cada:', 'a/x=b', { a: 60, b: 12 }, 'Há <b>5 salas</b>.');
+  eqp(T`O dobro de um número, mais 5, resulta em 19. Qual é o número?`, 'x', 'O número desconhecido.', 'o dobro do número mais 5 resulta em 19:', 'ax+b=c', { a: 2, b: 5, c: 19 }, 'O número é <b>7</b>.');
+  eqp(T`Um táxi cobra R$ 5 fixos mais R$ 2 por quilômetro. Rita pagou R$ 31. Quantos quilômetros ela rodou?`, 'k', 'Os quilômetros rodados.', 'dois reais por km, mais 5 fixos, deu 31:', 'ax+b=c', { a: 2, b: 5, c: 31 }, 'Rita rodou <b>13 km</b>.');
+  eqp(T`Mariana comprou 5 caixas de ovos iguais e mais 4 ovos soltos, ao todo 34 ovos. Quantos ovos há em cada caixa?`, 'c', 'O número de ovos em uma caixa.', '5 caixas mais 4 ovos soltos dão 34:', 'ax+b=c', { a: 5, b: 4, c: 34 }, 'Cada caixa tem <b>6 ovos</b>.');
+
+  /* N14 — desafios */
+  numq(14, T`As expressões \(x + x\) e \(2x\) são equivalentes. Calcule o valor numérico das duas para \(x = 7\). Qual é esse valor?`, 14, 'Calcule x + x com x = 7 e confira com 2x.',
+    stepsVN('x+x', V({ x: 7 })).concat(stepsVN('2x', V({ x: 7 }), { skipExpr: true }).map((s, i) => i === 0 ? '<b>Agora a outra expressão:</b> ' + s : s)));
+  mc(14, T`Qual expressão é equivalente a \(3x + 2x\)?`, [M('6x'), M('5x'), M('5x^2'), M('x + 5')], 1, 'Termos semelhantes: some os coeficientes.',
+    [T`\(3x\) e \(2x\) têm a mesma parte literal (\(x\)): são termos semelhantes.`, T`Some os coeficientes: \(3 + 2 = 5\). Resultado: \(5x\). Teste com \(x = 2\): \(3 \cdot 2 + 2 \cdot 2 = 10\) e \(5 \cdot 2 = 10\) ✓.`]);
+  mc(14, T`Qual expressão é equivalente a \(2(x + 4)\)?`, [M('2x + 4'), M('x + 8'), M('2x + 8'), M('8x')], 2, 'O 2 multiplica todos os termos do parêntese.',
+    [T`O 2 multiplica o \(x\) <u>e</u> o 4: \(2 \cdot x + 2 \cdot 4\).`, T`Resultado: \(2x + 8\). Teste com \(x = 3\): \(2(3 + 4) = 14\) e \(2 \cdot 3 + 8 = 14\) ✓.`]);
+  mc(14, T`Verdadeiro ou falso? “\(3x\) é sempre igual a \(x + 3\), para qualquer valor de \(x\)”.`,
+    ['Verdadeiro, para qualquer valor de x', 'Falso: com x = 2, 3x vale 6 e x + 3 vale 5', 'Verdadeiro, mas só quando x é par', 'Falso: 3x é sempre maior que x + 3'], 1, 'Teste com alguns valores de x.',
+    [T`Para provar que duas expressões <b>não</b> são equivalentes, basta um valor em que deem resultados diferentes.`, T`Com \(x = 2\): \(3x = 6\) e \(x + 3 = 5\). São diferentes, então a afirmação é falsa. (Com \(x = 1{,}5\) elas até coincidem, mas isso não basta: a igualdade precisa valer para todos.)`]);
+  numq(14, T`Com palitos formamos quadrados em fila: 1 quadrado usa 4 palitos, 2 quadrados usam 7 e 3 quadrados usam 10. Quantos palitos são necessários para <b>20 quadrados</b>?`, 61, 'Ache a regra (cresce de 3 em 3) e troque n por 20.',
+    [T`Cada quadrado novo usa 3 palitos a mais: a regra começa com \(3n\).`, T`Com \(n = 1\), \(3n = 3\), mas são 4 palitos: falta 1. Regra: \(3n + 1\).`].concat(stepsVN('3n+1', V({ n: 20 }))));
+  vnItem(14, '2x^2-3x+1', { x: 3 }, [], 'Calcule 2x² e 3x separadamente e só depois some e subtraia.');
+  numq(14, T`A soma de um número com o <b>seu triplo</b> é 48. Qual é o número?`, 12, 'Se o número é x, o triplo é 3x. Junte os termos semelhantes.',
+    [T`Chame o número de \(x\). O triplo dele é \(3x\).`, T`A soma é \(x + 3x = 48\). Juntando os termos semelhantes (\(1x + 3x = 4x\)): \(4x = 48\).`, T`Divida por 4: \(x = 48 \div 4 = 12\).`, T`<b>Confira:</b> \(12 + 3 \cdot 12 = 12 + 36 = 48\) ✓.`]);
+  numq(14, T`Plano A: R$ 20 fixos mais R$ 2 por GB. Plano B: R$ 10 fixos mais R$ 4 por GB. Com <b>quantos GB</b> os dois planos custam o mesmo valor?`, 5, 'Monte uma tabela com o custo dos dois planos para 1, 2, 3, 4, 5… GB.',
+    [T`Plano A: \(20 + 2g\). Plano B: \(10 + 4g\).`, T`Vamos montar uma tabela de valores (valor numérico de cada expressão):<br>\(g = 1\): A = 22, B = 14<br>\(g = 2\): A = 24, B = 18<br>\(g = 3\): A = 26, B = 22<br>\(g = 4\): A = 28, B = 26<br>\(g = 5\): A = 30, B = 30 ✓`, T`Com <b>5 GB</b> os dois custam R$ 30. (Pela igualdade: \(20 + 2g = 10 + 4g\) ⇒ \(10 = 2g\) ⇒ \(g = 5\).)`]);
+  numq(14, T`Ana tem 29 anos, que é <b>o triplo da idade de Bia, mais 2 anos</b>. Quantos anos tem Bia?`, 9, 'Chame a idade de Bia de b. Monte a igualdade 3b + 2 = 29.',
+    [T`Idade de Bia: \(b\). O triplo dela mais 2: \(3b + 2\).`, T`Ana tem 29: \(3b + 2 = 29\).`].concat(renameVar(eqSteps('ax+b=c', V({ a: 3, b: 2, c: 29 })), 'b'))
+      .concat([T`<b>Resposta:</b> Bia tem <b>9 anos</b>.`]));
+  return E;
+}
+// ==ENGINE-END==
+// ==UI-START==
+const $ = id => document.getElementById(id);
+function renderMath(el) {
+  if (!window.renderMathInElement) return false;
+  try {
+    renderMathInElement(el || document.body, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }], throwOnError: false });
+  } catch (e) { /* ignora */ }
+  return true;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignora */ } }
+};
+const fmtN = x => {
+  if (!isFinite(x)) return '∞';
+  return x.toLocaleString('pt-BR', { maximumFractionDigits: 4 });
+};
+const money = x => x.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+
+/* ---------- Abas e navegação ---------- */
+const SECTIONS = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+function showTab(t) {
+  SECTIONS.forEach(s => $('sec-' + s).classList.toggle('hidden', s !== t));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  if (t === 'laboratorio') updateAllLabs();
+  if (t === 'exercicios') renderExercises();
+  window.scrollTo({ top: 0 });
+}
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-goto]');
+  if (g) { setLevel(g.dataset.goto); showTab('exercicios'); return; }
+  const t = e.target.closest('[data-gotab]');
+  if (t) { showTab(t.dataset.gotab); return; }
+  const l = e.target.closest('[data-lesson]');
+  if (l) { e.preventDefault(); showTab('teoria'); setTimeout(() => { const el = $(l.dataset.lesson); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
+});
+
+/* ---------- Figuras: palitos e balança (SVG) ---------- */
+function matchSVG(kind, n, opts = {}) {
+  const s = 40, pad = 12, H = 8;
+  const col = i => i === 0 ? '#4f46e5' : '#ec4899';
+  let lines = '', w, h = s + 2 * pad;
+  const ln = (x1, y1, x2, y2, c) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="6" stroke-linecap="round"/><circle cx="${x1}" cy="${y1}" r="3.4" fill="#f59e0b"/>`;
+  if (kind === 'sq') {
+    w = n * s + 2 * pad;
+    for (let i = 0; i < n; i++) {
+      const x0 = pad + i * s, y0 = pad, c = col(i);
+      lines += ln(x0, y0, x0 + s, y0, c) + ln(x0, y0 + s, x0 + s, y0 + s, c) + ln(x0 + s, y0, x0 + s, y0 + s, c);
+      if (i === 0) lines += ln(x0, y0, x0, y0 + s, c);
+    }
+  } else {
+    const hh = s * 0.87;
+    h = hh + 2 * pad; w = (n + 1) * s / 2 + s / 2 + 2 * pad;
+    const P = i => [pad + i * s / 2, i % 2 === 0 ? pad + hh : pad];
+    lines += '';
+    for (let i = 0; i < n + 2; i++) {
+      if (i + 1 < n + 2) { const a = P(i), b = P(i + 1); lines += ln(a[0], a[1], b[0], b[1], col(Math.max(0, i - 1))); }
+      if (i + 2 < n + 2) { const a = P(i), b = P(i + 2); lines += ln(a[0], a[1], b[0], b[1], col(i)); }
+    }
+  }
+  const total = kind === 'sq' ? 3 * n + 1 : 2 * n + 1;
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;max-width:100%;height:auto" role="img" aria-label="${n} figuras, ${total} palitos">${lines}</svg>`;
+}
+function scaleSVG(lbl, rbl, angleDeg) {
+  const cx = 200, cy = 70, Hf = 125, th = angleDeg * Math.PI / 180;
+  const L = [cx - Hf * Math.cos(th), cy - Hf * Math.sin(th)], R = [cx + Hf * Math.cos(th), cy + Hf * Math.sin(th)];
+  const pan = (p, lines, color) => {
+    const y = p[1] + 58;
+    return `<line x1="${p[0]}" y1="${p[1]}" x2="${p[0] - 42}" y2="${y}" stroke="#94a3b8" stroke-width="2"/><line x1="${p[0]}" y1="${p[1]}" x2="${p[0] + 42}" y2="${y}" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="${p[0] - 50}" y="${y}" width="100" height="10" rx="5" fill="${color}"/>` +
+      lines.map((t, i) => `<text x="${p[0]}" y="${y + 30 + i * 18}" text-anchor="middle" font-size="15" font-weight="800" fill="#1e293b">${esc(t)}</text>`).join('');
+  };
+  return `<svg viewBox="0 0 400 235" style="width:400px;max-width:100%;height:auto" role="img" aria-label="Balança">
+    <polygon points="${cx},${cy} ${cx - 34},222 ${cx + 34},222" fill="#c7d2fe"/>
+    <line x1="${L[0]}" y1="${L[1]}" x2="${R[0]}" y2="${R[1]}" stroke="#4338ca" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="9" fill="#312e81"/>
+    ${pan(L, lbl, '#818cf8')}${pan(R, rbl, '#f9a8d4')}</svg>`;
+}
+function initFigures() {
+  document.querySelectorAll('.matchfig').forEach(el => { el.innerHTML = matchSVG(el.dataset.kind, +el.dataset.n); });
+  document.querySelectorAll('.scalefig').forEach(el => { el.innerHTML = scaleSVG([el.dataset.l], [el.dataset.r], 0); });
+}
+
+/* ---------- Teste rápido ---------- */
+const QUICK = [
+  { q: T`Quanto é \(2 + 3 \cdot 4\)?`, a: '14' },
+  { q: T`Quanto vale \(2^3 + 4\)?`, a: '12' },
+  { q: T`Cada caderno custa R$ 8. Quanto se paga por 5 cadernos?`, a: '40' },
+  { q: T`Se \(n = 6\), quanto vale “o sucessor do dobro de \(n\)”, isto é, \(2n + 1\)?`, a: '13' },
+  { q: T`Quantos <b>termos</b> tem a expressão \(5x + 3y - 8\)?`, a: '3' },
+  { q: T`Qual é o coeficiente de \(y\) na expressão \(y + 4\)?`, a: '1' },
+  { q: T`Calcule o valor numérico de \(4x + 1\) para \(x = 3\).`, a: '13' },
+  { q: T`Calcule o valor numérico de \(x^2 + 2\) para \(x = 5\).`, a: '27' },
+  { q: T`Calcule o valor numérico de \(2(x + 1)\) para \(x = 4\).`, a: '10' },
+  { q: T`Uma sequência segue a regra \(3n + 1\) (\(n\) é a posição). Qual é o <b>10º termo</b>?`, a: '31' },
+  { q: T`Descubra \(x\) em \(x + 7 = 15\).`, a: '8' },
+  { q: T`Descubra \(x\) em \(3x + 2 = 20\).`, a: '6' },
+  { q: T`Com \(x = 2\), quanto vale \(3x + 2x\)?`, a: '10' }
+];
+function initQuick() {
+  document.querySelectorAll('.quick').forEach(box => {
+    const d = QUICK[+box.dataset.qi]; if (!d) return;
+    box.innerHTML = `<div class="text-[11px] font-black uppercase tracking-widest text-sky-700">✋ Teste rápido</div>
+      <p style="margin-top:.4rem">${d.q}</p>
+      <div class="flex flex-wrap items-center gap-2 mt-3">
+        <input type="text" placeholder="Sua resposta" autocomplete="off">
+        <button class="qc bg-sky-600 text-white rounded-lg px-3 py-1.5 text-sm font-bold">Conferir</button>
+        <button class="qs text-xs text-slate-500 underline">ver resposta</button>
+        <span class="qf text-sm font-bold"></span>
+      </div>`;
+    const inp = box.querySelector('input'), fb = box.querySelector('.qf');
+    const check = () => {
+      const v = parseF(inp.value);
+      if (!v) { fb.className = 'qf text-sm font-bold text-amber-600'; fb.textContent = 'Digite um número.'; return; }
+      if (v.eq(parseF(d.a))) { fb.className = 'qf text-sm font-bold text-emerald-600'; fb.textContent = '✓ Certo! Pode seguir.'; }
+      else { fb.className = 'qf text-sm font-bold text-red-600'; fb.textContent = '✗ Ainda não. Releia a lição e tente de novo.'; }
+    };
+    box.querySelector('.qc').addEventListener('click', check);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    box.querySelector('.qs').addEventListener('click', () => { fb.className = 'qf text-sm font-bold text-slate-600'; fb.textContent = 'Resposta: ' + d.a; });
+  });
+}
+
+/* ---------- Laboratório ---------- */
+function stepsHTML(S) { return S.map((s, i) => `<div class="step text-sm" data-step="${i + 1}">${s}</div>`).join(''); }
+
+// Experimento 1 — máquina de expressões
+function updateLab1() {
+  const sel = $('m-expr').value;
+  $('m-custom').classList.toggle('hidden', sel !== '__custom');
+  const x = +$('m-x').value; $('m-x-label').textContent = x;
+  const src = sel === '__custom' ? $('m-custom').value : sel;
+  try {
+    const ast = parseExpr(src);
+    const names = collectVars(ast, new Set());
+    if ([...names].some(v => v !== 'x')) throw new Error('Neste experimento use só a letra x.');
+    const S = stepsVN(src, names.size ? { x: f(x) } : {});
+    $('m-machine').innerHTML = `<div class="io">${M('x = ' + x)}</div><span class="font-black text-indigo-400">➜</span><div class="box">${M(toTex(ast, 'lit'))}</div><span class="font-black text-indigo-400">➜</span><div class="io">${M(numTex(S.res))}</div>`;
+    $('m-steps').innerHTML = stepsHTML(S);
+    const vals = [];
+    for (let i = 0; i <= 10; i++) { try { vals.push(evalNode(ast, { x: f(i) })); } catch (e) { vals.push(null); } }
+    $('m-table').innerHTML = `<table class="tb" style="display:table"><thead><tr><th>x</th>${vals.map((_, i) => `<th>${i}</th>`).join('')}</tr></thead><tbody><tr><td><b>valor</b></td>${vals.map((v, i) => `<td class="${i === x ? 'font-black text-indigo-700' : ''}">${v ? numPlain(v) : '—'}</td>`).join('')}</tr></tbody></table>`;
+    const mx = Math.max(1e-9, ...vals.filter(Boolean).map(v => v.num()));
+    $('m-bars').innerHTML = vals.map((v, i) => `<div class="flex-1 flex flex-col justify-end h-full" title="x = ${i}: ${v ? numPlain(v) : '—'}"><div class="rounded-t bar-col ${i === x ? 'bg-pink-500' : 'bg-indigo-300'}" style="height:${v ? Math.max(v.num() / mx * 100, 2) : 0}%"></div></div>`).join('');
+    $('m-info').innerHTML = `Para \\(x = ${x}\\) a máquina devolve <b>${numPlain(S.res)}</b>. Mude o \\(x\\): o resultado muda junto. Por isso \\(x\\) é uma <b>variável</b>.`;
+  } catch (e) {
+    $('m-machine').innerHTML = ''; $('m-steps').innerHTML = ''; $('m-table').innerHTML = ''; $('m-bars').innerHTML = '';
+    $('m-info').innerHTML = '⚠️ ' + esc(e.message || 'Não consegui calcular.');
+  }
+  renderMath($('sec-laboratorio'));
+}
+
+// Experimento 2 — balança
+const BAL_TYPES = { 1: 'x+a=b', 2: 'ax=b', 3: 'ax+b=c' };
+let bal = null;
+function newBalance() {
+  const lv = +$('b-level').value, type = BAL_TYPES[lv]; let p, x;
+  if (lv === 1) { x = rnd(1, 20); const a = rnd(1, 10); p = { a: f(a), b: f(x + a) }; }
+  else if (lv === 2) { x = rnd(1, 12); const a = rnd(2, 9); p = { a: f(a), b: f(a * x) }; }
+  else { x = rnd(1, 10); const a = rnd(2, 6), b = rnd(1, 15); p = { a: f(a), b: f(b), c: f(a * x + b) }; }
+  bal = { type, p, x };
+  $('b-guess').value = 0; $('b-steps').classList.add('hidden'); $('b-steps').innerHTML = '';
+  updateBalance();
+}
+function updateBalance() {
+  if (!bal) return newBalance2();
+  const g = +$('b-guess').value; $('b-guess-label').textContent = g;
+  const { type, p } = bal;
+  const lhsAst = parseExpr(EQ[type].lhs(p)), G = f(g);
+  const Lv = evalNode(lhsAst, { x: G }), Rv = EQ[type].rhs(p);
+  const diff = Lv.sub(Rv).num();
+  const angle = diff === 0 ? 0 : -clamp(diff * 1.2, -14, 14);
+  const plainL = type === 'x+a=b' ? `${g} + ${p.a.n}` : type === 'ax=b' ? `${p.a.n} · ${g}` : `${p.a.n} · ${g} + ${p.b.n}`;
+  $('b-scale').innerHTML = `<div class="text-lg mb-1">${M(eqTex(type, p))}</div>` + scaleSVG([plainL, '= ' + numPlain(Lv)], [numPlain(Rv)], angle);
+  const msg = $('b-msg');
+  if (diff === 0) { msg.className = 'text-center font-bold mt-3 text-emerald-600'; msg.innerHTML = `⚖️ Equilibrou! Você descobriu: \\(x = ${g}\\)`; }
+  else if (diff < 0) { msg.className = 'text-center font-bold mt-3 text-amber-600'; msg.textContent = 'O lado direito está mais pesado: tente um palpite maior.'; }
+  else { msg.className = 'text-center font-bold mt-3 text-red-600'; msg.textContent = 'O lado esquerdo está mais pesado: tente um palpite menor.'; }
+  renderMath($('b-scale')); renderMath(msg);
+}
+function newBalance2() { newBalance(); }
+function showBalanceSteps() {
+  if (!bal) return;
+  const S = eqSteps(bal.type, bal.p);
+  const box = $('b-steps'); box.innerHTML = '<div class="paper rounded-xl p-4">' + stepsHTML(S) + `<div class="success rounded-xl p-3 mt-2 font-bold text-center">Resposta: \\(x = ${numTex(S.res)}\\)</div></div>`;
+  box.classList.remove('hidden'); renderMath(box);
+}
+
+// Experimento 3 — palitos
+function updateLab3() {
+  const kind = $('p-kind').value, n = +$('p-n').value; $('p-n-label').textContent = n;
+  const c = kind === 'sq' ? 3 : 2, k = 1, total = c * n + k;
+  $('p-fig').innerHTML = matchSVG(kind, n);
+  $('p-info').innerHTML = kind === 'sq'
+    ? `O 1º quadrado usa 4 palitos e cada quadrado novo <b>acrescenta 3</b>. Regra: \\(3n + 1\\).<br>Com \\(n = ${n}\\): \\(3 \\cdot ${n} + 1 = ${total}\\) palitos.`
+    : `O 1º triângulo usa 3 palitos e cada triângulo novo <b>acrescenta 2</b>. Regra: \\(2n + 1\\).<br>Com \\(n = ${n}\\): \\(2 \\cdot ${n} + 1 = ${total}\\) palitos.`;
+  let h = '<table class="tb" style="display:table"><thead><tr><th>Figuras (n)</th>';
+  for (let i = 1; i <= 10; i++) h += `<th>${i}</th>`;
+  h += '</tr></thead><tbody><tr><td><b>Palitos</b></td>';
+  for (let i = 1; i <= 10; i++) h += `<td class="${i === n ? 'font-black text-indigo-700' : ''}">${c * i + k}</td>`;
+  $('p-table').innerHTML = h + '</tr></tbody></table>';
+  renderMath($('p-info'));
+}
+
+// Experimento 4 — preços
+function updateLab4() {
+  const fa = +$('s-fa').value, pa = +$('s-pa').value, fb = +$('s-fb').value, pb = +$('s-pb').value, k = +$('s-k').value;
+  $('s-fa-l').textContent = fa; $('s-pa-l').textContent = pa; $('s-fb-l').textContent = fb; $('s-pb-l').textContent = pb; $('s-k-l').textContent = k;
+  const A = fa + pa * k, B = fb + pb * k;
+  $('s-formulas').innerHTML = `\\(A = ${fa} + ${pa}k\\) &nbsp;&nbsp; \\(B = ${fb} + ${pb}k\\)`;
+  let eq;
+  if (pa === pb) eq = fa === fb ? 'Os dois planos são idênticos: custam sempre o mesmo.' : 'Os dois sobem no mesmo ritmo, então <b>nunca</b> custam o mesmo.';
+  else {
+    const ks = f(fb - fa, pa - pb);
+    if (ks.isNeg()) eq = 'Com esses valores os planos <b>nunca</b> custam o mesmo (a diferença só aumenta).';
+    else eq = ks.isInt() ? `Os planos custam o mesmo com <b>k = ${numPlain(ks)}</b> (resolva \\(${fa} + ${pa}k = ${fb} + ${pb}k\\)).` : `Eles se igualariam em k = ${numPlain(ks)}, que não é um número inteiro de unidades.`;
+  }
+  const cheaper = A === B ? 'Hoje os dois custam o mesmo.' : A < B ? 'Para essa quantidade, o <b>Plano A</b> é mais barato.' : 'Para essa quantidade, o <b>Plano B</b> é mais barato.';
+  $('s-msg').innerHTML = `Com \\(k = ${k}\\): Plano A = \\(${fa} + ${pa} \\cdot ${k} = ${A}\\) reais; Plano B = \\(${fb} + ${pb} \\cdot ${k} = ${B}\\) reais.<br>${cheaper}<br>${eq}`;
+  let h = '<table class="tb" style="display:table"><thead><tr><th>k</th><th>Plano A</th><th>Plano B</th><th>Mais barato</th></tr></thead><tbody>';
+  for (let i = 0; i <= 12; i++) {
+    const a = fa + pa * i, b = fb + pb * i;
+    h += `<tr class="${i === k ? 'bg-indigo-50 font-bold' : ''}"><td>${i}</td><td>R$ ${a}</td><td>R$ ${b}</td><td>${a === b ? 'iguais' : a < b ? 'A' : 'B'}</td></tr>`;
+  }
+  $('s-table').innerHTML = h + '</tbody></table>';
+  renderMath($('s-formulas')); renderMath($('s-msg'));
+}
+function updateAllLabs() { updateLab1(); updateBalance(); updateLab3(); updateLab4(); }
+['m-expr', 'm-x'].forEach(id => $(id).addEventListener('input', updateLab1));
+$('m-custom').addEventListener('input', updateLab1);
+$('b-level').addEventListener('change', newBalance);
+$('b-new').addEventListener('click', newBalance);
+$('b-guess').addEventListener('input', updateBalance);
+$('b-show').addEventListener('click', showBalanceSteps);
+['p-kind', 'p-n'].forEach(id => $(id).addEventListener('input', updateLab3));
+['s-fa', 's-pa', 's-fb', 's-pb', 's-k'].forEach(id => $(id).addEventListener('input', updateLab4));
+
+/* ---------- Calculadoras ---------- */
+const fld = (id, label, value) => ({ id, label, value });
+const need = (s, name) => { const v = parseF(s); if (!v) throw new Error(`Valor inválido em “${name}”. Use números como 3, 0,5 ou 1/2.`); return v; };
+
+// Reconhece igualdades simples e devolve {type, p, L}
+function parseEquation(src) {
+  let s = String(src).replace(/\s+/g, '').replace(/[×·]/g, '*').replace(/[÷:]/g, '/').replace(/[−–]/g, '-').replace(/,/g, '.');
+  const parts = s.split('=');
+  if (parts.length !== 2 || !parts[0] || !parts[1]) throw new Error('Escreva uma igualdade com um único sinal de “=”, por exemplo: 3x + 2 = 20.');
+  const NUM = /^\d+(?:\.\d+)?$/;
+  let [l, r] = parts;
+  if (NUM.test(l) && !NUM.test(r)) [l, r] = [r, l];
+  if (!NUM.test(r)) throw new Error('Um dos lados precisa ser só um número (por exemplo: 3x + 2 = 20).');
+  const letters = [...new Set(l.match(/[a-zA-Z]/g) || [])];
+  if (letters.length !== 1) throw new Error('A igualdade precisa ter exatamente uma letra desconhecida.');
+  const L = letters[0], e = l.split(L).join('x'), N = '(\\d+(?:\\.\\d+)?)';
+  const R = (re) => new RegExp('^' + re + '$').exec(e);
+  const n = v => parseF(v);
+  let m;
+  if ((m = R('x\\+' + N)) || (m = R(N + '\\+x'))) return { type: 'x+a=b', p: { a: n(m[1]), b: n(r) }, L };
+  if ((m = R('x-' + N))) return { type: 'x-a=b', p: { a: n(m[1]), b: n(r) }, L };
+  if ((m = R(N + '-x'))) return { type: 'a-x=b', p: { a: n(m[1]), b: n(r) }, L };
+  if ((m = R(N + '\\*?x')) || (m = R('x\\*' + N))) return { type: 'ax=b', p: { a: n(m[1]), b: n(r) }, L };
+  if ((m = R('x/' + N))) return { type: 'x/a=b', p: { a: n(m[1]), b: n(r) }, L };
+  if ((m = R(N + '/x'))) return { type: 'a/x=b', p: { a: n(m[1]), b: n(r) }, L };
+  if ((m = R(N + '\\*?x\\+' + N))) return { type: 'ax+b=c', p: { a: n(m[1]), b: n(m[2]), c: n(r) }, L };
+  if ((m = R(N + '\\+' + N + '\\*?x'))) return { type: 'ax+b=c', p: { a: n(m[2]), b: n(m[1]), c: n(r) }, L };
+  if ((m = R(N + '\\*?x-' + N))) return { type: 'ax-b=c', p: { a: n(m[1]), b: n(m[2]), c: n(r) }, L };
+  if ((m = R('x/' + N + '\\+' + N)) ) return { type: 'x/a+b=c', p: { a: n(m[1]), b: n(m[2]), c: n(r) }, L };
+  if ((m = R(N + '\\+x/' + N))) return { type: 'x/a+b=c', p: { a: n(m[2]), b: n(m[1]), c: n(r) }, L };
+  throw new Error('Ainda não sei resolver esse formato. Tente algo como: x + 7 = 15, 4x = 28, x/3 = 5, 10 − x = 4, 2x + 3 = 11 ou 5x − 4 = 21.');
+}
+
+const TOOLS = [
+  {
+    id: 'vn', title: 'Valor numérico de uma expressão', btn: 'bg-indigo-600',
+    fields: [fld('expr', 'Expressão (ex.: 3x + 2y)', '3x + 2(y - 1)'), fld('vals', 'Valores das letras (ex.: x = 4; y = 5)', 'x = 4; y = 5')],
+    run(v) {
+      const vars = {}; let m; const re = /([a-zA-Z])\s*=\s*([0-9.,/]+)/g;
+      while ((m = re.exec(v.vals))) { const val = parseF(m[2]); if (!val) throw new Error('Valor inválido para ' + m[1] + '.'); vars[m[1]] = val; }
+      const S = stepsVN(v.expr, vars, { final: true });
+      return { S, final: T`Valor numérico: \(${numTex(S.res)}\)` };
+    }
+  },
+  {
+    id: 'eq', title: 'Descobrir o valor desconhecido (igualdade)', btn: 'bg-pink-600',
+    fields: [fld('eq', 'Igualdade (ex.: 3x + 2 = 20)', '3x + 2 = 20')],
+    run(v) {
+      const { type, p, L } = parseEquation(v.eq);
+      if ((type === 'ax=b' || type === 'x/a=b' || type === 'ax+b=c' || type === 'ax-b=c' || type === 'x/a+b=c') && p.a.isZero()) throw new Error('O número que multiplica ou divide a letra não pode ser zero.');
+      if (type === 'a/x=b' && p.b.isZero()) throw new Error('Nenhum número serve: dividir por qualquer valor nunca dá zero (a não ser que o dividendo seja zero).');
+      const sol = EQ[type].solve(p);
+      if (sol.isNeg()) throw new Error('Essa igualdade não tem solução entre os números que se usam no 6º ano (o resultado seria negativo).');
+      const S = renameVar(eqSteps(type, p), L);
+      return { S, final: T`Resposta: \(${L} = ${texAns(sol)}\)` };
+    }
+  },
+  {
+    id: 'regra', title: 'Descobrir a regra de um padrão (n-ésimo termo)', btn: 'bg-amber-600',
+    fields: [fld('terms', 'Termos (separe com ; ou espaço)', '5; 8; 11; 14')],
+    run(v) {
+      const terms = v.terms.split(/[;\s]+/).filter(Boolean).map(x => need(x, 'termos'));
+      const S = stepsRule(terms);
+      return { S, final: S.res ? T`Regra: \(${toTex(parseExpr(S.res.expr), 'lit')}\)` : 'Sem regra do tipo “c·n + k” para esses termos.' };
+    }
+  },
+  {
+    id: 'partes', title: 'Analisar as partes de uma expressão', btn: 'bg-sky-600',
+    fields: [fld('expr', 'Expressão (soma/subtração de termos)', '4x + 3y - 7 + x')],
+    run(v) {
+      const terms = analyzeTerms(v.expr);
+      const letters = new Set(); terms.forEach(t => (t.lit.match(/[a-zA-Z]/g) || []).forEach(l => letters.add(l)));
+      let h = '<div class="overflow-x-auto"><table class="tb" style="display:table"><thead><tr><th>Termo</th><th>Coeficiente</th><th>Parte literal</th><th>Classificação</th></tr></thead><tbody>';
+      terms.forEach(t => {
+        h += `<tr><td>${M((t.sign === '-' ? '-' : '+') + t.text.replace(/^[+-]/, '').replace(/\*/g, '').replace(/\^(\d+)/g, '^{$1}'))}</td><td>${t.lit ? t.coef + (t.coef === '1' && !/^\d/.test(t.text.replace(/^[+-]/, '')) ? ' <span class="text-xs text-slate-400">(1 escondido)</span>' : '') : '—'}</td><td>${t.lit ? M(litTex(t.lit)) : '—'}</td><td>${t.lit ? 'termo com letra' : '<b>termo independente</b>'}</td></tr>`;
+      });
+      h += '</tbody></table></div>';
+      const indep = terms.filter(t => !t.lit);
+      const semelhantes = {}; terms.forEach(t => { if (t.lit) (semelhantes[t.lit] = semelhantes[t.lit] || []).push(t); });
+      const sem = Object.keys(semelhantes).filter(k => semelhantes[k].length > 1);
+      return {
+        html: h + `<div class="success rounded-xl p-4 mt-3 text-sm leading-7"><b>${terms.length}</b> termo(s) · <b>${letters.size}</b> letra(s) diferente(s)${indep.length ? ' · termo independente: ' + indep.map(t => '<b>' + t.text.replace('+', '') + '</b>').join(', ') : ' · sem termo independente'}.${sem.length ? '<br>Termos semelhantes (mesma parte literal) que podem ser juntados: ' + sem.map(k => M(litTex(k))).join(', ') + '.' : ''}</div>`
+      };
+    }
+  },
+  {
+    id: 'tabela', title: 'Tabela de valores de uma expressão', btn: 'bg-emerald-600',
+    fields: [fld('expr', 'Expressão com x', '2x + 3'), fld('de', 'x de', '0'), fld('ate', 'até', '10')],
+    run(v) {
+      const ast = parseExpr(v.expr), names = collectVars(ast, new Set());
+      if ([...names].some(n => n !== 'x')) throw new Error('Use só a letra x nesta ferramenta.');
+      const a = need(v.de, 'x de'), b = need(v.ate, 'até');
+      if (!a.isInt() || !b.isInt() || a.isNeg() || b.isNeg()) throw new Error('Use números inteiros não negativos para o início e o fim.');
+      const i0 = Number(a.n), i1 = Number(b.n);
+      if (i1 < i0) throw new Error('O fim precisa ser maior ou igual ao início.');
+      if (i1 - i0 > 30) throw new Error('Peça no máximo 31 valores de uma vez.');
+      let h = `<div class="overflow-x-auto"><table class="tb" style="display:table"><thead><tr><th>x</th><th>${M(toTex(ast, 'lit'))}</th></tr></thead><tbody>`;
+      for (let i = i0; i <= i1; i++) { let val; try { val = numPlain(evalNode(ast, { x: f(i) })); } catch (e) { val = '—'; } h += `<tr><td>${i}</td><td>${val}</td></tr>`; }
+      return { html: h + '</tbody></table></div>' };
+    }
+  }
+];
+function initTools() {
+  $('tools-grid').innerHTML = TOOLS.map(t => `<div class="bg-white rounded-2xl border p-6 shadow-sm" data-tool="${t.id}">
+    <h2 class="font-black text-lg">${t.title}</h2>
+    <div class="grid gap-2 mt-4 ${t.fields.length === 1 ? 'grid-cols-1' : t.fields.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-3'}">
+      ${t.fields.map(x => `<div><label class="text-xs font-bold text-slate-500 mb-1 block">${x.label}</label><input data-f="${x.id}" type="text" value="${x.value}" autocomplete="off" class="border rounded-xl p-2 w-full text-sm"></div>`).join('')}
+    </div>
+    <button data-run="${t.id}" class="mt-3 w-full ${t.btn} text-white rounded-xl py-3 font-bold">Resolver passo a passo</button>
+    <div class="out paper rounded-xl p-5 mt-4 hidden text-sm space-y-3"></div></div>`).join('');
+}
+function runTool(card) {
+  const t = TOOLS.find(x => x.id === card.dataset.tool), out = card.querySelector('.out');
+  const v = {}; card.querySelectorAll('[data-f]').forEach(i => v[i.dataset.f] = i.value);
+  out.classList.remove('hidden');
+  try {
+    const r = t.run(v);
+    out.innerHTML = r.html ? r.html : stepsHTML(r.S) + `<div class="success rounded-xl p-4 font-bold text-center">${r.final}</div>`;
+  } catch (e) {
+    out.innerHTML = `<div class="warning rounded-xl p-4">${esc(e.message || 'Não consegui calcular com esses valores.')}</div>`;
+  }
+  renderMath(out);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-run]'); if (b) runTool(b.closest('[data-tool]')); });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('[data-tool] input')) runTool(e.target.closest('[data-tool]')); });
+
+/* ---------- Exercícios ---------- */
+const EX = buildExercises();
+// embaralha as alternativas (de forma fixa) para a resposta certa não ficar sempre na mesma posição
+EX.filter(e => e.kind === 'mc').forEach(ex => {
+  let s = ex.id * 7919 + 13; const r = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
+  const idx = ex.options.map((_, i) => i);
+  for (let i = idx.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  const right = ex.options[ex.ans];
+  ex.options = idx.map(i => ex.options[i]); ex.ans = ex.options.indexOf(right); ex.ansTex = right;
+});
+const SOLVED_KEY = 'algSolved_v1';
+let solved = new Set(store.get(SOLVED_KEY, []));
+let curLevel = 'all';
+const NLV = LEVELS.length - 1;
+
+function setLevel(l) { curLevel = String(l); renderFilters(); renderExercises(); }
+function renderFilters() {
+  let html = `<button data-level="all" class="level-btn ${curLevel === 'all' ? 'active' : 'bg-slate-100'} rounded-lg px-3 py-2 text-xs font-bold">Todos · ${solved.size}/${EX.length}</button>`;
+  for (let lv = 1; lv <= NLV; lv++) {
+    const items = EX.filter(e => e.level === lv), done = items.filter(e => solved.has(e.id)).length;
+    html += `<button data-level="${lv}" title="${LEVELS[lv].name.replace(/"/g, '')}" class="level-btn ${curLevel === String(lv) ? 'active' : 'bg-slate-100'} rounded-lg px-3 py-2 text-xs font-bold">Nível ${lv} · ${done}/${items.length}${done === items.length ? ' ✓' : ''}</button>`;
+  }
+  $('filters').innerHTML = html;
+}
+function updateProgress() {
+  $('progress-text').textContent = `${solved.size} / ${EX.length}`;
+  $('progress-bar').style.width = (solved.size / EX.length * 100) + '%';
+}
+const plainText = s => s.replace(/\\\(.*?\\\)/g, ' ').replace(/<[^>]+>/g, ' ');
+function levelHeader(lv) {
+  const L = LEVELS[lv];
+  return `<div class="md:col-span-2 lvl-head mt-3"><div class="text-[11px] font-black uppercase tracking-widest text-indigo-200">Nível ${lv} de ${NLV}</div>
+    <div class="text-xl font-black">${L.name}</div><div class="text-sm text-indigo-100 mt-1">${L.desc}</div>
+    <div class="mt-2 text-sm bg-white/15 rounded-lg px-3 py-2">💡 Lembrete: ${L.rem} <a href="#${L.lesson}" data-lesson="${L.lesson}" class="underline font-bold ml-1">Rever a lição</a></div></div>`;
+}
+function exCard(ex) {
+  const done = solved.has(ex.id);
+  const input = ex.kind === 'mc'
+    ? `<div class="grid grid-cols-1 gap-2 mt-4">${ex.options.map((o, i) => `<button data-act="mc" data-i="${i}" class="mc-opt ${done && i === ex.ans ? 'right' : ''}">${o}</button>`).join('')}</div>`
+    : `<div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm min-w-0" placeholder="Sua resposta (ex.: 12, 3,5, 1/2)" autocomplete="off"><button data-act="check" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>`;
+  return `<article id="ex-${ex.id}" data-id="${ex.id}" class="bg-white rounded-2xl border-2 ${done ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm">
+    <div class="flex justify-between gap-3 items-center"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">Nível ${ex.level}</span></div>
+    <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-5 text-base sm:text-lg text-slate-700 leading-8">${ex.expr}</div>
+    ${input}
+    <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px] ${done ? 'text-emerald-600' : ''}">${done ? '✓ Já resolvido' : ''}</div>
+    <div class="flex gap-5 mt-1"><button data-act="hint" class="text-sm font-bold text-amber-700 hover:underline">💡 Dica</button><button data-act="sol" class="text-sm font-bold text-indigo-700 hover:underline">👁 Resolução passo a passo</button></div>
+    <div id="hint-${ex.id}" class="hidden tip rounded-xl p-3 mt-3 text-sm"></div>
+    <div id="solution-${ex.id}" class="hidden mt-4 border-t pt-4"></div></article>`;
+}
+function renderExercises() {
+  const q = ($('search').value || '').trim().toLowerCase(), only = $('only-open').checked;
+  const list = EX.filter(e => (curLevel === 'all' || String(e.level) === curLevel) && (!only || !solved.has(e.id)) &&
+    (!q || (plainText(e.expr) + ' ' + (e.options ? e.options.map(plainText).join(' ') : '') + ' ' + LEVELS[e.level].name + ' ' + LEVELS[e.level].desc).toLowerCase().includes(q)));
+  let html = '', last = 0;
+  list.forEach(ex => { if (ex.level !== last) { last = ex.level; html += levelHeader(ex.level); } html += exCard(ex); });
+  if (!list.length) html = '<div class="md:col-span-2 text-center text-slate-500 py-10">Nenhum exercício encontrado com esses filtros.</div>';
+  $('exercise-list').innerHTML = html;
+  renderMath($('exercise-list'));
+  renderFilters(); updateProgress();
+}
+function markSolved(ex) {
+  solved.add(ex.id); store.set(SOLVED_KEY, [...solved]);
+  const card = $('ex-' + ex.id); if (card) { card.classList.remove('border-slate-200'); card.classList.add('border-emerald-400'); }
+  renderFilters(); updateProgress();
+}
+function answerHTML(ex) { return ex.kind === 'mc' ? ex.ansTex : '\\(' + texAns(ex.ans) + '\\)'; }
+function giveFeedback(ex, ok, msg) {
+  const fb = $('feedback-' + ex.id);
+  fb.className = 'text-sm font-bold mt-2 min-h-[20px] ' + (ok ? 'text-emerald-600' : 'text-red-600');
+  fb.textContent = msg;
+}
+function checkNum(ex) {
+  const inp = $('answer-' + ex.id), v = parseF(inp.value);
+  if (!v) { giveFeedback(ex, false, 'Digite um número (frações como 1/2 e decimais como 0,25 também valem).'); return; }
+  if (v.eq(ex.ans)) { giveFeedback(ex, true, '✓ Perfeito! Resposta correta.'); markSolved(ex); }
+  else {
+    const c = ex.common.find(c => v.eq(c.v));
+    giveFeedback(ex, false, c ? '✗ Quase! ' + c.msg : '✗ Ainda não. Use a 💡 Dica ou veja a resolução passo a passo.');
+  }
+}
+function checkMC(ex, i, btn) {
+  if (i === ex.ans) {
+    btn.classList.add('right'); giveFeedback(ex, true, '✓ Perfeito! Resposta correta.'); markSolved(ex);
+  } else {
+    btn.classList.add('wrong'); giveFeedback(ex, false, '✗ Ainda não. Teste a alternativa com um número ou veja a resolução passo a passo.');
+  }
+}
+$('exercise-list').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const card = b.closest('[data-id]'), ex = EX.find(x => x.id === +card.dataset.id), act = b.dataset.act;
+  if (act === 'check') checkNum(ex);
+  else if (act === 'mc') checkMC(ex, +b.dataset.i, b);
+  else if (act === 'hint') {
+    const h = $('hint-' + ex.id);
+    if (!h.dataset.ready) { h.innerHTML = '<b>💡 Dica:</b> ' + ex.hint; h.dataset.ready = '1'; renderMath(h); }
+    h.classList.toggle('hidden');
+  } else if (act === 'sol') {
+    const s = $('solution-' + ex.id);
+    if (!s.dataset.ready) {
+      s.innerHTML = `<div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução passo a passo</div>${stepsHTML(ex.steps)}<div class="success rounded-xl p-4 text-center font-bold">Resposta certa: ${answerHTML(ex)}</div>`;
+      s.dataset.ready = '1'; renderMath(s);
+    }
+    s.classList.toggle('hidden');
+  }
+});
+$('exercise-list').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id && e.target.id.startsWith('answer-')) checkNum(EX.find(x => x.id === +e.target.id.slice(7)));
+});
+$('filters').addEventListener('click', e => { const b = e.target.closest('[data-level]'); if (b) setLevel(b.dataset.level); });
+$('search').addEventListener('input', renderExercises);
+$('only-open').addEventListener('change', renderExercises);
+$('reset-progress').addEventListener('click', () => {
+  if (confirm('Zerar todo o seu progresso nos exercícios?')) { solved = new Set(); store.set(SOLVED_KEY, []); renderExercises(); }
+});
+
+/* ---------- Índice das lições (destaque ao rolar) ---------- */
+function initTOC() {
+  const links = [...document.querySelectorAll('.toc a')];
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id)); });
+  }, { rootMargin: '-25% 0px -65% 0px' });
+  document.querySelectorAll('.lesson').forEach(l => io.observe(l));
+}
+
+/* ---------- Início ---------- */
+function init() {
+  $('total-ex').textContent = EX.length;
+  initFigures(); initQuick(); initTools(); initTOC(); newBalance(); updateAllLabs(); renderFilters(); renderExercises();
+  if (!renderMath(document.body)) window.addEventListener('load', () => renderMath(document.body));
+}
+if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', init); else init();
+// ==UI-END==
+  </script>
+</body>
+</html>

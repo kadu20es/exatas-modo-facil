@@ -1,0 +1,6 @@
+import { BhaskaraTool, QuadraticFunctionLab } from '../../../components/exercises/matematica/funcao-segundo-grau/Ferramentas';
+import { ExerciseList } from '../../../components/UI/ExerciseList';
+import { TopicPageLayout } from '../../../components/UI/TopicPageLayout';
+import { QuadraticFunctionExamples, QuadraticFunctionTheory } from '../../../components/content/matematica/funcao-segundo-grau/Conteudo';
+import { exercisesData } from '../../../data/matematica/funcao-segundo-grau/exercicios';
+export default function FuncaoSegundoGrauPage(){return <TopicPageLayout title="📉 Função do 2º Grau" tagline="Explore parábolas, raízes, discriminante e vértice" footer="Material interativo de Função do 2º Grau" tabs={[{id:'teoria',label:'📚 Teoria',content:<QuadraticFunctionTheory/>},{id:'exemplos',label:'💡 Exemplos',content:<QuadraticFunctionExamples/>},{id:'laboratorio',label:'🔬 Laboratório',content:<div className="space-y-6"><QuadraticFunctionLab/><BhaskaraTool/></div>},{id:'exercicios',label:'✏️ 30 Exercícios',content:<ExerciseList data={exercisesData} storageKey="quadraticFunctionSolved" total={30} levels={['L1 Calcular f(x)','L2 Discriminante','L3 Raízes (Bhaskara)','L4 Vértice','L5 Problemas']}/>}]}/>}

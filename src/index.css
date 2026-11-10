@@ -1,0 +1,21 @@
+@import "tailwindcss";
+:root { --ink: #243044; --paper: #fffdf8; --line: #e7dfd0; --accent: #4f46e5; }
+body { background: #fbf7ee; color: var(--ink); }
+.tab-btn.active { color: #4f46e5; border-bottom-color: #4f46e5; font-weight: 800; }
+.paper { background: var(--paper); background-image: linear-gradient(#e8e2d8 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #ddd5c8; box-shadow: 0 8px 24px #2b21120d; }
+.fraction { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; line-height: 1.05; margin: 0 .12em; min-width: 1.2em; }
+.fraction .top { border-bottom: 2px solid currentColor; padding: 0 .16em .08em; }
+.fraction .bottom { padding: .08em .16em 0; }
+.step { position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: white; }
+.step::before { content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #eef2ff; color: #4338ca; font-weight: 800; display: grid; place-items: center; font-size: .8rem; }
+.choice.active, .level-btn.active { border-color: #4f46e5; background: #eef2ff; color: #312e81; }
+canvas { max-width: 100%; }
+.exercise-solution { animation: fade .2s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+.sticky-mini { position: sticky; top: 74px; z-index: 20; }
+.tip { border-left: 4px solid #f59e0b; background: #fffbeb; color: #78350f; }
+.success { border-left: 4px solid #10b981; background: #ecfdf5; color: #065f46; }
+.warning { border-left: 4px solid #ef4444; background: #fef2f2; color: #991b1b; }
+.grid-paper { background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 28px 28px; }
+.arrow-down::after { content: "↓"; font-size: 1.5rem; font-weight: bold; color: #4f46e5; }
+.arrow-up::after { content: "↑"; font-size: 1.5rem; font-weight: bold; color: #ef4444; }

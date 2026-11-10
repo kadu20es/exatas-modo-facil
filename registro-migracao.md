@@ -1,0 +1,103 @@
+# Registro de Migração
+
+## Critérios acordados
+- Os arquivos serão recebidos e migrados em lotes de 2 ou 3.
+- Os dois primeiros arquivos migrados com sucesso servem de referência visual e funcional para os próximos.
+- Conteúdo duplicado entre arquivos pode ser compartilhado ou ignorado.
+- Mudanças na estrutura ou no conteúdo dependem de aprovação do usuário.
+
+## Migrados com sucesso
+- `old_files/migrados/geometria_basica.html` — migrado para `/matematica/geometria-basica`, classificado no 7º ano do Ensino Fundamental porque o material se apresenta como base para o 8º ano. As 15 lições teóricas e 30 verificações rápidas foram preservadas em JSX com Tailwind e KaTeX; cinco experimentos, cinco calculadoras e 131 exercícios progressivos em 15 níveis foram convertidos para componentes React e dados TypeScript estruturados. As figuras dos exercícios estão representadas como árvores de elementos SVG; o módulo usa `StudyHeader` e não depende de CSS próprio.
+- `old_files/migrados/introducao_algebra.html` — migrado para o módulo independente `/matematica/introducao-algebra`, classificado no 6º ano do Ensino Fundamental. As 14 lições teóricas foram convertidas para React/KaTeX e Tailwind; testes rápidos e figuras explicativas também foram migrados. Quatro laboratórios e cinco calculadoras interativas foram implementados em React. Os 118 exercícios originais e suas dicas, resoluções e alternativas foram convertidos para registros TypeScript estruturados, distribuídos nos 14 níveis de progressão. Usa `StudyHeader` e não depende de CSS próprio; permanece separado de Cálculo Algébrico.
+- `old_files/migrados/progressao_geometrica_completo.html` — substituição integral do antigo módulo de Progressão Geométrica. Teoria de 13 lições convertida em JSX/React com KaTeX e `CourseHeader`; quatro laboratórios visuais, oito calculadoras e banco de 100 exercícios estruturados em 13 níveis, com dicas, erros comuns e resoluções. Rota `/matematica/progressao-geometrica`, 1ª série do Ensino Médio.
+- `old_files/migrados/equacoes_de_1_grau.html` — teoria sobre equivalência, operações inversas, incógnitas nos dois lados, distributiva e frações; balança interativa, resolvedor Ax + B = Cx + D e 100 exercícios em cinco níveis. Página em `/matematica/equacoes-1-grau`.
+- `old_files/migrados/equacoes_de_2_grau.html` — teoria de delta, Bhaskara, soma e produto, vértice e equações incompletas; plotador interativo, resolvedor passo a passo e 100 exercícios em cinco níveis. Página em `/matematica/equacoes-2-grau`.
+- `old_files/migrados/estatistica_basica_1.html` — teoria de média, mediana, moda, amplitude e valores extremos; laboratório de centro dos dados; resolvedor estatístico; 100 exercícios progressivos.
+- `old_files/migrados/estatastica_basica_reforco.html` — complementa Estatística Básica com média ponderada, variância, desvio padrão, tabelas de frequência, laboratório de dispersão, calculadoras de média ponderada e variância, além de banco próprio de 100 exercícios; integrado ao módulo e à rota `/matematica/estatistica-basica`.
+- `old_files/migrados/fracoes.html` — Frações migrado para React + TypeScript.
+- `old_files/migrados/fracoes_refactor.html` — rota duplicada de Frações usando a implementação compartilhada.
+- `old_files/migrados/Decimais.html` — teoria, exemplos, laboratório, comparador decimal e 30 exercícios.
+- `old_files/migrados/razao-proporcao.html` — teoria, exemplos, laboratório/resolvedor e 30 exercícios.
+- `old_files/migrados/regra-de-tres.html` — teoria, exemplos, laboratório direto/inverso e 30 exercícios.
+- `old_files/migrados/regra_de_tres_reforco.html` — teoria, simulador, resolvedor e 100 exercícios gerados; agrupado no módulo `regra-de-tres`.
+- `old_files/migrados/potenciacao-radiciacao.html` — exemplos de potenciação e radiciação distribuídos para abas separadas nos respectivos módulos; teoria, laboratório e exercícios sobrepostos aos conteúdos individuais foram ignorados como duplicados. A URL combinada antiga redireciona para Potenciação.
+- `old_files/migrados/potenciacao.html` — teoria, exemplos, laboratório comparativo, calculadoras e 100 exercícios com resolução interativa; dados em `src/data/matematica/potenciacao/exercicios.ts`.
+- `old_files/migrados/radiciacao.html` — teoria, exemplos, mapeador de raízes, simplificador, racionalizador e 100 exercícios interativos; dados em `src/data/matematica/radiciacao/exercicios.ts`.
+- `old_files/migrados/nota_o_cient_fica_interativa.html` — teoria e exemplos, laboratório de vírgula, conversor, calculadora de operações e 100 exercícios aleatórios em cinco níveis.
+- `old_files/migrados/calculo_algebrico.html` — teoria de monômios e polinômios, laboratório de blocos algébricos, resolvedor de operações e 100 exercícios em cinco níveis; página `/matematica/calculo-algebrico`, classificada no 8º ano do Ensino Fundamental.
+- `old_files/migrados/conjuntos_numericos.html` — teoria de conjuntos e intervalos, classificador numérico, ferramentas de dízima periódica e intervalos, e 100 exercícios em seis níveis; página `/matematica/conjuntos-numericos`, classificada na 1ª série do Ensino Médio.
+- `old_files/migrados/poligonos.html` — geometria plana, áreas e perímetros, construtor de formas, resolvedor e 100 exercícios em cinco níveis; página `/matematica/geometria-plana`, classificada no 9º ano do Ensino Fundamental.
+- `old_files/migrados/probabilidade.html` — teoria de Laplace, eventos, união, independência, probabilidade condicional e Bayes; simulador de urna com e sem reposição, calculadoras de união/condicional e banco de 100 exercícios com resoluções; página `/matematica/probabilidade`, classificada na 2ª série do Ensino Médio.
+- `old_files/migrados/geometria_analitica.html` — plano cartesiano, quadrantes, ponto médio, distância, coeficiente angular, retas e circunferência; plano interativo, calculadora de pontos/reta e banco de 100 exercícios com resoluções; página `/matematica/geometria-analitica`, classificada na 3ª série do Ensino Médio.
+- `old_files/migrados/matematica_financeira.html` — porcentagem, fatores sucessivos, juros simples/compostos, equivalência de taxas, inflação e taxa real; gráfico comparativo e calculadoras financeiras, com banco de 100 exercícios e resoluções; página `/matematica/matematica-financeira`, classificada na 1ª série do Ensino Médio.
+- `old_files/migrados/funcao-primeiro-grau.html` — teoria, seis exemplos resolvidos, laboratório interativo da reta, calculadora da lei por dois pontos e 30 exercícios com resoluções; página `/matematica/funcao-primeiro-grau`, classificada na 1ª série do Ensino Médio.
+- `old_files/migrados/funcao-segundo-grau.html` — teoria, seis exemplos resolvidos, laboratório interativo da parábola, calculadora de Bhaskara e 30 exercícios com resoluções; página `/matematica/funcao-segundo-grau`, classificada na 1ª série do Ensino Médio.
+- `old_files/migrados/matrizes_e_sistemas.html` — teoria de matrizes e sistemas, laboratório geométrico do determinante, calculadoras de Sarrus e Cramer e 100 exercícios com resoluções; página `/matematica/matrizes-sistemas`, classificada na 2ª série do Ensino Médio.
+
+- `old_files/migrados/Trigonometria.html` — teoria de Pitágoras e razões SOH CAH TOA, tabela de ângulos notáveis, simulador de triângulo com ângulo variável, resolvedor de Pitágoras e razões trigonométricas e banco estruturado de 100 exercícios em cinco níveis; rota `/matematica/trigonometria`, classificada na 2ª série do Ensino Médio.
+- `old_files/migrados/estatistica_e_probabilidade_avancada.html` — teoria de Bayes, árvores de decisão, distribuição binomial, curva normal, escore Z e esperança; laboratórios interativos de curvas normal e binomial; calculadoras de Bayes e binomial; banco estruturado de 100 questões com dicas e resoluções; rota `/matematica/estatistica-probabilidade-avancada`, classificada na 3ª série do Ensino Médio.
+- `old_files/migrados/analise_combinatoria.html` — teoria de fatoriais, princípio fundamental da contagem, permutações, arranjos e combinações; laboratório que compara arranjos e combinações; simplificador de fatoriais, calculadora de arranjo/combinação e banco estruturado de 100 exercícios; rota `/matematica/analise-combinatoria`, classificada na 2ª série do Ensino Médio.
+- `old_files/migrados/exponencial_e_logaritmo.html` — teoria de propriedades de potências, definição e condições dos logaritmos, propriedades, mudança de base e equações; gráfico interativo das funções inversas com tabela de valores; calculadoras de logaritmos/equações exponenciais e banco estruturado de 100 exercícios; rota `/matematica/exponencial-logaritmo`, classificada na 2ª série do Ensino Médio.
+- `old_files/migrados/numeros_complexos.html` — teoria da unidade imaginária, operações, conjugado, plano de Argand-Gauss, módulo, argumento e forma trigonométrica; plano interativo, calculadora de divisão pelo conjugado, ciclo das potências de i e banco estruturado de 100 exercícios; rota `/matematica/numeros-complexos`, classificada na 3ª série do Ensino Médio.
+- `old_files/migrados/multiplicacao_divisao.html` — teoria de multiplicação como grupos iguais e divisão por partilha, método da chave, divisões com números grandes, decimais e sinais; laboratório visual de matrizes e partilha em caixas, calculadoras de produto por decomposição e quociente/resto, e banco estruturado de 80 exercícios com resoluções; rota `/matematica/multiplicacao-divisao`, classificada no 5º ano do Ensino Fundamental.
+
+## Não migrados com sucesso
+_Nenhum._
+
+## Conteúdo duplicado ignorado
+- `old_files/migrados/geometria_plana.html` — conteúdo já coberto pela página e pelos componentes de Geometria Plana, incluindo polígonos regulares, laboratório, resolvedor e exercícios; não foi criada uma segunda página.
+
+## Arquivos aguardando migração
+_Nenhum arquivo disponível aguardando migração._
+
+## Consolidação de conteúdo
+- Os exemplos exclusivos do arquivo combinado foram separados nas abas de Potenciação e Radiciação.
+- Laboratório, calculadoras e exercícios do arquivo combinado não foram duplicados porque os módulos individuais já contêm suas versões correspondentes.
+
+## Alterações transversais recentes
+- Refinamento visual de Introdução à Álgebra a partir de comparação com o material de origem: índice das lições voltou a ser uma lista vertical com destaque da lição visível; cartões de resumo recuperaram espaçamento e cantos arredondados; a balança do laboratório foi redesenhada em SVG com inclinação, pratos e valores, mantendo a interação dos palpites.
+- A teoria de Razão e Proporção foi ampliada para iniciantes, com comparação entre partes e total, simplificação e equivalência, verificação de proporções, termo desconhecido, variação direta/inversa, divisão proporcional, escala, taxas, porcentagem e roteiro de resolução manual; foram adicionados links para Regra de Três e Frações.
+- Os 30 exercícios de Razão e Proporção mantêm cinco níveis progressivos; a questão de equivalência foi posicionada junto às proporções, antes dos exercícios de verificação e resolução de incógnitas.
+- A teoria de Estatística Básica foi ampliada como introdução didática: população e amostra, variáveis, fluxo de resolução, rol/tabelas de frequência, média/mediana/moda, valores extremos, média ponderada, dado desconhecido, dispersão, variância populacional/amostral, dados agrupados e gráficos. As fórmulas da mediana são renderizadas com KaTeX.
+- Os 200 exercícios de Estatística Básica foram reorganizados em oito níveis progressivos e a geração da média simples foi corrigida para que a lista mostrada e a quantidade usada no cálculo coincidam.
+- As páginas de assunto passaram a ser carregadas sob demanda por rota com `React.lazy`/`Suspense`. O arquivo inicial de JavaScript caiu de aproximadamente 1,59 MB para 266 KB sem gzip (cerca de 83% menor); o build deixou de emitir o aviso de chunk acima de 500 KB. Os módulos compartilhados e os recursos de cada assunto são baixados quando a respectiva rota é aberta.
+- O menu lateral agora organiza os conteúdos como árvore de disciplinas recolhível: Matemática → Ensino Fundamental/Ensino Médio → ano → assunto. Conteúdos do Fundamental e Médio foram redistribuídos por ano; a estrutura aceita futuras disciplinas, como Física e Química.
+- Criado menu lateral compartilhado nos cabeçalhos das matérias migradas, agrupando destinos em “Matemática ensino fundamental”.
+- A aba de exercícios de Regra de Três e o reforço exibem frações empilhadas com KaTeX.
+- Teorias e exemplos de Frações, Decimais, Razão e Proporção, Regra de Três, Potenciação, Radiciação e Notação Científica foram convertidos de HTML legado para módulos React/JSX em `src/components/content/matematica/<assunto>/Conteudo.tsx`.
+- Os bancos de Potenciação e Radiciação foram convertidos de strings delimitadas por `|` para registros TypeScript estruturados, alinhados ao formato de `src/data/matematica/fracoes/exercicios.ts`; ambos preservam 100 exercícios.
+- As páginas migradas não importam HTML nem usam parser de HTML em tempo de execução. Os arquivos HTML originais permanecem somente no arquivo histórico `old_files/migrados`.
+- Removidos `LegacyMarkup`, `LegacyTopicPage`, o parser `html-react-parser` e as referências de varredura Tailwind para HTML legado. Conteúdo matemático agora é renderizado por componentes React e `MathText`/`MathRenderer`.
+- Estatística Básica usa uma página React única com 200 itens, mantendo os bancos de 100 questões dos dois arquivos em níveis distintos; laboratório, resolvedor geral, calculadora ponderada e calculadora de variância foram convertidos para componentes React com estado declarativo.
+- Equações do 1º e 2º Grau estão disponíveis no menu lateral; seus laboratórios e resolvedores usam estado React, e os bancos mantêm 100 exercícios classificados cada.
+- O menu lateral usa a hierarquia Matemática → etapa de ensino → ano → conteúdo. Os assuntos foram distribuídos nos anos do Fundamental e do Médio; Física e Química poderão ser adicionadas como disciplinas irmãs no primeiro nível.
+- Probabilidade está no grupo da 2ª série do Ensino Médio; Geometria Analítica na 3ª série e Matemática Financeira na 1ª série. Cada novo módulo tem teoria React, laboratório, ferramentas e banco próprio em TypeScript.
+- Função do 1º e do 2º Grau estão no grupo da 1ª série do Ensino Médio; Matrizes e Sistemas na 2ª série. Seus bancos estruturados preservam 30, 30 e 100 questões, respectivamente.
+- Análise Combinatória e Exponencial e Logaritmo foram adicionadas à 2ª série do Ensino Médio; Números Complexos à 3ª série. Cada módulo tem teoria React/TypeScript, laboratório, ferramentas e banco estruturado de 100 exercícios.
+- Multiplicação e Divisão está organizada em componentes React de teoria, laboratório interativo e calculadoras, com 80 exercícios tipados e resoluções; rota `/matematica/multiplicacao-divisao`, no grupo do 5º ano do Ensino Fundamental.
+- Trigonometria foi migrada para módulos React/TypeScript próprios de conteúdo, ferramentas e banco de dados, com 100 questões em cinco níveis, rota `/matematica/trigonometria` e classificação na 2ª série do Ensino Médio.
+- Estatística e Probabilidade Avançada preserva a teoria de Bayes, binomial, normal, Z-score e esperança, dois laboratórios gráficos interativos, calculadoras e 100 questões estruturadas; rota `/matematica/estatistica-probabilidade-avancada`, classificada na 3ª série do Ensino Médio. O conteúdo básico repetido em Estatística Básica e Probabilidade pode ser compartilhado ou ignorado.
+- `geometria_plana.html` foi conferido contra Geometria Plana já migrada; conteúdo e recursos já estão representados no módulo, portanto foi arquivado como duplicado sem criar uma segunda rota.
+
+## Verificação
+- `npm run build` concluído com sucesso após a migração de Geometria Básica; confirmados 15 lições, 30 testes rápidos, cinco experimentos, cinco calculadoras e 131 exercícios em 15 níveis.
+- Progressão Aritmética recebeu a seção completa de teoria de `old_files/progressao_aritmetica.html` no início da teoria React existente: introdução pelo cofrinho e definição dos termos/razão, termo geral com a explicação de `n−1` e soma de Gauss com exemplo guiado. Fórmulas foram convertidas para KaTeX e o visual segue a paleta indigo do projeto; exemplos, laboratório, calculadora e 50 exercícios progressivos preexistentes foram mantidos. Rota `/matematica/progressao-aritmetica`, classificada na 1ª série do Ensino Médio.
+- `npm run build` concluído com sucesso após a substituição integral de Progressão Geométrica por seu novo material.
+- A paleta rosa do original foi aplicada às lições, abas, laboratórios e níveis de exercícios com classes Tailwind; o fundo geral usa rosa claro, as lições têm cartões brancos e fórmulas/exemplos usam papel creme com linhas rosas, conforme o original. Os destaques semânticos azul, âmbar e verde foram preservados. O cabeçalho compartilhado recebeu suporte opcional de acento rosa sem alterar as demais matérias. Build concluído com sucesso.
+- Regra de Três e Regra de Três — Reforço consolidadas com sucesso em uma única página React: teoria didática ampliada, exemplos resolvidos, laboratório, resolvedor e banco conjunto de 130 exercícios em sete níveis progressivos. A antiga rota de reforço redireciona para o módulo unificado; o menu lateral mostra um único item.
+- O progresso salvo dos bancos antigos (`r3Solved` e `rtSolved`) é migrado para `r3CombinedSolved` na primeira visita à página unificada.
+- `npm run build` concluído com sucesso após a conversão dos conteúdos e bancos de exercícios para módulos nativos do React/TypeScript.
+- `npm run build` concluído com sucesso após a migração das duas páginas de equações.
+- `npm run build` concluído com sucesso após a migração de Cálculo Algébrico, Conjuntos Numéricos e Geometria Plana.
+- `npm run build` concluído com sucesso após a migração de Probabilidade, Geometria Analítica e Matemática Financeira.
+- `npm run build` concluído com sucesso após a migração de Função do 1º Grau, Função do 2º Grau e Matrizes e Sistemas.
+- `npm run build` concluído com sucesso após a migração de Trigonometria e Estatística e Probabilidade Avançada.
+- `npm run build` concluído com sucesso após a migração de Análise Combinatória, Exponencial e Logaritmo e Números Complexos.
+- `npm run build` concluído com sucesso após a migração de Multiplicação e Divisão.
+- `npm run build` concluído com sucesso após a divisão do bundle por rota; o chunk principal passou de aproximadamente 1,59 MB para 266 KB sem gzip.
+- `npm run build` concluído com sucesso após a revisão didática de Estatística Básica, a correção do KaTeX da mediana e a reorganização dos exercícios em oito níveis.
+- `npm run build` concluído com sucesso após a ampliação didática de Razão e Proporção e a revisão da ordem progressiva dos exercícios.
+
+- Progressão Geométrica foi padronizada com Tailwind diretamente nos elementos React; removido `src/components/content/matematica/progressao-geometrica/ProgressaoGeometrica.css`. Fundo rosa, cartões brancos, papel pautado creme/rosa, tabelas, fórmulas e componentes internos agora usam utilitários Tailwind. `StudyHeader`, `CourseHeader` e `ExerciseList` recebem a variante rosa como opção; build concluído com sucesso.
+- Radiciação — reforço completo migrado para o módulo existente. As seis lições e 12 testes rápidos estão em JSX/React com KaTeX e Tailwind; três experimentos interativos foram convertidos; as calculadoras novas foram adicionadas junto às ferramentas já existentes. O gerador de exercícios do material produziu 71 itens estruturados em cinco níveis (a introdução do HTML informa 70); o banco anterior de 100 questões permanece acessível separadamente. `npm run build` concluído com sucesso.
+- Teorema de Pitágoras migrado com sucesso para `/matematica/pitagoras`: nove lições, 18 testes rápidos, quatro experimentos interativos, quatro calculadoras e 100 exercícios em oito níveis. Os sete diagramas das questões foram estruturados como árvores SVG e todos os registros estão em TypeScript JSON-like. Página com `StudyHeader`, Tailwind e KaTeX, classificada no 8º ano do Ensino Fundamental. `npm run build` concluído com sucesso.

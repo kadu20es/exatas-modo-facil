@@ -1,0 +1,13 @@
+[Unit]
+Description=Publish matematicafacil.local on the local network
+After=network.target avahi-daemon.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/caduzera/exatas-react
+ExecStart=/home/caduzera/.nvm/versions/node/v26.13.0/bin/node /home/caduzera/exatas-react/scripts/mdns-alias.mjs
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

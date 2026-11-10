@@ -1,0 +1,48 @@
+# Public HTTP is redirected to the TLS virtual host.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name exatasmodofacil.com.br www.exatasmodofacil.com.br;
+
+    return 301 https://$host$request_uri;
+}
+
+# Keep local access on HTTP; the public certificate does not cover private names/IPs.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name matematicafacil.local 192.168.70.50;
+
+    location / {
+        proxy_pass http://127.0.0.1:4173;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# Public HTTPS terminates TLS here and forwards the app traffic to Node.
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name exatasmodofacil.com.br www.exatasmodofacil.com.br;
+
+    ssl_certificate /etc/letsencrypt/live/exatasmodofacil.com.br/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/exatasmodofacil.com.br/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    location / {
+        proxy_pass http://127.0.0.1:4173;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

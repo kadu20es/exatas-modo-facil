@@ -1,0 +1,1 @@
+export { GeometricProgressionTheory } from './Teoria';

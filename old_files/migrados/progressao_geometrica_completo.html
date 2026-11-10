@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progressão Geométrica — Curso Completo do Zero</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root { --ink: #243044; --paper: #fffdf8; --accent: #ec4899 }
+    html { scroll-behavior: smooth; overflow-x: hidden }
+    body { background: #fdf2f8; color: var(--ink); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    .tab-btn.active { color: #db2777; border-bottom-color: #db2777; font-weight: 800 }
+    .paper {
+      background: var(--paper);
+      background-image: linear-gradient(#fce7f3 1px, transparent 1px);
+      background-size: 100% 2rem;
+      border: 1px solid #fbcfe8;
+      box-shadow: 0 8px 24px #4c1d950d;
+    }
+    .hand { font-family: 'Caveat', 'Segoe Print', cursive; font-size: 1.35rem; line-height: 2rem; color: #1e3a8a; }
+    .hand .katex { font-size: 1.05em; }
+    .step { position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: white; }
+    .step::before { content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #fce7f3; color: #be185d; font-weight: 800; display: grid; place-items: center; font-size: .8rem; }
+    .level-btn.active { background: #db2777; color: white; }
+    .tip { border-left: 4px solid #f59e0b; background: #fffbeb; }
+    .success { border-left: 4px solid #10b981; background: #ecfdf5; }
+    .warning { border-left: 4px solid #ef4444; background: #fef2f2; }
+    .info { border-left: 4px solid #3b82f6; background: #eff6ff; }
+    .bar-col { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    /* Lições */
+    .lesson { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 1.5rem; box-shadow: 0 1px 3px #0000000d; scroll-margin-top: 5.5rem; }
+    @media (min-width: 640px) { .lesson { padding: 2rem; } }
+    .lesson .lesson-tag { font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #db2777; }
+    .lesson h2 { font-size: 1.6rem; font-weight: 900; margin-top: .25rem; color: #1f2937; }
+    .lesson h3 { font-weight: 800; font-size: 1.1rem; margin-top: 1.75rem; color: #9d174d; }
+    .lesson p { line-height: 1.85; color: #475569; margin-top: .75rem; }
+    .lesson ul, .lesson ol { padding-left: 1.5rem; color: #475569; line-height: 1.85; margin-top: .6rem; }
+    .lesson ul { list-style: disc; }
+    .lesson ol { list-style: decimal; }
+    .lesson li { margin-top: .25rem; }
+    .lesson b, .lesson strong { color: #1f2937; }
+    .callout { border-radius: .9rem; padding: .9rem 1.1rem; margin-top: 1rem; font-size: .95rem; line-height: 1.75; color: #374151; }
+    .callout > b:first-child { display: block; margin-bottom: .15rem; }
+    .formula { background: var(--paper); border: 2px solid #f9a8d4; border-radius: 1rem; padding: 1.1rem; margin-top: 1rem; text-align: center; font-size: 1.2rem; overflow-x: auto; }
+    table.tb { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: .9rem; display: block; overflow-x: auto; }
+    table.tb th { background: #fce7f3; color: #831843; text-align: left; padding: .55rem .75rem; font-weight: 800; white-space: nowrap; }
+    table.tb td { border-top: 1px solid #f1f5f9; padding: .55rem .75rem; color: #475569; vertical-align: top; }
+    .seq { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .35rem; margin-top: 1rem; font-family: ui-monospace, monospace; }
+    .seq .t { background: #fdf2f8; border: 2px solid #f9a8d4; border-radius: .6rem; padding: .35rem .8rem; font-weight: 800; color: #9d174d; font-size: 1.1rem; }
+    .seq .a { font-size: .75rem; font-weight: 800; color: #d97706; background: #fffbeb; border-radius: 999px; padding: .15rem .5rem; }
+    .cmp { display: grid; gap: .75rem; margin-top: 1rem; }
+    @media (min-width: 640px) { .cmp { grid-template-columns: 1fr 1fr; } }
+    .cmp > div { border-radius: .9rem; padding: .9rem 1.1rem; font-size: .92rem; line-height: 1.7; color: #374151; }
+    .bad { background: #fef2f2; border: 1px solid #fecaca; }
+    .good { background: #ecfdf5; border: 1px solid #a7f3d0; }
+    .toc a { display: block; padding: .4rem .7rem; border-radius: .6rem; font-size: .85rem; color: #475569; font-weight: 600; }
+    .toc a:hover { background: #fce7f3; color: #9d174d; }
+    .toc a.on { background: #fce7f3; color: #9d174d; font-weight: 800; }
+    .quick { background: #f0f9ff; border: 1px dashed #7dd3fc; border-radius: 1rem; padding: 1rem 1.1rem; margin-top: 1.25rem; }
+    .quick input { border: 1px solid #cbd5e1; border-radius: .7rem; padding: .45rem .7rem; font-size: .9rem; width: 9rem; background: #fff; }
+    .gobtn { display: inline-block; margin-top: 1rem; background: #db2777; color: #fff; font-weight: 800; border-radius: .8rem; padding: .6rem 1rem; font-size: .85rem; }
+    .gobtn:hover { background: #be185d; }
+    .lvl-head { background: linear-gradient(135deg, #831843, #be185d); color: #fff; border-radius: 1.1rem; padding: 1rem 1.25rem; }
+    kbd { background: #f1f5f9; border: 1px solid #cbd5e1; border-bottom-width: 2px; border-radius: .35rem; padding: 0 .35rem; font-size: .8rem; }
+    @media print { header, .toc, .gobtn { display: none !important } }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-pink-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 flex items-center justify-between h-16 gap-2">
+      <div>
+        <div class="font-black text-lg sm:text-xl text-pink-900 whitespace-nowrap">🚀 <span class="hidden sm:inline">Progressão Geométrica</span><span class="sm:hidden">P.G.</span></div>
+        <div class="text-[11px] text-slate-500 hidden sm:block">Curso completo, do zero ao domínio</div>
+      </div>
+      <nav class="flex gap-1 overflow-x-auto ml-4">
+        <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Aprender</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadoras</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-7">
+    <!-- ================= TEORIA ================= -->
+    <section id="sec-teoria" class="space-y-6">
+      <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-pink-950 via-pink-900 to-rose-900 text-white shadow-xl">
+        <span class="text-xs uppercase tracking-widest font-bold text-pink-200">Curso completo · do zero</span>
+        <h1 class="text-3xl sm:text-5xl font-black mt-2">Progressão Geométrica</h1>
+        <p class="mt-4 max-w-3xl text-pink-100 leading-7">Você não precisa saber nada sobre o assunto. Aqui você vai entender <b>o que é</b>, <b>como funciona</b>, <b>para que serve</b>, <b>como armar cada conta no papel</b> e <b>como resolver qualquer tipo de problema</b> — com exemplos passo a passo e cerca de 100 exercícios do mais fácil ao mais difícil.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-6 items-start">
+        <!-- Índice -->
+        <aside class="toc lg:sticky lg:top-20 bg-white rounded-2xl border p-3 shadow-sm lg:max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <div class="text-[11px] font-black uppercase tracking-widest text-pink-600 px-2 pb-1">Lições</div>
+          <a href="#l0">0 · Comece por aqui</a>
+          <a href="#l1">1 · Revisão rápida</a>
+          <a href="#l2">2 · O que é uma P.G.?</a>
+          <a href="#l3">3 · Tipos de P.G.</a>
+          <a href="#l4">4 · O termo geral</a>
+          <a href="#l5">5 · Descobrindo cada incógnita</a>
+          <a href="#l6">6 · Propriedades e interpolação</a>
+          <a href="#l7">7 · Soma dos n primeiros termos</a>
+          <a href="#l8">8 · Soma infinita</a>
+          <a href="#l9">9 · Para que serve?</a>
+          <a href="#l10">10 · Montando a conta no papel</a>
+          <a href="#l11">11 · Erros comuns</a>
+          <a href="#l12">12 · Resumo e folha de cola</a>
+        </aside>
+
+        <div class="space-y-6 min-w-0">
+
+          <!-- L0 -->
+          <article class="lesson" id="l0">
+            <div class="lesson-tag">Lição 0</div>
+            <h2>Comece por aqui</h2>
+            <p>Uma <b>Progressão Geométrica (P.G.)</b> é uma lista de números em que cada um nasce do anterior por uma <b>multiplicação sempre igual</b>. Parece simples — e é. Mas essa ideia explica por que dinheiro rende juros sobre juros, por que um vírus se espalha tão rápido e por que uma folha dobrada ao meio 42 vezes chegaria à Lua.</p>
+            <h3>Como estudar</h3>
+            <ol>
+              <li>Leia as lições <b>na ordem</b>. Cada uma usa o que a anterior ensinou.</li>
+              <li>Tenha <b>caderno e lápis</b>. Refaça cada exemplo no papel antes de olhar a solução — é assim que se aprende matemática.</li>
+              <li>Responda os <b>“Teste rápido”</b> (caixas azuis). Eles mostram se você pode seguir em frente.</li>
+              <li>Depois de cada bloco de lições, faça os <b>exercícios do nível correspondente</b>. Eles começam fáceis e vão ficando mais difíceis.</li>
+              <li>Travou? Use a <b>💡 Dica</b>; ainda travado? Abra a <b>resolução passo a passo</b> e depois tente de novo outro exercício parecido.</li>
+            </ol>
+            <h3>Mapa do curso</h3>
+            <table class="tb">
+              <thead><tr><th>Lição</th><th>O que você aprende</th><th>Exercícios</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Revisão: sequências, potências, sinais, frações</td><td>—</td></tr>
+                <tr><td>2 e 3</td><td>O que é P.G., razão, tipos de P.G.</td><td>Níveis 1, 2 e 3</td></tr>
+                <tr><td>4</td><td>Fórmula do termo geral</td><td>Níveis 4 e 5</td></tr>
+                <tr><td>5</td><td>Descobrir <i>n</i>, <i>a₁</i> ou <i>q</i></td><td>Níveis 6 e 7</td></tr>
+                <tr><td>6</td><td>Termo médio, propriedades, interpolação</td><td>Níveis 8 e 9</td></tr>
+                <tr><td>7</td><td>Soma dos <i>n</i> primeiros termos</td><td>Nível 10</td></tr>
+                <tr><td>8</td><td>Soma infinita e dízimas periódicas</td><td>Nível 11</td></tr>
+                <tr><td>9 e 10</td><td>Aplicações reais e como montar a conta no papel</td><td>Nível 12</td></tr>
+                <tr><td>11 e 12</td><td>Erros comuns e resumo</td><td>Nível 13 (desafios)</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <!-- L1 -->
+          <article class="lesson" id="l1">
+            <div class="lesson-tag">Lição 1</div>
+            <h2>Revisão rápida: o que você precisa saber</h2>
+            <p>Quase todo erro em P.G. vem de uma conta básica mal feita (potência, sinal ou fração). Vale gastar cinco minutos aqui.</p>
+
+            <h3>1.1 Sequência e posição</h3>
+            <p>Uma <b>sequência</b> é uma lista de números em ordem. Cada número é um <b>termo</b>. Damos nome a eles pela posição:</p>
+            <div class="seq"><span class="t">5</span><span class="t">10</span><span class="t">20</span><span class="t">40</span></div>
+            <div class="seq" style="margin-top:.25rem"><span class="text-xs text-slate-500 w-14 text-center">\(a_1\)</span><span class="text-xs text-slate-500 w-14 text-center">\(a_2\)</span><span class="text-xs text-slate-500 w-14 text-center">\(a_3\)</span><span class="text-xs text-slate-500 w-14 text-center">\(a_4\)</span></div>
+            <ul>
+              <li>\(a_1 = 5\) é o <b>1º termo</b>, \(a_2 = 10\) é o 2º, e assim por diante.</li>
+              <li>\(a_n\) significa “o termo que está na posição <i>n</i>”. A letra <i>n</i> é só um nome para uma posição qualquer.</li>
+              <li>O número pequeno embaixo (<b>índice</b>) diz a <b>posição</b>. \(a_3\) <u>não</u> é “a vezes 3”.</li>
+            </ul>
+
+            <h3>1.2 Potência = multiplicação repetida</h3>
+            <p>Uma potência é uma forma curta de escrever uma multiplicação de números iguais. O número que se repete é a <b>base</b>; quantas vezes ele aparece é o <b>expoente</b>.</p>
+            <div class="formula">\[2^4 = \underbrace{2 \cdot 2 \cdot 2 \cdot 2}_{4\text{ vezes}} = 16\]</div>
+            <ul>
+              <li>Expoente 1: \(q^1 = q\) (o número sozinho). Exemplo: \(7^1 = 7\).</li>
+              <li>Expoente 0: \(q^0 = 1\) (qualquer número, menos zero). Exemplo: \(9^0 = 1\). Isso vai aparecer quando \(n=1\).</li>
+            </ul>
+            <p><b>Vale decorar</b> (você vai usar o tempo todo):</p>
+            <table class="tb">
+              <thead><tr><th>Base</th><th>Potências</th></tr></thead>
+              <tbody>
+                <tr><td>2</td><td>2, 4, 8, 16, 32, 64, 128, 256, 512, 1024</td></tr>
+                <tr><td>3</td><td>3, 9, 27, 81, 243, 729, 2187</td></tr>
+                <tr><td>4</td><td>4, 16, 64, 256, 1024</td></tr>
+                <tr><td>5</td><td>5, 25, 125, 625, 3125</td></tr>
+                <tr><td>10</td><td>10, 100, 1000, 10000, …</td></tr>
+              </tbody>
+            </table>
+            <div class="callout tip"><b>Truque de papel</b>Para calcular uma potência grande, vá multiplicando de um em um e anotando: \(3^5\): 3 → 9 → 27 → 81 → 243. Assim você não se perde e ainda ganha a tabela de graça.</div>
+
+            <h3>1.3 Potências com número negativo</h3>
+            <p>Regra do sinal: multiplicar dois negativos dá positivo. Então:</p>
+            <ul>
+              <li><b>Expoente par</b> → resultado <b>positivo</b>: \((-2)^4 = (-2)(-2)(-2)(-2) = +16\).</li>
+              <li><b>Expoente ímpar</b> → resultado <b>negativo</b>: \((-2)^3 = (-2)(-2)(-2) = -8\).</li>
+            </ul>
+            <div class="callout warning"><b>Os parênteses mudam tudo!</b>\((-2)^4 = 16\), mas \(-2^4 = -16\) (aqui só o 2 é elevado e o sinal fica de fora). Na P.G., a razão negativa <u>sempre</u> vai entre parênteses.</div>
+
+            <h3>1.4 Frações e decimais</h3>
+            <ul>
+              <li>Potência de fração: eleva-se o de cima <u>e</u> o de baixo. \(\left(\tfrac{1}{2}\right)^3 = \tfrac{1^3}{2^3} = \tfrac{1}{8}\).</li>
+              <li>Multiplicar por fração: \(64 \cdot \tfrac{1}{8} = \tfrac{64}{8} = 8\).</li>
+              <li>Dividir por fração = multiplicar pelo inverso: \(3 \div \tfrac{1}{2} = 3 \cdot 2 = 6\).</li>
+              <li>Decimais úteis: \(0{,}5 = \tfrac12\), \(0{,}25 = \tfrac14\), \(0{,}1 = \tfrac{1}{10}\), \(1{,}5 = \tfrac32\).</li>
+            </ul>
+
+            <h3>1.5 Ordem das operações</h3>
+            <p>Sempre nesta ordem: <b>1º parênteses → 2º potências → 3º multiplicação e divisão → 4º soma e subtração</b>. Na P.G. isso significa: calcule a potência <u>antes</u> de multiplicar pelo primeiro termo. Exemplo: \(3 \cdot 2^4 = 3 \cdot 16 = 48\) (e não \(6^4\)!).</p>
+
+            <div class="quick" data-qi="0"></div>
+            <div class="quick" data-qi="1"></div>
+          </article>
+
+          <!-- L2 -->
+          <article class="lesson" id="l2">
+            <div class="lesson-tag">Lição 2</div>
+            <h2>O que é uma Progressão Geométrica?</h2>
+
+            <h3>2.1 A ideia, com uma história</h3>
+            <p>Imagine que alguém lhe propõe: <i>“Hoje você recebe 1 centavo. Amanhã, o dobro do que recebeu hoje. Depois de amanhã, o dobro do dia anterior… por 30 dias.”</i> Parece pouco? Veja os primeiros dias:</p>
+            <div class="seq"><span class="t">1</span><span class="a">×2</span><span class="t">2</span><span class="a">×2</span><span class="t">4</span><span class="a">×2</span><span class="t">8</span><span class="a">×2</span><span class="t">16</span><span class="a">×2</span><span class="t">32</span></div>
+            <p>Cada número é o anterior <b>multiplicado por 2</b>. Isso é uma P.G. (No 30º dia você receberia mais de cinco milhões de reais — ao longo desta lição você vai ver como calcular isso!)</p>
+
+            <h3>2.2 Definição</h3>
+            <div class="callout info"><b>Progressão Geométrica</b>É uma sequência de números em que, <u>a partir do 2º termo</u>, cada termo é igual ao anterior <b>multiplicado por um mesmo número fixo</b>, chamado <b>razão</b> e representado pela letra <b>q</b>.</div>
+            <div class="formula">\[a_{n+1} = a_n \cdot q\]</div>
+            <p>Leia assim: “o termo seguinte é o termo atual vezes a razão”.</p>
+
+            <h3>2.3 O vocabulário</h3>
+            <table class="tb">
+              <thead><tr><th>Nome</th><th>Símbolo</th><th>Significa</th><th>Em (3, 6, 12, 24, 48)</th></tr></thead>
+              <tbody>
+                <tr><td><b>Termo</b></td><td>\(a_n\)</td><td>cada número da lista</td><td>3, 6, 12, 24, 48</td></tr>
+                <tr><td><b>Primeiro termo</b></td><td>\(a_1\)</td><td>onde a P.G. começa</td><td>3</td></tr>
+                <tr><td><b>Razão</b></td><td>\(q\)</td><td>o número pelo qual se multiplica</td><td>2</td></tr>
+                <tr><td><b>Posição</b></td><td>\(n\)</td><td>o “número da vaga” do termo</td><td>o 4º termo é 24, então \(n=4\)</td></tr>
+                <tr><td><b>Número de termos</b></td><td>\(n\)</td><td>quantos números há na lista</td><td>5 termos</td></tr>
+              </tbody>
+            </table>
+
+            <h3>2.4 Como descobrir a razão</h3>
+            <p>Se cada termo é o anterior vezes <i>q</i>, então <i>q</i> é “quanto o termo seguinte tem a mais, em vezes, do que o anterior”. Para achar, <b>divida qualquer termo pelo anterior</b>:</p>
+            <div class="formula">\[q = \frac{a_2}{a_1} = \frac{a_3}{a_2} = \frac{a_4}{a_3} = \dots\]</div>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-2">EXEMPLO: qual é a razão de (5, 15, 45, 135)?</div>
+              <div class="hand">
+                <div>\(15 \div 5 = 3\)</div>
+                <div>\(45 \div 15 = 3\)</div>
+                <div>\(135 \div 45 = 3\)</div>
+                <div>Deu 3 sempre ✓ &nbsp; ⇒ &nbsp; é P.G. com \(q = 3\)</div>
+              </div>
+            </div>
+            <div class="callout tip"><b>Teste dos dois pares</b>Para ter certeza de que uma sequência é P.G., calcule a divisão em <u>pelo menos dois pares</u> seguidos. Se os resultados forem diferentes, <u>não é P.G.</u></div>
+            <div class="callout warning"><b>Cuidado com a ordem da divisão</b>É sempre <u>o termo da frente dividido pelo termo de trás</u>: \(a_2 \div a_1\). Se fizer ao contrário, vai achar o inverso (\(1/q\)).</div>
+
+            <h3>2.5 Mais exemplos (razão inteira, fração e negativa)</h3>
+            <table class="tb">
+              <thead><tr><th>P.G.</th><th>Conta</th><th>Razão</th></tr></thead>
+              <tbody>
+                <tr><td>(2, 8, 32, 128)</td><td>\(8 \div 2\)</td><td>\(q = 4\)</td></tr>
+                <tr><td>(80, 40, 20, 10)</td><td>\(40 \div 80 = \tfrac{1}{2}\)</td><td>\(q = \tfrac{1}{2}\) <small>(cada termo é metade do anterior)</small></td></tr>
+                <tr><td>(2, −6, 18, −54)</td><td>\(-6 \div 2\)</td><td>\(q = -3\) <small>(os sinais alternam)</small></td></tr>
+                <tr><td>(7, 7, 7, 7)</td><td>\(7 \div 7\)</td><td>\(q = 1\) <small>(P.G. constante)</small></td></tr>
+              </tbody>
+            </table>
+            <div class="callout info"><b>Regra de ouro</b>Na P.G., o primeiro termo e a razão <b>não podem ser zero</b>. Se \(q=0\), a sequência vira (a, 0, 0, 0…) e perde o padrão; se \(a_1 = 0\), tudo vira zero.</div>
+
+            <h3>2.6 P.A. × P.G.: não confunda!</h3>
+            <p>Você pode ter visto a <b>Progressão Aritmética (P.A.)</b>. Ela é “irmã” da P.G., mas o motor é outro:</p>
+            <table class="tb">
+              <thead><tr><th></th><th>P.A.</th><th>P.G.</th></tr></thead>
+              <tbody>
+                <tr><td><b>Como passa de um termo ao próximo</b></td><td><b>soma</b> sempre o mesmo número (\(+r\))</td><td><b>multiplica</b> sempre pelo mesmo número (\(\times q\))</td></tr>
+                <tr><td><b>Exemplo</b></td><td>(3, 5, 7, 9, 11) → \(+2\)</td><td>(3, 6, 12, 24, 48) → \(\times 2\)</td></tr>
+                <tr><td><b>Teste</b></td><td><b>subtraia</b> termos vizinhos: dá sempre igual</td><td><b>divida</b> termos vizinhos: dá sempre igual</td></tr>
+                <tr><td><b>Crescimento</b></td><td>“de degrau em degrau” (reta)</td><td>“explosivo” (ou encolhe muito rápido)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="quick" data-qi="2"></div>
+            <div class="quick" data-qi="3"></div>
+            <button class="gobtn" data-goto="1">✏️ Treinar: Nível 1 e 2</button>
+          </article>
+
+          <!-- L3 -->
+          <article class="lesson" id="l3">
+            <div class="lesson-tag">Lição 3</div>
+            <h2>Tipos de P.G.: ela sobe, desce ou “pula”?</h2>
+            <p>Só de olhar o primeiro termo e a razão você já sabe como a P.G. vai se comportar:</p>
+            <table class="tb">
+              <thead><tr><th>Tipo</th><th>Condição</th><th>Exemplo</th><th>O que acontece</th></tr></thead>
+              <tbody>
+                <tr><td><b>Crescente</b></td><td>\(a_1 > 0\) e \(q > 1\)<br>ou \(a_1 < 0\) e \(0 < q < 1\)</td><td>(2, 6, 18, 54, …)<br>(−80, −40, −20, −10, …)</td><td>cada termo é maior que o anterior</td></tr>
+                <tr><td><b>Decrescente</b></td><td>\(a_1 > 0\) e \(0 < q < 1\)<br>ou \(a_1 < 0\) e \(q > 1\)</td><td>(80, 40, 20, 10, …)<br>(−2, −6, −18, …)</td><td>cada termo é menor que o anterior</td></tr>
+                <tr><td><b>Constante</b></td><td>\(q = 1\)</td><td>(7, 7, 7, 7, …)</td><td>todos os termos são iguais</td></tr>
+                <tr><td><b>Alternante</b> (oscilante)</td><td>\(q < 0\)</td><td>(3, −6, 12, −24, …)</td><td>o sinal troca a cada termo</td></tr>
+              </tbody>
+            </table>
+            <div class="callout tip"><b>Como lembrar sem decorar a tabela</b>
+              <ul>
+                <li><b>q maior que 1</b>: os números “se afastam de zero” (explodem).</li>
+                <li><b>q entre 0 e 1</b> (uma fração, como ½): os números “se aproximam de zero” (encolhem).</li>
+                <li><b>q negativa</b>: os sinais ficam <b>+ − + − …</b> (alternam).</li>
+                <li><b>q igual a 1</b>: nada muda.</li>
+              </ul>
+              Se o primeiro termo for negativo, tudo isso se <u>espelha</u> (o que “explode” vai para −∞).
+            </div>
+            <div class="callout info"><b>Por que isso importa?</b>Antes de calcular, você já sabe o que esperar. Se o problema diz que a P.G. é crescente e a sua resposta deu menor que o termo anterior, <u>algo está errado</u> — é uma ótima forma de conferir.</div>
+            <p>Quer ver isso acontecendo? Vá ao <b>Laboratório</b> e mexa na razão: veja a P.G. disparar, encolher e alternar.</p>
+            <button class="gobtn" data-gotab="laboratorio">🔬 Abrir o Laboratório</button>
+          </article>
+
+          <!-- L4 -->
+          <article class="lesson" id="l4">
+            <div class="lesson-tag">Lição 4</div>
+            <h2>O termo geral: chegando em qualquer termo sem listar todos</h2>
+
+            <h3>4.1 O problema</h3>
+            <p>Na P.G. (3, 6, 12, 24, …), qual é o <b>20º termo</b>? Dá para multiplicar por 2 vinte vezes, mas é trabalhoso (e fácil de errar). Precisamos de um atalho.</p>
+
+            <h3>4.2 Descobrindo o padrão</h3>
+            <p>Vamos escrever cada termo a partir do <u>primeiro</u>:</p>
+            <table class="tb">
+              <thead><tr><th>Termo</th><th>Como se forma</th><th>Forma curta</th><th>Quantas multiplicações por <i>q</i></th></tr></thead>
+              <tbody>
+                <tr><td>\(a_1\)</td><td>\(a_1\)</td><td>\(a_1\)</td><td>0</td></tr>
+                <tr><td>\(a_2\)</td><td>\(a_1 \cdot q\)</td><td>\(a_1 \cdot q^1\)</td><td>1</td></tr>
+                <tr><td>\(a_3\)</td><td>\(a_1 \cdot q \cdot q\)</td><td>\(a_1 \cdot q^2\)</td><td>2</td></tr>
+                <tr><td>\(a_4\)</td><td>\(a_1 \cdot q \cdot q \cdot q\)</td><td>\(a_1 \cdot q^3\)</td><td>3</td></tr>
+                <tr><td>\(a_5\)</td><td>\(a_1 \cdot q \cdot q \cdot q \cdot q\)</td><td>\(a_1 \cdot q^4\)</td><td>4</td></tr>
+                <tr><td>\(a_n\)</td><td>…</td><td>\(a_1 \cdot q^{\,n-1}\)</td><td>\(n-1\)</td></tr>
+              </tbody>
+            </table>
+            <p>Repare: o <b>expoente é sempre um a menos que a posição</b>. Isso é porque para chegar ao termo número <i>n</i> partindo do 1º, você dá apenas <b>n − 1 saltos</b>. Como numa escada: do degrau 1 ao degrau 5 você sobe 4 degraus, não 5.</p>
+
+            <div class="formula">\[a_n = a_1 \cdot q^{\,n-1}\]</div>
+            <div class="grid sm:grid-cols-2 gap-3 mt-3 text-sm">
+              <div class="bg-pink-50 rounded-xl p-3"><b>\(a_n\)</b> — o termo que você quer (o da posição <i>n</i>)</div>
+              <div class="bg-pink-50 rounded-xl p-3"><b>\(a_1\)</b> — o primeiro termo</div>
+              <div class="bg-pink-50 rounded-xl p-3"><b>\(q\)</b> — a razão</div>
+              <div class="bg-pink-50 rounded-xl p-3"><b>\(n\)</b> — a posição do termo que você quer</div>
+            </div>
+
+            <h3>4.3 A receita no papel (5 passos)</h3>
+            <ol>
+              <li><b>Escreva os dados</b>: \(a_1\), \(q\), \(n\).</li>
+              <li><b>Escreva a fórmula</b>: \(a_n = a_1 \cdot q^{\,n-1}\).</li>
+              <li><b>Substitua</b> as letras pelos números (razão negativa ou fração entre parênteses).</li>
+              <li><b>Calcule o expoente</b> \(n-1\).</li>
+              <li><b>Calcule a potência</b> primeiro e <b>depois multiplique</b> por \(a_1\).</li>
+            </ol>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 1 — Qual é o 8º termo da P.G. (3, 6, 12, …)?</div>
+              <div class="hand">
+                <div>Dados: \(a_1 = 3\), \(q = 6 \div 3 = 2\), \(n = 8\)</div>
+                <div>\(a_8 = a_1 \cdot q^{\,n-1}\)</div>
+                <div>\(a_8 = 3 \cdot 2^{\,8-1}\)</div>
+                <div>\(a_8 = 3 \cdot 2^{7}\)</div>
+                <div>\(2^7 = 2\cdot2\cdot2\cdot2\cdot2\cdot2\cdot2 = 128\)</div>
+                <div>\(a_8 = 3 \cdot 128 = 384\)</div>
+              </div>
+            </div>
+            <div class="callout success"><b>Conferindo</b>Listando: 3, 6, 12, 24, 48, 96, 192, <b>384</b> ✓ (é o 8º da lista).</div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 2 — Razão negativa: 5º termo da P.G. (2, −6, 18, …)</div>
+              <div class="hand">
+                <div>Dados: \(a_1 = 2\), \(q = -6 \div 2 = -3\), \(n = 5\)</div>
+                <div>\(a_5 = 2 \cdot (-3)^{\,5-1} = 2 \cdot (-3)^4\)</div>
+                <div>\((-3)^4 = (-3)(-3)(-3)(-3) = +81\) &nbsp; <small>(expoente par → positivo)</small></div>
+                <div>\(a_5 = 2 \cdot 81 = 162\)</div>
+              </div>
+            </div>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 3 — Razão fracionária: 5º termo da P.G. (64, 32, 16, …)</div>
+              <div class="hand">
+                <div>Dados: \(a_1 = 64\), \(q = 32 \div 64 = \tfrac{1}{2}\), \(n = 5\)</div>
+                <div>\(a_5 = 64 \cdot \left(\tfrac{1}{2}\right)^{4}\)</div>
+                <div>\(\left(\tfrac{1}{2}\right)^4 = \tfrac{1\cdot1\cdot1\cdot1}{2\cdot2\cdot2\cdot2} = \tfrac{1}{16}\)</div>
+                <div>\(a_5 = 64 \cdot \tfrac{1}{16} = \tfrac{64}{16} = 4\)</div>
+              </div>
+            </div>
+
+            <h3>4.4 Atalho: partir de qualquer termo (não só do primeiro)</h3>
+            <p>Às vezes o problema não dá o \(a_1\), e sim outro termo, como \(a_3\). A mesma lógica funciona: de \(a_m\) até \(a_n\) são \(n-m\) saltos.</p>
+            <div class="formula">\[a_n = a_m \cdot q^{\,n-m}\]</div>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 4 — Em uma P.G. de razão 2 temos \(a_3 = 12\). Qual é \(a_7\)?</div>
+              <div class="hand">
+                <div>\(a_7 = a_3 \cdot q^{\,7-3} = 12 \cdot 2^4 = 12 \cdot 16 = 192\)</div>
+              </div>
+            </div>
+
+            <div class="callout info"><b>E o desafio do dobro?</b>1 centavo no 1º dia, dobrando por 30 dias: \(a_{30} = 1 \cdot 2^{29} = 536\,870\,912\) centavos, ou seja, <b>mais de 5 milhões de reais</b> só no último dia.</div>
+
+            <div class="quick" data-qi="4"></div>
+            <div class="quick" data-qi="5"></div>
+            <button class="gobtn" data-goto="4">✏️ Treinar: Nível 4 e 5</button>
+          </article>
+
+          <!-- L5 -->
+          <article class="lesson" id="l5">
+            <div class="lesson-tag">Lição 5</div>
+            <h2>Descobrindo cada incógnita da fórmula</h2>
+            <p>A fórmula \(a_n = a_1 \cdot q^{\,n-1}\) tem <b>quatro letras</b>: \(a_n\), \(a_1\), \(q\) e \(n\). Se o problema der <b>três</b> delas, você descobre a <b>quarta</b>. Já fizemos o caso de achar \(a_n\). Vejamos os outros três.</p>
+
+            <h3>A) Descobrindo o primeiro termo \(a_1\)</h3>
+            <p>É só <b>isolar</b> \(a_1\): como ele está multiplicando, passa dividindo.</p>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO — P.G. com \(q = 2\), 5º termo igual a 48. Qual é \(a_1\)?</div>
+              <div class="hand">
+                <div>\(a_n = a_1 \cdot q^{\,n-1}\)</div>
+                <div>\(48 = a_1 \cdot 2^{\,5-1} = a_1 \cdot 2^4 = a_1 \cdot 16\)</div>
+                <div>\(a_1 = 48 \div 16 = 3\)</div>
+              </div>
+            </div>
+
+            <h3>B) Descobrindo a posição \(n\) (“que lugar este número ocupa?”)</h3>
+            <p>Aqui o \(n\) está no <b>expoente</b>. Sem logaritmos, usamos um método simples: <b>isole a potência</b> e descubra <i>“q elevado a quanto dá isso?”</i>.</p>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO — Em uma P.G. com \(a_1 = 5\) e \(q = 3\), qual a posição do termo 405?</div>
+              <div class="hand">
+                <div>\(405 = 5 \cdot 3^{\,n-1}\)</div>
+                <div>Divido os dois lados por 5: &nbsp; \(81 = 3^{\,n-1}\)</div>
+                <div>Lista das potências de 3: \(3^1=3,\; 3^2=9,\; 3^3=27,\; 3^4=81\) ✓</div>
+                <div>Então \(n - 1 = 4\), logo \(n = 5\)</div>
+              </div>
+            </div>
+            <div class="callout tip"><b>Outro jeito: “divida até chegar em 1”</b>Pegue 81 e divida por 3 repetidamente, contando: 81 → 27 → 9 → 3 → 1. Foram <b>4 divisões</b>, então \(n-1 = 4\). Funciona com qualquer razão.</div>
+            <div class="callout warning"><b>Não esqueça do último passo!</b>O que você descobre é o <b>expoente</b> (\(n-1\)). A posição é esse número <b>mais 1</b>.</div>
+
+            <h3>C) Descobrindo a razão \(q\)</h3>
+            <p>Aqui você isola \(q^{\,n-1}\) e pergunta: <i>“qual número, multiplicado por ele mesmo \(n-1\) vezes, dá este resultado?”</i> (isso é uma raiz).</p>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO — \(a_1 = 2\) e \(a_4 = 54\). Qual é a razão?</div>
+              <div class="hand">
+                <div>\(54 = 2 \cdot q^{\,4-1} = 2 \cdot q^3\)</div>
+                <div>Divido por 2: &nbsp; \(27 = q^3\)</div>
+                <div>Qual número ao cubo dá 27? &nbsp; \(3 \cdot 3 \cdot 3 = 27\) ✓</div>
+                <div>\(q = 3\)</div>
+              </div>
+            </div>
+            <div class="callout info"><b>Expoente par? Cuidado com os dois sinais</b>Se \(q^2 = 25\), tanto \(5\) quanto \(-5\) servem (\((-5)^2 = 25\) também). Se o enunciado disser “termos positivos” ou “razão positiva”, fique com o positivo. Se o expoente for <u>ímpar</u> (como \(q^3 = 27\)), só há uma resposta: o sinal de \(q\) é o mesmo do resultado.</div>
+            <p>Tabelas que ajudam: <b>quadrados</b> 4, 9, 16, 25, 36, 49, 64, 81, 100 · <b>cubos</b> 8, 27, 64, 125 · <b>quartas potências</b> 16, 81, 256, 625.</p>
+
+            <h3>Qual caminho seguir? Quadro-resumo</h3>
+            <table class="tb">
+              <thead><tr><th>Eu quero…</th><th>Eu tenho…</th><th>O que faço</th></tr></thead>
+              <tbody>
+                <tr><td>\(a_n\)</td><td>\(a_1, q, n\)</td><td>Substituir e calcular</td></tr>
+                <tr><td>\(a_1\)</td><td>\(a_n, q, n\)</td><td>Calcular \(q^{n-1}\) e <b>dividir</b> \(a_n\) por ele</td></tr>
+                <tr><td>\(n\)</td><td>\(a_n, a_1, q\)</td><td>Dividir \(a_n \div a_1\) e descobrir o expoente; <b>somar 1</b></td></tr>
+                <tr><td>\(q\)</td><td>\(a_n, a_1, n\)</td><td>Dividir \(a_n \div a_1\) e extrair a raiz de índice \(n-1\)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="quick" data-qi="6"></div>
+            <div class="quick" data-qi="7"></div>
+            <button class="gobtn" data-goto="6">✏️ Treinar: Nível 6 e 7</button>
+          </article>
+
+          <!-- L6 -->
+          <article class="lesson" id="l6">
+            <div class="lesson-tag">Lição 6</div>
+            <h2>Propriedades e interpolação geométrica</h2>
+
+            <h3>6.1 Termo médio (média geométrica)</h3>
+            <p>Pegue três termos <b>vizinhos</b> de uma P.G.: \(a,\ b,\ c\). A razão entre eles é a mesma: \(\tfrac{b}{a} = \tfrac{c}{b}\). Multiplicando em cruz:</p>
+            <div class="formula">\[b^2 = a \cdot c\]</div>
+            <p>“O <b>quadrado do termo do meio</b> é igual ao <b>produto dos extremos</b>.” Isso é ótimo para achar um termo desconhecido sem precisar da razão.</p>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 1 — Para que \(x\) a sequência \((x,\ 6,\ 18)\) é uma P.G.?</div>
+              <div class="hand">
+                <div>\(6^2 = x \cdot 18\)</div>
+                <div>\(36 = 18x\)</div>
+                <div>\(x = 36 \div 18 = 2\) &nbsp; ✓ (2, 6, 18 → \(q=3\))</div>
+              </div>
+            </div>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 2 — \((4,\ x,\ 16)\) é P.G. de termos positivos. Qual é \(x\)?</div>
+              <div class="hand">
+                <div>\(x^2 = 4 \cdot 16 = 64\)</div>
+                <div>\(x = \pm 8\), mas os termos são positivos, então \(x = 8\)</div>
+              </div>
+            </div>
+            <div class="callout info"><b>Sem a palavra “positivos”</b> haveria <u>duas</u> respostas: (4, 8, 16) com \(q=2\) e (4, −8, 16) com \(q=-2\). As duas são P.G.!</div>
+
+            <h3>6.2 Termos equidistantes dos extremos</h3>
+            <p>Em uma P.G. finita, o produto de dois termos que estão à mesma distância dos extremos é sempre o mesmo. Exemplo com (2, 6, 18, 54, 162):</p>
+            <div class="formula">\[a_1 \cdot a_5 = 2 \cdot 162 = 324 \qquad a_2 \cdot a_4 = 6 \cdot 54 = 324 \qquad a_3^2 = 18^2 = 324\]</div>
+            <p>Use quando o problema dá termos “simétricos” (por exemplo \(a_2\) e \(a_4\) para achar \(a_3\)).</p>
+
+            <h3>6.3 Interpolação geométrica (inserir “meios geométricos”)</h3>
+            <p><b>Interpolar</b> é inserir termos entre dois números dados, de modo a formar uma P.G. Os termos inseridos chamam-se <b>meios geométricos</b>.</p>
+            <div class="callout tip"><b>O segredo</b>Se vamos inserir \(m\) meios entre \(A\) e \(B\), a P.G. fica com \(n = m + 2\) termos (os \(m\) inseridos + os 2 extremos), com \(a_1 = A\) e \(a_n = B\). Depois é só usar o termo geral para achar \(q\).</div>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO — Insira 3 meios geométricos entre 2 e 162.</div>
+              <div class="hand">
+                <div>\(m = 3\) ⇒ \(n = 3 + 2 = 5\) termos; \(a_1 = 2\); \(a_5 = 162\)</div>
+                <div>\(162 = 2 \cdot q^{\,5-1} = 2 q^4\)</div>
+                <div>\(q^4 = 162 \div 2 = 81\) &nbsp; ⇒ &nbsp; \(q = 3\) &nbsp; <small>(pois \(3^4 = 81\))</small></div>
+                <div>P.G.: \((2,\ \mathbf{6},\ \mathbf{18},\ \mathbf{54},\ 162)\)</div>
+              </div>
+            </div>
+
+            <h3>6.4 Truque para três números em P.G.</h3>
+            <p>Quando o problema fala de <b>três números em P.G.</b> com soma ou produto dados, escreva-os como <b>\(\tfrac{x}{q},\ x,\ x\cdot q\)</b>. Assim, o produto vira simplesmente \(x^3\).</p>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO — Três números em P.G. têm produto 216 e soma 26. Quais são?</div>
+              <div class="hand">
+                <div>\(\tfrac{x}{q}\cdot x \cdot xq = x^3 = 216\) ⇒ \(x = 6\)</div>
+                <div>Soma: \(\tfrac{6}{q} + 6 + 6q = 26\) ⇒ \(\tfrac{6}{q} + 6q = 20\)</div>
+                <div>Multiplico por \(q\): \(6 + 6q^2 = 20q\) ⇒ \(3q^2 - 10q + 3 = 0\)</div>
+                <div>Bhaskara: \(\Delta = 100 - 36 = 64\); \(q = \tfrac{10 \pm 8}{6}\) ⇒ \(q = 3\) ou \(q = \tfrac13\)</div>
+                <div>Com \(q=3\): (2, 6, 18) &nbsp; (com \(q=\tfrac13\) é a mesma lista ao contrário)</div>
+              </div>
+            </div>
+
+            <h3>6.5 Para curiosos: produto dos termos</h3>
+            <p>O produto dos \(n\) primeiros termos pode ser calculado emparelhando os extremos: \(P_n = (a_1 \cdot a_n)^{n/2}\). Exemplo: (2, 4, 8, 16): \(2\cdot4\cdot8\cdot16 = 1024\) e \((2\cdot16)^{4/2} = 32^2 = 1024\) ✓.</p>
+
+            <div class="quick" data-qi="8"></div>
+            <button class="gobtn" data-goto="8">✏️ Treinar: Nível 8 e 9</button>
+          </article>
+
+          <!-- L7 -->
+          <article class="lesson" id="l7">
+            <div class="lesson-tag">Lição 7</div>
+            <h2>Soma dos n primeiros termos</h2>
+
+            <h3>7.1 O problema</h3>
+            <p>Somar (3, 6, 12, 24) à mão é fácil: \(3+6+12+24 = 45\). Mas e a soma dos 20 primeiros termos? Precisamos de uma fórmula. Vamos <b>descobrir</b> como ela nasce (é uma ideia linda e simples).</p>
+
+            <h3>7.2 De onde vem a fórmula (com a P.G. 1, 2, 4, 8)</h3>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="hand">
+                <div>\(S = 1 + 2 + 4 + 8\)</div>
+                <div>Multiplico tudo por \(q = 2\):</div>
+                <div>\(2S = 2 + 4 + 8 + 16\)</div>
+                <div>Subtraio: \(2S - S = (2+4+8+16) - (1+2+4+8)\)</div>
+                <div>Quase tudo se cancela: \(S = 16 - 1 = 15\) ✓</div>
+              </div>
+            </div>
+            <p>Em geral, multiplicar a soma por \(q\) “empurra” todos os termos um lugar para frente. Ao subtrair, sobram só o <b>termo novo do final</b> (\(a_1 q^n\)) e o <b>primeiro</b> (\(a_1\)):</p>
+            <div class="formula">\[S_n \cdot q - S_n = a_1 q^n - a_1 \;\Rightarrow\; S_n (q-1) = a_1 (q^n - 1)\]</div>
+
+            <h3>7.3 A fórmula</h3>
+            <div class="formula">\[S_n = \frac{a_1 \cdot (q^n - 1)}{q - 1} \qquad (q \neq 1)\]</div>
+            <ul>
+              <li><b>\(S_n\)</b>: a soma dos <b>n primeiros termos</b>.</li>
+              <li>Aqui o expoente é <b>\(n\)</b> (e <u>não</u> \(n-1\)): estamos somando <i>n</i> termos.</li>
+              <li><b>Se \(q = 1\)</b>: todos os termos são iguais, então \(S_n = n \cdot a_1\) (a fórmula acima daria divisão por zero).</li>
+              <li><b>Variante útil</b> quando você conhece o último termo \(a_n\): \(\displaystyle S_n = \frac{a_n \cdot q - a_1}{q - 1}\).</li>
+              <li>Para \(0<q<1\) você pode usar a versão equivalente \(\displaystyle S_n = \frac{a_1(1-q^n)}{1-q}\), que evita sinais negativos.</li>
+            </ul>
+
+            <h3>7.4 A receita no papel</h3>
+            <ol>
+              <li>Anote \(a_1\), \(q\) e \(n\) (quantos termos você vai somar).</li>
+              <li>Escreva a fórmula e substitua.</li>
+              <li>Calcule a <b>potência</b> \(q^n\).</li>
+              <li>Faça o <b>parêntese</b> \(q^n - 1\) e o <b>denominador</b> \(q - 1\).</li>
+              <li>Multiplique \(a_1\) pelo parêntese e <b>divida</b> pelo denominador.</li>
+              <li><b>Confira</b> somando à mão se \(n\) for pequeno.</li>
+            </ol>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 1 — Some os 4 primeiros termos de (3, 6, 12, …)</div>
+              <div class="hand">
+                <div>\(a_1 = 3\), \(q = 2\), \(n = 4\)</div>
+                <div>\(S_4 = \dfrac{3 \cdot (2^4 - 1)}{2 - 1}\)</div>
+                <div>\(2^4 = 16\) ⇒ \(S_4 = \dfrac{3 \cdot (16 - 1)}{1} = \dfrac{3 \cdot 15}{1}\)</div>
+                <div>\(S_4 = 45\) &nbsp; ✓ (confere: \(3+6+12+24 = 45\))</div>
+              </div>
+            </div>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 2 — Razão fracionária: some os 4 primeiros termos de (64, 32, 16, …)</div>
+              <div class="hand">
+                <div>\(a_1 = 64\), \(q = \tfrac{1}{2}\), \(n = 4\)</div>
+                <div>\(q^4 = \tfrac{1}{16}\) ⇒ \(q^4 - 1 = \tfrac{1}{16} - \tfrac{16}{16} = -\tfrac{15}{16}\)</div>
+                <div>\(q - 1 = \tfrac{1}{2} - 1 = -\tfrac{1}{2}\)</div>
+                <div>\(S_4 = \dfrac{64 \cdot \left(-\tfrac{15}{16}\right)}{-\tfrac{1}{2}} = \dfrac{-60}{-\tfrac12} = 120\)</div>
+                <div>Confere: \(64+32+16+8 = 120\) ✓</div>
+              </div>
+            </div>
+            <div class="callout warning"><b>Atenção</b>Sempre confira se o problema pede a soma dos <b>n primeiros termos</b> (use \(S_n\)) ou apenas <b>o termo \(a_n\)</b>. São contas diferentes!</div>
+
+            <div class="quick" data-qi="9"></div>
+            <button class="gobtn" data-goto="10">✏️ Treinar: Nível 10</button>
+          </article>
+
+          <!-- L8 -->
+          <article class="lesson" id="l8">
+            <div class="lesson-tag">Lição 8</div>
+            <h2>Soma infinita e dízimas periódicas</h2>
+
+            <h3>8.1 Somar “para sempre” pode dar um número finito?</h3>
+            <p>Imagine um quadrado de área 1. Pinte metade dele. Depois pinte metade do que sobrou. Depois metade do que sobrou… para sempre.</p>
+            <div class="seq"><span class="t">½</span><span class="a">+</span><span class="t">¼</span><span class="a">+</span><span class="t">⅛</span><span class="a">+</span><span class="t">1/16</span><span class="a">+</span><span class="t">…</span><span class="a">=</span><span class="t">1</span></div>
+            <p>A cada passo a soma chega mais perto de 1, mas nunca passa: 0,5 → 0,75 → 0,875 → 0,9375 → 0,96875… Somando infinitos termos, o resultado é <b>exatamente 1</b>. (Veja isso no <b>Laboratório</b>.)</p>
+
+            <h3>8.2 Quando isso funciona?</h3>
+            <p>Só quando os termos <b>vão ficando cada vez mais perto de zero</b>. Isso acontece quando a razão está <b>entre −1 e 1</b>:</p>
+            <div class="formula">\[-1 < q < 1 \quad (\text{ou } |q| < 1)\]</div>
+            <p>Se \(|q| \geq 1\), os termos não encolhem (1 + 2 + 4 + 8 + … cresce sem parar; 1 − 1 + 1 − 1 + … fica pulando). Dizemos que a soma <b>diverge</b> (não existe valor finito).</p>
+
+            <h3>8.3 A fórmula</h3>
+            <p>Na soma finita, \(S_n = \dfrac{a_1(q^n - 1)}{q - 1}\). Quando \(|q|<1\) e \(n\) fica enorme, \(q^n\) vira praticamente 0. Sobra:</p>
+            <div class="formula">\[S_\infty = \frac{a_1}{1 - q} \qquad (|q| < 1)\]</div>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 1 — Some todos os termos de (4, 2, 1, ½, …)</div>
+              <div class="hand">
+                <div>\(a_1 = 4\), \(q = 2 \div 4 = \tfrac{1}{2}\) — está entre −1 e 1 ✓</div>
+                <div>\(S = \dfrac{4}{1 - \tfrac{1}{2}} = \dfrac{4}{\tfrac{1}{2}} = 4 \cdot 2 = 8\)</div>
+              </div>
+            </div>
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 2 — Razão negativa: (6, −3, 3/2, −3/4, …)</div>
+              <div class="hand">
+                <div>\(q = -3 \div 6 = -\tfrac{1}{2}\) ✓</div>
+                <div>\(S = \dfrac{6}{1 - \left(-\tfrac{1}{2}\right)} = \dfrac{6}{\tfrac{3}{2}} = 6 \cdot \tfrac{2}{3} = 4\)</div>
+              </div>
+            </div>
+
+            <h3>8.4 Dízimas periódicas viram fração</h3>
+            <p>Uma dízima como \(0{,}333\ldots\) é uma soma infinita: \(0{,}3 + 0{,}03 + 0{,}003 + \dots\). Isso é uma P.G. com \(a_1 = \tfrac{3}{10}\) e \(q = \tfrac{1}{10}\).</p>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">EXEMPLO 3 — Escreva \(0{,}333\ldots\) como fração</div>
+              <div class="hand">
+                <div>\(a_1 = \tfrac{3}{10}\), \(q = \tfrac{1}{10}\)</div>
+                <div>\(S = \dfrac{\tfrac{3}{10}}{1 - \tfrac{1}{10}} = \dfrac{\tfrac{3}{10}}{\tfrac{9}{10}} = \dfrac{3}{9} = \dfrac{1}{3}\)</div>
+              </div>
+            </div>
+            <div class="callout tip"><b>Para dízimas de 2 casas</b>Em \(0{,}2525\ldots\) o bloco que se repete é “25” (2 algarismos): \(a_1 = \tfrac{25}{100}\) e \(q = \tfrac{1}{100}\). Resultado: \(\tfrac{25}{99}\).</div>
+
+            <div class="quick" data-qi="10"></div>
+            <button class="gobtn" data-goto="11">✏️ Treinar: Nível 11</button>
+          </article>
+
+          <!-- L9 -->
+          <article class="lesson" id="l9">
+            <div class="lesson-tag">Lição 9</div>
+            <h2>Para que serve a P.G.?</h2>
+            <p>A P.G. aparece sempre que algo <b>cresce ou diminui por uma porcentagem constante a cada período</b>. E isso acontece em todo lugar.</p>
+
+            <h3>9.1 A chave: porcentagem vira razão</h3>
+            <p>Aumentar 10% significa ficar com 100% + 10% = 110% do valor, ou seja, <b>multiplicar por 1,10</b>. Diminuir 10% significa ficar com 90%, ou seja, <b>multiplicar por 0,90</b>. A razão da P.G. é esse <b>fator de multiplicação</b>:</p>
+            <div class="formula">\[q = 1 + i \qquad (i = \text{taxa em forma decimal; negativa se for queda})\]</div>
+            <table class="tb">
+              <thead><tr><th>O que acontece a cada período</th><th>Conta</th><th>Razão \(q\)</th></tr></thead>
+              <tbody>
+                <tr><td>aumenta 10%</td><td>\(1 + 0{,}10\)</td><td>\(1{,}10\)</td></tr>
+                <tr><td>aumenta 50%</td><td>\(1 + 0{,}50\)</td><td>\(1{,}5\)</td></tr>
+                <tr><td>dobra (aumenta 100%)</td><td>\(1 + 1\)</td><td>\(2\)</td></tr>
+                <tr><td>diminui 10%</td><td>\(1 - 0{,}10\)</td><td>\(0{,}9\)</td></tr>
+                <tr><td>diminui 25%</td><td>\(1 - 0{,}25\)</td><td>\(0{,}75\)</td></tr>
+                <tr><td>cai pela metade (−50%)</td><td>\(1 - 0{,}5\)</td><td>\(0{,}5\)</td></tr>
+              </tbody>
+            </table>
+
+            <h3>9.2 Onde isso é usado</h3>
+            <div class="grid sm:grid-cols-2 gap-3 mt-3 text-sm">
+              <div class="bg-emerald-50 rounded-xl p-4"><b>💰 Juros compostos</b><br>O banco calcula os juros sobre o valor que <u>já inclui</u> os juros anteriores. O dinheiro vira uma P.G. de razão \(1+i\). É por isso que dívidas “crescem sozinhas” e investimentos rendem cada vez mais.</div>
+              <div class="bg-rose-50 rounded-xl p-4"><b>🦠 Populações e viralização</b><br>Bactérias que se dividem, uma doença que contagia mais pessoas a cada rodada, um vídeo que é compartilhado: todos seguem uma P.G.</div>
+              <div class="bg-amber-50 rounded-xl p-4"><b>🚗 Depreciação</b><br>Um carro, celular ou máquina perde uma porcentagem do valor por ano. Valor após <i>t</i> anos = P.G. com razão menor que 1.</div>
+              <div class="bg-sky-50 rounded-xl p-4"><b>☢️ Meia-vida e remédios</b><br>Materiais radioativos e medicamentos no sangue caem pela metade em intervalos iguais de tempo: razão \(\tfrac12\) a cada meia-vida.</div>
+              <div class="bg-violet-50 rounded-xl p-4"><b>💻 Tecnologia</b><br>Com 1 bit há 2 opções; com 2 bits, 4; com 3 bits, 8… as possibilidades formam uma P.G. de razão 2. Tamanhos de memória (1, 2, 4, 8, 16 GB…) também.</div>
+              <div class="bg-pink-50 rounded-xl p-4"><b>🎵 Música</b><br>A frequência de uma nota dobra a cada oitava, e cada semitom multiplica a frequência por \(2^{1/12} \approx 1{,}0595\). O piano é uma P.G.!</div>
+            </div>
+
+            <h3>9.3 Exemplo completo: juros compostos</h3>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">Aplico R$ 2.000 a 5% ao mês. Quanto terei depois de 3 meses?</div>
+              <div class="hand">
+                <div>Aumenta 5% ⇒ \(q = 1 + 0{,}05 = 1{,}05\)</div>
+                <div>Hoje (mês 0) é o 1º termo: \(a_1 = 2000\)</div>
+                <div>Mês 1 → \(a_2\); mês 2 → \(a_3\); mês 3 → \(a_4\). Então \(n = 4\)</div>
+                <div>\(a_4 = 2000 \cdot 1{,}05^{\,3} = 2000 \cdot 1{,}157625 = 2315{,}25\)</div>
+                <div>Resposta: <b>R$ 2.315,25</b></div>
+              </div>
+            </div>
+            <div class="callout warning"><b>A armadilha do “mês zero”</b>Se o enunciado fala em “depois de <i>t</i> períodos” e o valor inicial é o da data 0, o valor inicial é \(a_1\) e o valor após <i>t</i> períodos é \(a_{t+1}\). Ou seja, \(n = t + 1\). (Dá para pensar também como \(\text{valor} = a_1 \cdot q^{\,t}\): são <i>t</i> saltos.)</div>
+
+            <h3>9.4 Por que a P.G. impressiona: a lenda do xadrez</h3>
+            <p>Reza a lenda que o inventor do xadrez pediu ao rei, como recompensa, 1 grão de trigo na 1ª casa, 2 na 2ª, 4 na 3ª, e assim por diante, dobrando até a 64ª casa. O rei achou pouco… Mas só a última casa teria \(2^{63} \approx 9{,}2 \times 10^{18}\) grãos — mais trigo do que a humanidade já produziu. Uma P.G. de razão 2 <b>explode</b>.</p>
+            <button class="gobtn" data-gotab="laboratorio">🔬 Simular crescimento no Laboratório</button>
+            <button class="gobtn" data-goto="12" style="margin-left:.5rem">✏️ Treinar: Nível 12</button>
+          </article>
+
+          <!-- L10 -->
+          <article class="lesson" id="l10">
+            <div class="lesson-tag">Lição 10</div>
+            <h2>Montando a conta no papel: o método completo</h2>
+            <p>Resolver um problema é principalmente <b>organizar</b>. Use sempre esta folha-modelo:</p>
+
+            <div class="paper rounded-xl p-5 mt-4">
+              <div class="text-sm font-bold text-pink-700 mb-3">📝 FOLHA-MODELO (copie no caderno)</div>
+              <div class="hand">
+                <div><b>1. Dados</b> — escreva o que o problema dá: \(a_1 = \ ?\), \(q = \ ?\), \(n = \ ?\), \(a_n = \ ?\)</div>
+                <div><b>2. Pergunta</b> — circule o que ele quer: um termo? a razão? a posição? uma soma?</div>
+                <div><b>3. Fórmula</b> — escolha a fórmula certa (veja a tabela abaixo)</div>
+                <div><b>4. Substituição</b> — troque as letras pelos números (parênteses em negativos e frações)</div>
+                <div><b>5. Contas</b> — nesta ordem: parênteses → potências → × e ÷ → + e −</div>
+                <div><b>6. Resposta + conferência</b> — escreva a resposta com unidade e teste (listando termos ou fazendo sentido)</div>
+              </div>
+            </div>
+
+            <h3>Qual fórmula usar? (leia a pergunta)</h3>
+            <table class="tb">
+              <thead><tr><th>Se a pergunta é…</th><th>Use</th></tr></thead>
+              <tbody>
+                <tr><td>“Qual é a razão?”</td><td>\(q = a_2 \div a_1\) (ou termo geral, se faltar termo vizinho)</td></tr>
+                <tr><td>“Qual é o <i>n</i>-ésimo termo?”</td><td>\(a_n = a_1 \cdot q^{\,n-1}\)</td></tr>
+                <tr><td>“Que posição / quantos termos tem?”</td><td>termo geral, isolando \(n\)</td></tr>
+                <tr><td>“Qual o primeiro termo?”</td><td>termo geral, isolando \(a_1\)</td></tr>
+                <tr><td>“Soma dos <i>n</i> primeiros termos”</td><td>\(S_n = \dfrac{a_1(q^n - 1)}{q - 1}\)</td></tr>
+                <tr><td>“Soma de todos os termos” (infinitos, \(|q|<1\))</td><td>\(S = \dfrac{a_1}{1-q}\)</td></tr>
+                <tr><td>“Três termos seguidos / valor de x para ser P.G.”</td><td>\(b^2 = a \cdot c\)</td></tr>
+                <tr><td>“Insira … meios geométricos”</td><td>\(n = m + 2\) e termo geral</td></tr>
+                <tr><td>“Aumenta/diminui …% por período”</td><td>\(q = 1 \pm i\) e termo geral</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Problema completo, resolvido na folha-modelo</h3>
+            <div class="paper rounded-xl p-5 mt-3">
+              <div class="text-sm font-bold text-pink-700 mb-3">“Uma cultura tem 5 bactérias, que dobram a cada hora. (a) Quantas bactérias há após 6 horas? (b) Quantas bactérias foram contadas, ao todo, nas 7 medições (hora 0 até hora 6)?”</div>
+              <div class="hand">
+                <div><b>Dados:</b> \(a_1 = 5\) (hora 0); dobra ⇒ \(q = 2\)</div>
+                <div>Hora 6 é o 7º termo ⇒ \(n = 7\)</div>
+                <div><b>(a)</b> \(a_7 = 5 \cdot 2^{\,7-1} = 5 \cdot 2^6 = 5 \cdot 64 = 320\) bactérias</div>
+                <div><b>(b)</b> \(S_7 = \dfrac{5 \cdot (2^7 - 1)}{2 - 1} = \dfrac{5 \cdot 127}{1} = 635\)</div>
+                <div><b>Conferência de (a):</b> 5, 10, 20, 40, 80, 160, <b>320</b> ✓</div>
+              </div>
+            </div>
+
+            <h3>Checklist de conferência</h3>
+            <ul>
+              <li>O resultado faz sentido com o tipo da P.G.? (crescente → termos maiores; \(q<0\) → sinais alternando.)</li>
+              <li>Usei <b>\(n-1\)</b> no termo geral e <b>\(n\)</b> na soma?</li>
+              <li>Se for possível, <b>liste os termos</b> e veja se bate.</li>
+              <li>A resposta tem a unidade correta (reais, bactérias, metros)?</li>
+            </ul>
+            <div class="callout success"><b>Use as Calculadoras!</b>Na aba “Calculadoras” você digita os números do seu problema e vê o passo a passo no formato desta folha-modelo — ótimo para conferir o que você fez no papel.</div>
+          </article>
+
+          <!-- L11 -->
+          <article class="lesson" id="l11">
+            <div class="lesson-tag">Lição 11</div>
+            <h2>Erros comuns (e como evitar)</h2>
+            <p>Estes são os tropeços mais frequentes. Reconhecê-los vale metade da nota.</p>
+
+            <h3>1. Usar \(n\) em vez de \(n-1\) no termo geral</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(a_5\) de (2, 6, 18, …): \(2 \cdot 3^5 = 486\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(a_5 = 2 \cdot 3^{5-1} = 2 \cdot 81 = 162\)</div>
+            </div>
+
+            <h3>2. Multiplicar \(a_1\) e \(q\) antes de elevar</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(3 \cdot 2^4 \to 6^4 = 1296\)</div>
+              <div class="good"><b>✅ Certo</b><br>Potência primeiro: \(3 \cdot 2^4 = 3 \cdot 16 = 48\)</div>
+            </div>
+
+            <h3>3. Esquecer os parênteses na razão negativa</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(3 \cdot -2^4 = -48\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(3 \cdot (-2)^4 = 3 \cdot 16 = 48\)</div>
+            </div>
+
+            <h3>4. Dividir na ordem errada ao achar a razão</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>(3, 12, 48): \(3 \div 12 = \tfrac{1}{4}\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(12 \div 3 = 4\) (sempre o da frente ÷ o de trás)</div>
+            </div>
+
+            <h3>5. Esquecer de somar 1 ao achar a posição</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(81 = 3^{n-1}\) ⇒ \(n = 4\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(n - 1 = 4\) ⇒ \(n = 5\)</div>
+            </div>
+
+            <h3>6. Confundir P.A. com P.G.</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>(2, 4, 6, 8) “é P.G. de razão 2”</div>
+              <div class="good"><b>✅ Certo</b><br>\(4/2 = 2\), mas \(6/4 = 1{,}5\): <u>não</u> é P.G. (é P.A. de razão 2)</div>
+            </div>
+
+            <h3>7. Usar a soma com \(q = 1\)</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(S_5\) de (7,7,7,7,7) pela fórmula → \(\tfrac{7(1-1)}{1-1} = \tfrac{0}{0}\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(q=1\) ⇒ \(S_n = n \cdot a_1 = 5 \cdot 7 = 35\)</div>
+            </div>
+
+            <h3>8. Aplicar a soma infinita sem checar \(|q|<1\)</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>(1, 2, 4, …): \(\tfrac{1}{1-2} = -1\)</div>
+              <div class="good"><b>✅ Certo</b><br>\(q=2\) não está entre −1 e 1: a soma <b>diverge</b>.</div>
+            </div>
+
+            <h3>9. “Termo médio” com um único sinal</h3>
+            <div class="cmp">
+              <div class="bad"><b>❌ Errado</b><br>\(x^2 = 64 \Rightarrow x = 8\) (sempre)</div>
+              <div class="good"><b>✅ Certo</b><br>\(x = \pm 8\); só fique com +8 se o enunciado disser “positivos”.</div>
+            </div>
+          </article>
+
+          <!-- L12 -->
+          <article class="lesson" id="l12">
+            <div class="lesson-tag">Lição 12</div>
+            <h2>Resumo e folha de cola</h2>
+            <p>Se for imprimir, esta é a lição para guardar.</p>
+
+            <table class="tb">
+              <thead><tr><th>Assunto</th><th>Fórmula</th><th>Observação</th></tr></thead>
+              <tbody>
+                <tr><td><b>Definição</b></td><td>\(a_{n+1} = a_n \cdot q\)</td><td>\(a_1 \neq 0\), \(q \neq 0\)</td></tr>
+                <tr><td><b>Razão</b></td><td>\(q = \dfrac{a_2}{a_1} = \dfrac{a_3}{a_2} = \cdots\)</td><td>termo da frente ÷ termo de trás</td></tr>
+                <tr><td><b>Termo geral</b></td><td>\(a_n = a_1 \cdot q^{\,n-1}\)</td><td>expoente é <b>n − 1</b></td></tr>
+                <tr><td><b>Termo geral (outro ponto)</b></td><td>\(a_n = a_m \cdot q^{\,n-m}\)</td><td>vale partindo de qualquer termo</td></tr>
+                <tr><td><b>Termo médio</b></td><td>\(b^2 = a \cdot c\)</td><td>3 termos seguidos</td></tr>
+                <tr><td><b>Interpolação</b></td><td>\(n = m + 2\)</td><td>\(m\) meios entre \(a_1\) e \(a_n\)</td></tr>
+                <tr><td><b>Soma de n termos</b></td><td>\(S_n = \dfrac{a_1(q^n - 1)}{q - 1}\)</td><td>\(q \neq 1\). Se \(q = 1\): \(S_n = n\,a_1\)</td></tr>
+                <tr><td><b>Soma de n termos (com \(a_n\))</b></td><td>\(S_n = \dfrac{a_n \cdot q - a_1}{q - 1}\)</td><td>quando já se conhece \(a_n\)</td></tr>
+                <tr><td><b>Soma infinita</b></td><td>\(S_\infty = \dfrac{a_1}{1 - q}\)</td><td>só se \(-1 < q < 1\)</td></tr>
+                <tr><td><b>Produto de n termos</b></td><td>\(P_n = (a_1 \cdot a_n)^{n/2}\)</td><td>curiosidade</td></tr>
+                <tr><td><b>Porcentagem → razão</b></td><td>\(q = 1 + i\)</td><td>\(i\) negativo para queda</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Comportamento da P.G.</h3>
+            <ul>
+              <li>\(q > 1\): “explode” · \(0 < q < 1\): “encolhe” · \(q < 0\): “alterna sinais” · \(q = 1\): “constante”.</li>
+            </ul>
+
+            <h3>Glossário</h3>
+            <ul>
+              <li><b>Termo</b>: cada número da sequência. <b>Razão</b>: o número pelo qual se multiplica. <b>Posição</b>: o lugar do termo na lista.</li>
+              <li><b>Meio geométrico</b>: termo inserido entre dois outros numa P.G. <b>Diverge</b>: soma infinita sem valor finito. <b>Alternante</b>: P.G. com razão negativa.</li>
+            </ul>
+
+            <div class="callout success"><b>Você chegou ao fim da teoria! 🎉</b>Agora vá para os exercícios e avance nível por nível. Se travar, volte à lição indicada no <a href="#l0" class="underline font-bold text-pink-700">mapa do curso</a>.</div>
+            <button class="gobtn" data-goto="all">✏️ Ir para os exercícios</button>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LABORATÓRIO ================= -->
+    <section id="sec-laboratorio" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-pink-600">Laboratório visual</span>
+        <h1 class="text-3xl font-black mt-2">Experimente: mexa nos números e veja a P.G. reagir</h1>
+        <p class="text-slate-600 mt-2">Quatro experimentos para você “sentir” como a P.G. se comporta. Não precisa de conta nenhuma: é só arrastar os controles.</p>
+      </div>
+
+      <!-- Lab 1 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 1 · Construtor de P.G.</h2>
+        <p class="text-sm text-slate-600 mt-1">Mude o primeiro termo, a razão e a quantidade de termos. Barras para cima são positivas, para baixo são negativas.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block">Primeiro termo (\(a_1\)): <span id="l1-a1-label" class="text-pink-600">2</span></label>
+            <input id="l1-a1" type="range" min="-10" max="10" value="2" step="1" class="w-full mt-2">
+            <label class="font-bold text-sm block mt-5">Razão (\(q\)): <span id="l1-q-label" class="text-pink-600">2</span></label>
+            <input id="l1-q" type="range" min="-3" max="3" value="2" step="0.5" class="w-full mt-2">
+            <label class="font-bold text-sm block mt-5">Quantidade de termos (\(n\)): <span id="l1-n-label" class="text-pink-600">7</span></label>
+            <input id="l1-n" type="range" min="3" max="10" value="7" step="1" class="w-full mt-2">
+            <div id="l1-info" class="tip rounded-xl p-3 mt-5 text-sm leading-6"></div>
+          </div>
+          <div>
+            <div id="l1-bars" class="flex gap-1.5 h-64 border-b-0 w-full relative"></div>
+            <div id="l1-vals" class="flex gap-1.5 w-full mt-1"></div>
+            <div id="l1-seq" class="paper rounded-xl p-4 mt-4 text-center text-sm overflow-x-auto"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab 2 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 2 · P.A. × P.G. (somar × multiplicar)</h2>
+        <p class="text-sm text-slate-600 mt-1">Mesmo ponto de partida e o <b>mesmo número</b> <i>s</i>: na P.A. você <b>soma</b> <i>s</i> a cada passo; na P.G. você <b>multiplica</b> por <i>s</i>.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block">Ponto de partida (\(a_1\)): <span id="l2-a1-label" class="text-pink-600">1</span></label>
+            <input id="l2-a1" type="range" min="1" max="10" value="1" class="w-full mt-2">
+            <label class="font-bold text-sm block mt-5">Número <i>s</i>: <span id="l2-s-label" class="text-pink-600">2</span></label>
+            <input id="l2-s" type="range" min="1" max="4" value="2" class="w-full mt-2">
+            <div class="flex gap-4 mt-5 text-xs font-bold"><span class="flex items-center gap-1"><i class="inline-block w-3 h-3 rounded bg-sky-500"></i> P.A. (soma \(+s\))</span><span class="flex items-center gap-1"><i class="inline-block w-3 h-3 rounded bg-pink-500"></i> P.G. (multiplica \(\times s\))</span></div>
+            <div class="tip rounded-xl p-3 mt-5 text-sm leading-6">Repare: no começo as duas andam juntas, mas lá pelo 5º termo a P.G. já deixou a P.A. para trás.</div>
+          </div>
+          <div id="l2-out" class="overflow-x-auto"></div>
+        </div>
+      </div>
+
+      <!-- Lab 3 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 3 · Porcentagem vira P.G. (juros e quedas)</h2>
+        <p class="text-sm text-slate-600 mt-1">Um valor muda uma porcentagem fixa a cada período. Compare com “juros simples” (que seria uma P.A.).</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block">Valor inicial: <span id="l3-v-label" class="text-pink-600">1000</span></label>
+            <input id="l3-v" type="range" min="100" max="5000" value="1000" step="100" class="w-full mt-2">
+            <label class="font-bold text-sm block mt-5">Variação por período: <span id="l3-p-label" class="text-pink-600">10%</span></label>
+            <input id="l3-p" type="range" min="-50" max="100" value="10" step="5" class="w-full mt-2">
+            <label class="font-bold text-sm block mt-5">Períodos: <span id="l3-t-label" class="text-pink-600">6</span></label>
+            <input id="l3-t" type="range" min="1" max="12" value="6" class="w-full mt-2">
+            <div id="l3-info" class="tip rounded-xl p-3 mt-5 text-sm leading-6"></div>
+          </div>
+          <div id="l3-out" class="overflow-x-auto"></div>
+        </div>
+      </div>
+
+      <!-- Lab 4 -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <h2 class="font-black text-xl">Experimento 4 · Somando infinitos termos</h2>
+        <p class="text-sm text-slate-600 mt-1">Com \(a_1 = 1\), veja as somas parciais se aproximando do valor \(S_\infty = \dfrac{1}{1-q}\) (linha tracejada).</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mt-4">
+          <div>
+            <label class="font-bold text-sm block">Razão (\(q\)): <span id="l4-q-label" class="text-pink-600">0,5</span></label>
+            <input id="l4-q" type="range" min="-0.9" max="0.9" value="0.5" step="0.1" class="w-full mt-2">
+            <label class="font-bold text-sm block mt-5">Termos somados (\(n\)): <span id="l4-n-label" class="text-pink-600">6</span></label>
+            <input id="l4-n" type="range" min="1" max="20" value="6" class="w-full mt-2">
+            <div id="l4-info" class="tip rounded-xl p-3 mt-5 text-sm leading-6"></div>
+          </div>
+          <div>
+            <div id="l4-bars" class="flex gap-1 h-56 items-end w-full relative border-b-2 border-slate-300"></div>
+            <div class="text-xs text-slate-500 mt-1">Cada barra é a soma dos primeiros \(n\) termos (de 1 até 20).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CALCULADORAS ================= -->
+    <section id="sec-ferramentas" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-pink-600">Calculadoras passo a passo</span>
+        <h1 class="text-3xl font-black mt-2">Digite os números do seu problema e veja a resolução</h1>
+        <p class="text-slate-600 mt-2">Cada calculadora mostra o passo a passo no mesmo formato da folha-modelo. Aceita inteiros, frações (<kbd>1/2</kbd>), decimais (<kbd>0,25</kbd>) e negativos (<kbd>-3</kbd>). Use para <b>conferir</b> o que você fez no papel.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="tools-grid"></div>
+    </section>
+
+    <!-- ================= EXERCÍCIOS ================= -->
+    <section id="sec-exercicios" class="hidden space-y-6">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm flex flex-col lg:flex-row justify-between gap-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-pink-600">Treino progressivo · do mais fácil ao mais difícil</span>
+          <h1 class="text-3xl font-black mt-2"><span id="total-ex">100</span> exercícios em 13 níveis</h1>
+          <p class="text-slate-600 mt-2 max-w-2xl">Comece pelo Nível 1 e vá avançando. Cada exercício tem <b>💡 dica</b> e <b>resolução passo a passo</b>. Digite frações como <kbd>1/2</kbd> e decimais como <kbd>102,4</kbd>.</p>
+        </div>
+        <div class="min-w-[230px]">
+          <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 0</span></div>
+          <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-pink-600 rounded-full transition-all w-0"></div></div>
+          <button id="reset-progress" class="mt-3 text-xs text-slate-400 hover:text-red-600 underline">Zerar meu progresso</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border p-4 shadow-sm space-y-3">
+        <div class="flex flex-wrap gap-2" id="filters"></div>
+        <div class="flex flex-wrap items-center gap-4">
+          <label class="text-xs font-bold text-slate-600 flex items-center gap-2"><input id="only-open" type="checkbox"> Mostrar só os não resolvidos</label>
+          <input id="search" placeholder="Buscar (ex.: soma, razão, bactérias)…" class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[200px]">
+        </div>
+      </div>
+
+      <div id="exercise-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 pb-10 text-center text-xs text-slate-400">Progressão Geométrica · curso completo · seu progresso fica salvo neste navegador.</footer>
+  <script>
+// ==ENGINE-START==
+const T = String.raw;
+
+/* ---------- Frações exatas (BigInt) ---------- */
+const gcd = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b] = [b, a % b]; } return a; };
+class F {
+  constructor(n, d = 1n) {
+    n = BigInt(n); d = BigInt(d);
+    if (d === 0n) throw new Error('div0');
+    if (d < 0n) { n = -n; d = -d; }
+    const g = gcd(n, d) || 1n;
+    this.n = n / g; this.d = d / g;
+  }
+  add(o) { return new F(this.n * o.d + o.n * this.d, this.d * o.d); }
+  sub(o) { return new F(this.n * o.d - o.n * this.d, this.d * o.d); }
+  mul(o) { return new F(this.n * o.n, this.d * o.d); }
+  div(o) { return new F(this.n * o.d, this.d * o.n); }
+  pow(k) { let r = new F(1n), b = this, e = k; while (e > 0) { if (e & 1) r = r.mul(b); b = b.mul(b); e = Math.floor(e / 2); } return r; }
+  eq(o) { return this.n === o.n && this.d === o.d; }
+  isInt() { return this.d === 1n; }
+  isNeg() { return this.n < 0n; }
+  isZero() { return this.n === 0n; }
+  abs() { return new F(this.n < 0n ? -this.n : this.n, this.d); }
+  neg() { return new F(-this.n, this.d); }
+  num() { return Number(this.n) / Number(this.d); }
+}
+const f = (n, d = 1) => new F(BigInt(n), BigInt(d));
+const ONE = f(1);
+
+function parseDec(s) {
+  const m = /^(\d+)(?:\.(\d+))?$/.exec(s);
+  if (!m) return null;
+  const fr = m[2] || '';
+  return new F(BigInt(m[1] + fr), 10n ** BigInt(fr.length));
+}
+function parseF(str) {
+  if (str == null) return null;
+  let s = String(str).trim().replace(/\s+/g, '').replace(/\u2212/g, '-').replace(/,/g, '.');
+  if (!s) return null;
+  let neg = false;
+  if (s[0] === '-') { neg = true; s = s.slice(1); } else if (s[0] === '+') s = s.slice(1);
+  const parts = s.split('/');
+  if (parts.length > 2) return null;
+  const a = parseDec(parts[0]);
+  if (!a) return null;
+  let r = a;
+  if (parts.length === 2) {
+    const b = parseDec(parts[1]);
+    if (!b || b.isZero()) return null;
+    r = a.div(b);
+  }
+  return neg ? r.neg() : r;
+}
+
+/* ---------- Formatação ---------- */
+function fmtInt(b) {
+  let s = (b < 0n ? -b : b).toString();
+  if (s.length >= 5) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, '\\,');
+  return (b < 0n ? '-' : '') + s;
+}
+function tex(x) {
+  if (x.isInt()) return fmtInt(x.n);
+  const neg = x.n < 0n, nn = neg ? -x.n : x.n;
+  return (neg ? '-' : '') + '\\frac{' + fmtInt(nn) + '}{' + fmtInt(x.d) + '}';
+}
+function texP(x) { return (x.isNeg() || !x.isInt()) ? '\\left(' + tex(x) + '\\right)' : tex(x); }
+function texPow(q, k) { return texP(q) + '^{' + k + '}'; }
+function decStr(x) {
+  let d = x.d, c2 = 0, c5 = 0;
+  while (d % 2n === 0n) { d /= 2n; c2++; }
+  while (d % 5n === 0n) { d /= 5n; c5++; }
+  if (d !== 1n) return null;
+  const k = Math.max(c2, c5);
+  if (k === 0) return null;
+  const scaled = (x.n < 0n ? -x.n : x.n) * (10n ** BigInt(k)) / x.d;
+  const s = scaled.toString().padStart(k + 1, '0');
+  return (x.n < 0n ? '-' : '') + s.slice(0, -k) + '{,}' + s.slice(-k);
+}
+function texAns(x) {
+  const dec = decStr(x);
+  return tex(x) + (dec ? ' = ' + dec : '');
+}
+function plain(x) { // texto simples para mensagens
+  if (x.isInt()) return x.n.toString();
+  return x.n.toString() + '/' + x.d.toString();
+}
+
+/* ---------- Geradores de passos ---------- */
+function powText(q, k) {
+  const v = q.pow(k);
+  if (k === 0) return T`Qualquer número (diferente de zero) elevado a 0 vale 1: \(${texPow(q, 0)} = 1\).`;
+  if (k === 1) return T`Expoente 1 é o próprio número: \(${texPow(q, 1)} = ${tex(q)}\).`;
+  let s;
+  if (k <= 7) s = T`Calcule a potência multiplicando um a um: \(${texPow(q, k)} = ${Array(k).fill(texP(q)).join(' \\cdot ')} = ${tex(v)}\).`;
+  else s = T`Calcule a potência (multiplicando de um em um): \(${texPow(q, k)} = ${tex(v)}\).`;
+  if (q.isNeg()) s += k % 2 ? ' Como o expoente é <b>ímpar</b>, o resultado fica <b>negativo</b>.' : ' Como o expoente é <b>par</b>, o resultado fica <b>positivo</b>.';
+  return s;
+}
+function termsList(a1, q, n) {
+  const out = []; let cur = a1;
+  for (let i = 0; i < n; i++) { out.push(cur); cur = cur.mul(q); }
+  return out;
+}
+const listTex = (arr) => arr.map(tex).join(',\\;');
+
+function stepsAn(a1, q, n) {
+  const k = n - 1, v = q.pow(k), an = a1.mul(v);
+  const S = [];
+  S.push(T`Escreva a fórmula do termo geral: \(a_n = a_1 \cdot q^{\,n-1}\).`);
+  S.push(T`Anote os dados: \(a_1 = ${tex(a1)}\), \(q = ${tex(q)}\) e \(n = ${n}\). Queremos \(a_{${n}}\).`);
+  S.push(T`Substitua na fórmula (use parênteses em negativos e frações): \(a_{${n}} = ${tex(a1)} \cdot ${texP(q)}^{\,${n}-1}\).`);
+  S.push(T`Calcule o expoente: \(${n} - 1 = ${k}\). Fica \(a_{${n}} = ${tex(a1)} \cdot ${texPow(q, k)}\).`);
+  S.push(powText(q, k));
+  S.push(T`Multiplique pelo primeiro termo: \(a_{${n}} = ${tex(a1)} \cdot ${texP(v)} = ${tex(an)}\).`);
+  if (n >= 3 && n <= 8) S.push(T`<b>Conferência:</b> listando os termos, \(${listTex(termsList(a1, q, n))}\). O ${n}º termo é \(${tex(an)}\) ✓.`);
+  S.res = an;
+  return S;
+}
+
+function stepsA1(q, n, an) {
+  const k = n - 1, v = q.pow(k), a1 = an.div(v);
+  const S = [];
+  S.push(T`Escreva a fórmula do termo geral: \(a_n = a_1 \cdot q^{\,n-1}\).`);
+  S.push(T`Substitua o que você sabe (\(q = ${tex(q)}\), \(n = ${n}\), \(a_{${n}} = ${tex(an)}\)): \(${tex(an)} = a_1 \cdot ${texP(q)}^{\,${n}-1}\).`);
+  S.push(T`Calcule o expoente: \(${n} - 1 = ${k}\). Fica \(${tex(an)} = a_1 \cdot ${texPow(q, k)}\).`);
+  S.push(powText(q, k));
+  S.push(T`Então \(${tex(an)} = a_1 \cdot ${texP(v)}\).`);
+  S.push(T`O \(a_1\) está <b>multiplicando</b>, então passa <b>dividindo</b> para o outro lado: \(a_1 = \dfrac{${tex(an)}}{${texP(v)}} = ${tex(a1)}\).`);
+  S.push(T`<b>Conferência:</b> \(${tex(a1)} \cdot ${texP(v)} = ${tex(an)}\) ✓.`);
+  S.res = a1;
+  return S;
+}
+
+function stepsN(a1, q, an) {
+  const S = [];
+  S.push(T`Escreva a fórmula do termo geral: \(a_n = a_1 \cdot q^{\,n-1}\).`);
+  S.push(T`Substitua os dados (\(a_1 = ${tex(a1)}\), \(q = ${tex(q)}\), \(a_n = ${tex(an)}\)): \(${tex(an)} = ${tex(a1)} \cdot ${texP(q)}^{\,n-1}\).`);
+  const r = an.div(a1);
+  S.push(T`Isole a potência dividindo os dois lados por \(${tex(a1)}\): \(${tex(an)} \div ${texP(a1)} = ${texP(q)}^{\,n-1}\), ou seja, \(${tex(r)} = ${texP(q)}^{\,n-1}\).`);
+  S.res = null;
+  if (q.isZero()) { S.push('A razão não pode ser zero em uma P.G.'); return S; }
+  if (q.eq(ONE)) {
+    if (r.eq(ONE)) S.push('Como \\(q = 1\\), todos os termos são iguais e o termo dado coincide com \\(a_1\\): qualquer posição serve (P.G. constante).');
+    else S.push('Como \\(q = 1\\), todos os termos são iguais a \\(a_1\\). Esse valor nunca aparece na P.G.');
+    return S;
+  }
+  let k = -1, p = ONE;
+  for (let i = 0; i <= 60; i++) { if (p.eq(r)) { k = i; break; } p = p.mul(q); }
+  if (k < 0) {
+    S.push(T`Procure a potência de \(${texP(q)}\) que dê \(${tex(r)}\): testamos os expoentes de 1 até 60 e nenhum deu esse valor. Logo, <b>esse número não faz parte da P.G.</b> (não existe posição \(n\) inteira).`);
+    return S;
+  }
+  if (k === 0) {
+    S.push(T`Qual expoente faz \(${texP(q)}\) virar \(1\)? É o expoente 0 (\(${texP(q)}^{0} = 1\)). Então \(n - 1 = 0\).`);
+  } else {
+    const show = [];
+    const lim = Math.min(k, 8);
+    for (let i = 1; i <= lim; i++) show.push(T`${texPow(q, i)} = ${tex(q.pow(i))}`);
+    let txt = show.join(';\\quad ');
+    if (k > lim) txt += T`;\quad \ldots;\quad ${texPow(q, k)} = ${tex(r)}`;
+    S.push(T`Descubra <b>a qual expoente</b> \(${texP(q)}\) precisa ser elevado para dar \(${tex(r)}\). Vá listando as potências: \(${txt}\). Achamos: \(${texPow(q, k)} = ${tex(r)}\) ✓.`);
+    S.push(T`Portanto \(n - 1 = ${k}\).`);
+  }
+  S.push(T`Some 1 para achar a posição: \(n = ${k} + 1 = ${k + 1}\). <b>(Não esqueça este passo!)</b>`);
+  S.res = k + 1;
+  return S;
+}
+
+function iroot(b, k) {
+  if (b < 2n) return b;
+  let lo = 1n, hi = b;
+  const K = BigInt(k);
+  while (lo < hi) { const mid = (lo + hi + 1n) >> 1n; if (mid ** K <= b) lo = mid; else hi = mid - 1n; }
+  return lo;
+}
+function rootF(r, k) { // r >= 0
+  const a = iroot(r.n, k), b = iroot(r.d, k), K = BigInt(k);
+  return (a ** K === r.n && b ** K === r.d) ? new F(a, b) : null;
+}
+
+function stepsQ(a1, n, an) {
+  const k = n - 1, S = [];
+  S.push(T`Escreva a fórmula do termo geral: \(a_n = a_1 \cdot q^{\,n-1}\).`);
+  S.push(T`Substitua os dados (\(a_1 = ${tex(a1)}\), \(n = ${n}\), \(a_{${n}} = ${tex(an)}\)): \(${tex(an)} = ${tex(a1)} \cdot q^{\,${n}-1} = ${tex(a1)} \cdot q^{${k}}\).`);
+  const r = an.div(a1);
+  S.push(T`Isole a potência dividindo os dois lados por \(${tex(a1)}\): \(q^{${k}} = ${tex(r)}\).`);
+  S.res = null;
+  let q0 = null, root = null;
+  if (r.isNeg()) {
+    if (k % 2 === 0) { S.push(T`Um número elevado a um expoente <b>par</b> nunca é negativo. Logo não existe razão real nesse caso.`); return S; }
+    root = rootF(r.abs(), k);
+    q0 = root ? root.neg() : null;
+  } else {
+    root = rootF(r, k);
+    q0 = root;
+  }
+  if (!q0) {
+    const approx = Math.pow(Math.abs(r.num()), 1 / k) * (r.isNeg() ? -1 : 1);
+    S.push(T`Precisamos de um número que, multiplicado por ele mesmo ${k} vezes, dê \(${tex(r)}\). Não há resposta exata em inteiros ou frações; o valor aproximado é \(q \approx ${approx.toFixed(4).replace('.', '{,}')}\).`);
+    S.res = null; return S;
+  }
+  if (root.isInt() && !r.isNeg() && root.n >= 2n && r.isInt() && r.n < 10n ** 12n) {
+    const list = [];
+    for (let c = 2n; c <= root.n && list.length < 10; c++) list.push(T`${c}^{${k}} = ${fmtInt(c ** BigInt(k))}`);
+    S.push(T`Pergunte: <i>“qual número elevado a ${k} dá ${r.n.toString()}?”</i> Teste: \(${list.join(';\\quad ')}\) ✓.`);
+  } else {
+    S.push(T`Pergunte: <i>“qual número elevado a ${k} dá \(${tex(r)}\)?”</i> (é a raiz de índice ${k}). A resposta é \(${tex(q0)}\), pois \(${texPow(q0, k)} = ${tex(q0.pow(k))}\) ✓.`);
+  }
+  if (k % 2 === 0) {
+    S.push(T`Como o expoente ${k} é <b>par</b>, há duas respostas possíveis: \(q = ${tex(q0)}\) ou \(q = ${tex(q0.neg())}\). Se o enunciado disser “termos positivos” ou “razão positiva”, fique com <b>\(q = ${tex(q0)}\)</b>.`);
+  } else {
+    S.push(T`Como o expoente ${k} é ímpar, só existe uma resposta: \(q = ${tex(q0)}\).`);
+  }
+  S.push(T`<b>Conferência:</b> \(${tex(a1)} \cdot ${texPow(q0, k)} = ${tex(a1)} \cdot ${texP(q0.pow(k))} = ${tex(a1.mul(q0.pow(k)))}\) ✓.`);
+  S.res = q0;
+  return S;
+}
+
+function stepsSn(a1, q, n) {
+  const S = [];
+  if (q.eq(ONE)) {
+    const sn = a1.mul(f(n));
+    S.push(T`Quando \(q = 1\), todos os termos são iguais a \(a_1\). A fórmula comum daria divisão por zero, então usamos: \(S_n = n \cdot a_1\).`);
+    S.push(T`Substitua: \(S_{${n}} = ${n} \cdot ${tex(a1)} = ${tex(sn)}\).`);
+    S.res = sn; return S;
+  }
+  const qn = q.pow(n), num = qn.sub(ONE), den = q.sub(ONE), top = a1.mul(num), sn = top.div(den);
+  S.push(T`Escreva a fórmula da soma dos \(n\) primeiros termos: \(S_n = \dfrac{a_1 \cdot (q^n - 1)}{q - 1}\).`);
+  S.push(T`Anote os dados: \(a_1 = ${tex(a1)}\), \(q = ${tex(q)}\) e \(n = ${n}\) (quantidade de termos somados).`);
+  S.push(T`Substitua: \(S_{${n}} = \dfrac{${tex(a1)} \cdot \left(${texPow(q, n)} - 1\right)}{${texP(q)} - 1}\).`);
+  S.push(powText(q, n));
+  S.push(T`Resolva o parêntese de cima e a conta de baixo: \(${texP(qn)} - 1 = ${tex(num)}\) e \(${texP(q)} - 1 = ${tex(den)}\). Fica \(S_{${n}} = \dfrac{${tex(a1)} \cdot ${texP(num)}}{${texP(den)}}\).`);
+  S.push(T`Multiplique em cima: \(${tex(a1)} \cdot ${texP(num)} = ${tex(top)}\). Fica \(S_{${n}} = \dfrac{${tex(top)}}{${texP(den)}}\).`);
+  S.push(T`Divida: \(S_{${n}} = ${tex(sn)}\).`);
+  if (n >= 2 && n <= 7) {
+    const t = termsList(a1, q, n);
+    S.push(T`<b>Conferência:</b> somando os termos à mão, \(${t.map((x, i) => i ? (x.isNeg() ? ' - ' + tex(x.neg()) : ' + ' + tex(x)) : tex(x)).join('')} = ${tex(sn)}\) ✓.`);
+  }
+  S.res = sn;
+  return S;
+}
+
+function stepsInf(a1, q) {
+  const S = [];
+  S.res = null;
+  S.push(T`A fórmula da soma infinita é \(S = \dfrac{a_1}{1 - q}\), mas ela só vale quando \(-1 < q < 1\).`);
+  if (q.abs().num() >= 1) {
+    S.push(T`Aqui \(q = ${tex(q)}\), que <b>não</b> está entre −1 e 1. Os termos não encolhem, então a soma <b>diverge</b> (não existe valor finito).`);
+    return S;
+  }
+  const den = ONE.sub(q), s = a1.div(den);
+  S.push(T`Aqui \(q = ${tex(q)}\), que está entre −1 e 1 ✓. Pode usar a fórmula.`);
+  S.push(T`Substitua: \(S = \dfrac{${tex(a1)}}{1 - ${texP(q)}}\).`);
+  S.push(T`Calcule o denominador: \(1 - ${texP(q)} = ${tex(den)}\). Fica \(S = \dfrac{${tex(a1)}}{${tex(den)}}\).`);
+  S.push(T`Divida (dividir por fração é multiplicar pelo inverso): \(S = ${tex(s)}\).`);
+  S.res = s;
+  return S;
+}
+
+function stepsRazao(terms) {
+  const S = [];
+  S.push(T`A razão é o termo da frente dividido pelo termo de trás. Calcule em pelo menos dois pares seguidos.`);
+  S.res = null;
+  if (terms.length < 2) { S.push('Informe pelo menos 2 termos.'); return S; }
+  if (terms.slice(0, -1).some(t => t.isZero())) { S.push('Uma P.G. não pode ter termo zero (exceto talvez o último). Não dá para dividir por zero.'); return S; }
+  const rs = [];
+  for (let i = 0; i < terms.length - 1; i++) rs.push(terms[i + 1].div(terms[i]));
+  S.push(T`Divisões: \(${rs.map((r, i) => `${tex(terms[i + 1])} \\div ${texP(terms[i])} = ${tex(r)}`).join(';\\quad ')}\).`);
+  const ok = rs.every(r => r.eq(rs[0]));
+  if (ok) {
+    S.push(T`Todas deram \(${tex(rs[0])}\): é uma P.G. de razão \(q = ${tex(rs[0])}\) ✓.`);
+    S.res = rs[0];
+  } else {
+    S.push(T`As divisões deram resultados <b>diferentes</b>, então <b>não é uma P.G.</b>`);
+    const ds = []; for (let i = 0; i < terms.length - 1; i++) ds.push(terms[i + 1].sub(terms[i]));
+    if (terms.length >= 3 && ds.every(d => d.eq(ds[0]))) S.push(T`Curiosidade: subtraindo termos vizinhos dá sempre \(${tex(ds[0])}\) — é uma <b>P.A.</b> de razão \(${tex(ds[0])}\), e não uma P.G.`);
+  }
+  return S;
+}
+
+/* ---------- Banco de exercícios ---------- */
+const LEVELS = [null,
+  { name: 'Reconhecendo uma P.G.', desc: 'Dada uma sequência, decida se ela é ou não uma P.G.', rem: T`Divida cada termo pelo anterior. Se o resultado for sempre o mesmo, é P.G.`, lesson: 'l2' },
+  { name: 'Calculando a razão', desc: 'Descubra a razão \\(q\\) dividindo um termo pelo anterior.', rem: T`\(q = a_2 \div a_1\) (o da frente dividido pelo de trás).`, lesson: 'l2' },
+  { name: 'Continuando a sequência', desc: 'Ainda sem fórmula: ache a razão e multiplique para continuar a P.G.', rem: T`Cada termo é o anterior vezes \(q\).`, lesson: 'l2' },
+  { name: 'Termo geral — primeiros passos', desc: 'Use \\(a_n = a_1 \\cdot q^{n-1}\\) com razão inteira positiva.', rem: T`\(a_n = a_1 \cdot q^{\,n-1}\). Potência primeiro, depois multiplica.`, lesson: 'l4' },
+  { name: 'Termo geral — negativos e frações', desc: 'A mesma fórmula, agora com razão negativa, fracionária ou primeiro termo negativo.', rem: T`Razão negativa e fração entre parênteses. Expoente par → positivo; ímpar → negativo.`, lesson: 'l4' },
+  { name: 'Descobrindo a posição n', desc: 'Que lugar um certo valor ocupa na P.G.?', rem: T`Isole a potência (\(a_n \div a_1\)), descubra o expoente e <b>some 1</b>.`, lesson: 'l5' },
+  { name: 'Descobrindo a₁ ou q', desc: 'Isole o primeiro termo ou a razão na fórmula.', rem: T`\(a_1\): divida por \(q^{n-1}\). \(q\): divida por \(a_1\) e extraia a raiz de índice \(n-1\).`, lesson: 'l5' },
+  { name: 'Interpolação geométrica', desc: 'Inserir termos entre dois números dados.', rem: T`Inserir \(m\) meios ⇒ \(n = m + 2\) termos, com \(a_1 = A\) e \(a_n = B\).`, lesson: 'l6' },
+  { name: 'Propriedades e termo médio', desc: 'Use \\(b^2 = a \\cdot c\\) para achar valores desconhecidos.', rem: T`Três termos seguidos \(a, b, c\): \(b^2 = a \cdot c\).`, lesson: 'l6' },
+  { name: 'Soma dos n primeiros termos', desc: 'Some sem listar os termos.', rem: T`\(S_n = \dfrac{a_1 (q^n - 1)}{q - 1}\). Se \(q = 1\): \(S_n = n \cdot a_1\).`, lesson: 'l7' },
+  { name: 'Soma infinita e dízimas', desc: 'Some infinitos termos quando \\(|q| < 1\\) e converta dízimas em frações.', rem: T`\(S = \dfrac{a_1}{1 - q}\) só quando \(-1 < q < 1\).`, lesson: 'l8' },
+  { name: 'Problemas do dia a dia', desc: 'Traduza a história para \\(a_1\\), \\(q\\) e \\(n\\) e resolva.', rem: T`Aumento de \(i\%\) ⇒ \(q = 1 + i\). O valor inicial é \(a_1\); depois de \(t\) períodos é \(a_{t+1}\).`, lesson: 'l9' },
+  { name: 'Desafios finais', desc: 'Problemas que combinam várias ideias do curso.', rem: T`Escreva os dados, ache primeiro a razão e depois o que for pedido.`, lesson: 'l10' }
+];
+
+function buildExercises() {
+  const E = []; let id = 0;
+  const add = (level, o) => { E.push(Object.assign({ id: ++id, level, kind: 'num', common: [] }, o)); };
+  const ordn = (m) => m + 'º';
+
+  /* N1 — É P.G.? */
+  [[2, 6, 18, 54], [5, 10, 15, 20], [3, 12, 48, 192], [1, 2, 3, 4], [81, 27, 9, 3], [7, 7, 7, 7], [1, 2, 4, 7], [2, -6, 18, -54]].forEach(s => {
+    const t = s.map(x => f(x));
+    const S = stepsRazao(t);
+    add(1, { kind: 'yn', expr: T`A sequência \((${listTex(t)})\) é uma P.G.?`, ans: S.res ? 'sim' : 'não', ansTex: S.res ? 'Sim' : 'Não', hint: 'Divida o 2º termo pelo 1º, o 3º pelo 2º, e assim por diante. Os resultados são todos iguais?', steps: S });
+  });
+
+  /* N2 — razão */
+  [[2, 6, 18], [3, 12, 48], [1, 5, 25], [4, 8, 16], [5, 50, 500], [7, 14, 28], [10, 30, 90], [6, 36, 216]].forEach(s => {
+    const t = s.map(x => f(x)); const S = stepsRazao(t);
+    add(2, { expr: T`Qual é a razão \(q\) da P.G. \((${listTex(t)},\;\ldots)\)?`, ans: S.res, hint: 'Divida o segundo termo pelo primeiro (o da frente ÷ o de trás).', steps: S });
+  });
+
+  /* N3 — continuar */
+  [[2, 4, 8], [3, 9, 27], [5, 10, 20], [2, 6, 18], [1, 10, 100]].forEach(s => {
+    const t = s.map(x => f(x)); const q = t[1].div(t[0]); const nxt = t[2].mul(q);
+    const S = [
+      T`Descubra a razão dividindo o 2º termo pelo 1º: \(${tex(t[1])} \div ${tex(t[0])} = ${tex(q)}\).`,
+      T`Confirme com o próximo par: \(${tex(t[2])} \div ${tex(t[1])} = ${tex(q)}\) ✓.`,
+      T`Multiplique o último termo pela razão: \(${tex(t[2])} \cdot ${tex(q)} = ${tex(nxt)}\).`
+    ];
+    add(3, { expr: T`Complete a P.G. \((${listTex(t)},\;?)\). Qual é o número que falta?`, ans: nxt, hint: 'Ache a razão e multiplique o último termo por ela.', steps: S });
+  });
+  [[2, 3, 5], [5, 2, 5], [1, 4, 4]].forEach(([a, qq, m]) => {
+    const a1 = f(a), q = f(qq), t = termsList(a1, q, m);
+    const S = [T`Comece com \(a_1 = ${a}\).`];
+    for (let i = 1; i < m; i++) S.push(T`\(a_{${i + 1}} = a_{${i}} \cdot q = ${tex(t[i - 1])} \cdot ${qq} = ${tex(t[i])}\).`);
+    add(3, { expr: T`Uma P.G. tem \(a_1 = ${a}\) e \(q = ${qq}\). Escrevendo os termos um a um, qual é o \(a_{${m}}\)?`, ans: t[m - 1], hint: 'Multiplique por q de termo em termo, até chegar na posição pedida.', steps: S });
+  });
+
+  /* N4 / N5 — termo geral */
+  const anItems = (lv, arr) => arr.forEach(([a, qn, qd, n]) => {
+    const a1 = f(a), q = f(qn, qd), S = stepsAn(a1, q, n);
+    add(lv, {
+      expr: T`Qual é o \(a_{${n}}\) da P.G. com \(a_1 = ${tex(a1)}\) e \(q = ${tex(q)}\)?`, ans: S.res,
+      hint: T`Use \(a_n = a_1 \cdot q^{\,n-1}\). O expoente é \(n - 1 = ${n - 1}\). Calcule a potência antes de multiplicar.`, steps: S,
+      common: [{ v: a1.mul(q.pow(n)), msg: 'Você usou o expoente n; o correto é n − 1 (para chegar ao termo n você dá n − 1 saltos).' }]
+    });
+  });
+  anItems(4, [[2, 3, 1, 4], [3, 2, 1, 5], [1, 5, 1, 4], [4, 2, 1, 6], [5, 3, 1, 3], [2, 4, 1, 5], [7, 2, 1, 4], [1, 3, 1, 7]]);
+  anItems(5, [[3, -2, 1, 5], [2, -3, 1, 4], [-5, 2, 1, 4], [-2, -3, 1, 3], [64, 1, 2, 5], [81, 1, 3, 4], [16, -1, 2, 4], [8, 3, 2, 3]]);
+
+  /* N6 — posição */
+  [[2, 3, 1, 162], [3, 2, 1, 96], [4, 3, 1, 2916], [5, 2, 1, 80], [1, 5, 1, 625], [6, 4, 1, 6144], [3, -2, 1, -96], [80, 1, 2, 5]].forEach(([a, qn, qd, an]) => {
+    const a1 = f(a), q = f(qn, qd), A = f(an), S = stepsN(a1, q, A);
+    add(6, {
+      expr: T`Em uma P.G. com \(a_1 = ${tex(a1)}\) e \(q = ${tex(q)}\), qual é a posição \(n\) do termo que vale \(${tex(A)}\)?`, ans: f(S.res),
+      hint: T`Divida \(${tex(A)}\) por \(${tex(a1)}\) e descubra a qual expoente \(${texP(q)}\) deve ser elevado. Depois some 1.`, steps: S,
+      common: [{ v: f(S.res - 1), msg: 'Você achou o expoente (n − 1). A posição é esse valor mais 1.' }]
+    });
+  });
+
+  /* N7 — a1 e q */
+  [[2, 4, 40], [3, 3, 90], [2, 5, 48], [-2, 4, -56]].forEach(([qq, n, an]) => {
+    const q = f(qq), A = f(an), S = stepsA1(q, n, A);
+    add(7, {
+      expr: T`Em uma P.G. de razão \(q = ${qq}\), o ${ordn(n)} termo vale \(${an}\). Qual é o primeiro termo \(a_1\)?`, ans: S.res,
+      hint: T`Calcule \(q^{n-1}\) e depois <b>divida</b> \(${an}\) por esse valor (o \(a_1\) está multiplicando a potência).`, steps: S,
+      common: [{ v: A.mul(q.pow(n - 1)), msg: 'Você multiplicou. Como a1 multiplica a potência, ele passa dividindo.' }]
+    });
+  });
+  [[2, 4, 54, 0], [3, 5, 48, 1], [2, 4, -54, 0], [5, 3, 80, 1]].forEach(([a, n, an, pos]) => {
+    const A1 = f(a), A = f(an), S = stepsQ(A1, n, A);
+    add(7, {
+      expr: T`Em uma P.G. ${pos ? 'de razão positiva ' : ''}temos \(a_1 = ${a}\) e \(a_{${n}} = ${an}\). Qual é a razão \(q\)?`, ans: S.res,
+      hint: T`Divida \(a_{${n}}\) por \(a_1\) para obter \(q^{${n - 1}}\). Depois pergunte: qual número elevado a ${n - 1} dá esse valor?`, steps: S
+    });
+  });
+
+  /* N8 — interpolação */
+  [
+    { A: 2, B: 162, m: 3, ask: 'q', pos: 1 }, { A: 1, B: 64, m: 5, ask: 'q', pos: 1 },
+    { A: 3, B: 48, m: 3, ask: 'last', pos: 1 }, { A: 5, B: 1280, m: 3, ask: 'meio3', pos: 1 },
+    { A: 2, B: 54, m: 2, ask: 'q', pos: 0 }, { A: 4, B: -108, m: 2, ask: 'sum', pos: 0 }
+  ].forEach(o => {
+    const n = o.m + 2, a1 = f(o.A), an = f(o.B);
+    const S = [T`Inserir \(${o.m}\) meios geométricos entre \(${o.A}\) e \(${o.B}\) significa que a P.G. terá \(n = ${o.m} + 2 = ${n}\) termos, com \(a_1 = ${o.A}\) e \(a_{${n}} = ${o.B}\).`].concat(stepsQ(a1, n, an));
+    const q = S.res || stepsQ(a1, n, an).res;
+    const t = termsList(a1, q, n);
+    let ans, q2;
+    if (o.ask === 'q') { ans = q; q2 = 'a razão'; }
+    else if (o.ask === 'last') { ans = t[n - 2]; q2 = 'o último meio geométrico (o termo anterior a ' + o.B + ')'; S.push(T`A P.G. completa é \((${listTex(t)})\). O último meio geométrico é \(${tex(ans)}\).`); }
+    else if (o.ask === 'meio3') { ans = t[3]; q2 = 'o 3º meio geométrico inserido'; S.push(T`A P.G. completa é \((${listTex(t)})\). O 3º meio é o 4º termo da lista: \(${tex(ans)}\).`); }
+    else { ans = t[1].add(t[2]); q2 = 'a soma dos dois meios geométricos'; S.push(T`A P.G. completa é \((${listTex(t)})\). Os meios são \(${tex(t[1])}\) e \(${tex(t[2])}\), e a soma é \(${tex(ans)}\).`); }
+    add(8, {
+      expr: T`Insira \(${o.m}\) meios geométricos entre \(${o.A}\) e \(${o.B}\)${o.pos ? ' (razão positiva)' : ''}. Qual é ${q2}?`, ans,
+      hint: T`Com \(${o.m}\) meios a P.G. tem \(${n}\) termos. Use \(a_${n} = a_1 \cdot q^{${n - 1}}\) para achar \(q\).`, steps: S
+    });
+  });
+
+  /* N9 — termo médio */
+  const med = (expr, steps, ans, hint) => add(9, { expr, steps, ans: f(ans), hint });
+  med(T`Para que valor de \(x\) a sequência \((x,\;6,\;18)\) é uma P.G.?`, [
+    T`Em três termos seguidos de uma P.G., o quadrado do termo do meio é igual ao produto dos extremos: \(b^2 = a \cdot c\).`,
+    T`Aqui \(a = x\), \(b = 6\), \(c = 18\): \(6^2 = x \cdot 18\).`, T`\(36 = 18x\).`, T`\(x = 36 \div 18 = 2\).`,
+    T`<b>Conferência:</b> \((2,\;6,\;18)\) tem razão 3 (\(6 \div 2 = 3\) e \(18 \div 6 = 3\)) ✓.`], 2, 'Use b² = a·c com b = 6.');
+  med(T`Os números \((4,\;x,\;16)\) formam uma P.G. de termos positivos. Qual é \(x\)?`, [
+    T`Use \(b^2 = a \cdot c\): \(x^2 = 4 \cdot 16\).`, T`\(x^2 = 64\), então \(x = \pm 8\).`, T`Como os termos são positivos, \(x = 8\).`, T`<b>Conferência:</b> \((4,\;8,\;16)\) tem razão 2 ✓.`], 8, 'x² = 4 · 16. Lembre que são termos positivos.');
+  med(T`Os números \((2,\;x,\;50)\) formam uma P.G. de termos positivos. Qual é \(x\)?`, [
+    T`Use \(b^2 = a \cdot c\): \(x^2 = 2 \cdot 50 = 100\).`, T`\(x = \pm 10\); como os termos são positivos, \(x = 10\).`, T`<b>Conferência:</b> \((2,\;10,\;50)\) tem razão 5 ✓.`], 10, 'x² = 2 · 50.');
+  med(T`Em uma P.G. de termos positivos, \(a_2 = 6\) e \(a_4 = 24\). Qual é o \(a_3\)?`, [
+    T`\(a_2, a_3, a_4\) são <b>três termos seguidos</b>, então \(a_3^2 = a_2 \cdot a_4\).`, T`\(a_3^2 = 6 \cdot 24 = 144\).`, T`\(a_3 = 12\) (positivo).`,
+    T`<b>Conferência:</b> \((6,\;12,\;24)\) tem razão 2 ✓.`], 12, 'a₂, a₃ e a₄ são três termos seguidos.');
+  med(T`Para que valor de \(x\) a sequência \((x,\;x+4,\;x+16)\) é uma P.G.?`, [
+    T`Use \(b^2 = a \cdot c\): \((x+4)^2 = x \cdot (x+16)\).`, T`Desenvolva: \(x^2 + 8x + 16 = x^2 + 16x\).`, T`Corte \(x^2\) dos dois lados: \(8x + 16 = 16x\), então \(16 = 8x\).`, T`\(x = 2\).`,
+    T`<b>Conferência:</b> \((2,\;6,\;18)\) é P.G. de razão 3 ✓.`], 2, 'Desenvolva (x+4)² = x² + 8x + 16 e corte o x² dos dois lados.');
+  med(T`Para que valor de \(x\) a sequência \((x+3,\;x+5,\;x+11)\) é uma P.G.?`, [
+    T`Use \(b^2 = a \cdot c\): \((x+5)^2 = (x+3)(x+11)\).`, T`Desenvolva os dois lados: \(x^2 + 10x + 25 = x^2 + 14x + 33\).`, T`Corte \(x^2\): \(10x + 25 = 14x + 33\), então \(-8 = 4x\).`, T`\(x = -2\).`,
+    T`<b>Conferência:</b> \((1,\;3,\;9)\) é P.G. de razão 3 ✓.`], -2, 'Desenvolva (x+5)² e o produto (x+3)(x+11); o x² cancela.');
+
+  /* N10 — soma */
+  [[3, 2, 4], [2, 3, 5], [1, 2, 7], [5, 2, 6], [4, 3, 4], [3, 4, 5], [6, 1, 10], [1, -2, 5]].forEach(([a, qq, n]) => {
+    const a1 = f(a), q = f(qq), S = stepsSn(a1, q, n);
+    const wrong = q.eq(ONE) ? null : a1.mul(q.pow(n).sub(ONE));
+    add(10, {
+      expr: T`Calcule a soma dos ${n} primeiros termos da P.G. com \(a_1 = ${a}\) e \(q = ${qq}\).`, ans: S.res,
+      hint: q.eq(ONE) ? 'Quando q = 1 todos os termos são iguais: S = n · a₁.' : T`Use \(S_n = \dfrac{a_1(q^n - 1)}{q - 1}\) com \(n = ${n}\). Potência primeiro!`, steps: S,
+      common: wrong ? [{ v: wrong, msg: 'Faltou dividir por (q − 1).' }] : []
+    });
+  });
+
+  /* N11 — infinita */
+  [[4, 1, 2], [9, 1, 3], [12, 2, 3], [6, -1, 2]].forEach(([a, qn, qd]) => {
+    const a1 = f(a), q = f(qn, qd), S = stepsInf(a1, q);
+    add(11, { expr: T`Calcule a soma de <b>todos</b> os termos (infinitos) da P.G. com \(a_1 = ${a}\) e \(q = ${tex(q)}\).`, ans: S.res, hint: T`Confira que \(-1 < q < 1\) e use \(S = \dfrac{a_1}{1-q}\).`, steps: S });
+  });
+  [[3, 10, 1, 10, '0{,}333\\ldots', '3 / 10'], [54, 100, 1, 100, '0{,}5454\\ldots', '54 / 100']].forEach(([n1, d1, n2, d2, txt]) => {
+    const a1 = f(n1, d1), q = f(n2, d2), S0 = stepsInf(a1, q);
+    const S = [T`A dízima \(${txt}\) é a soma infinita \(${n1 === 3 ? '0{,}3 + 0{,}03 + 0{,}003 + \\ldots' : '0{,}54 + 0{,}0054 + 0{,}000054 + \\ldots'}\), uma P.G. com \(a_1 = ${tex(a1)}\) e \(q = ${tex(q)}\).`].concat(S0);
+    add(11, { expr: T`Escreva a dízima periódica \(${txt}\) como fração. (Digite no formato <b>1/3</b>.)`, ans: S0.res, hint: T`Escreva a dízima como soma de uma P.G. infinita (primeiro termo = parte que se repete, razão = 1/10 ou 1/100) e use \(S = \dfrac{a_1}{1-q}\).`, steps: S });
+  });
+  add(11, {
+    kind: 'yn', expr: T`A soma infinita da P.G. \((3,\;6,\;12,\;24,\;\ldots)\) tem valor finito?`, ans: 'não', ansTex: 'Não',
+    hint: 'Calcule a razão e compare com o intervalo −1 < q < 1.',
+    steps: [T`A razão é \(q = 6 \div 3 = 2\).`, T`A soma infinita só existe (é finita) quando \(-1 < q < 1\). Como \(q = 2\) não está nesse intervalo, os termos só crescem e a soma <b>diverge</b>. Resposta: <b>não</b>.`]
+  });
+
+  /* N12 — problemas */
+  const ctx = (expr, intro, S, hint) => add(12, { expr, steps: [intro].concat(S), ans: S.res, hint });
+  ctx(T`Uma cultura tem 5 bactérias no início e o número de bactérias dobra a cada hora. Quantas bactérias haverá depois de 6 horas?`,
+    T`<b>Traduzindo:</b> no início (hora 0) há 5 bactérias ⇒ \(a_1 = 5\). Dobra a cada hora ⇒ \(q = 2\). A hora 6 é o 7º termo (hora 0 = \(a_1\), hora 1 = \(a_2\), … hora 6 = \(a_7\)) ⇒ \(n = 7\).`, stepsAn(f(5), f(2), 7),
+    'Atenção: a hora 0 é o primeiro termo. Depois de 6 horas você está no 7º termo.');
+  ctx(T`Uma folha de papel tem 0,1 mm de espessura. Dobrando-a ao meio 10 vezes seguidas, qual será a espessura, em mm? (Cada dobra dobra a espessura.)`,
+    T`<b>Traduzindo:</b> sem dobras a espessura é \(0{,}1\) ⇒ \(a_1 = \tfrac{1}{10}\). Cada dobra multiplica por 2 ⇒ \(q = 2\). Depois de 10 dobras estamos no 11º termo ⇒ \(n = 11\).`, stepsAn(f(1, 10), f(2), 11),
+    'Sem dobra é o 1º termo; 10 dobras levam ao 11º termo. Você pode digitar 102,4.');
+  ctx(T`Aplicam-se R$ 1.000 a juros compostos de 10% ao mês. Qual será o montante (em reais) depois de 3 meses?`,
+    T`<b>Traduzindo:</b> aumenta 10% ⇒ \(q = 1 + 0{,}10 = 1{,}1 = \tfrac{11}{10}\). Hoje (mês 0) é \(a_1 = 1000\). Mês 3 é o 4º termo ⇒ \(n = 4\).`, stepsAn(f(1000), f(11, 10), 4),
+    'q = 1 + taxa. O mês 0 é o 1º termo.');
+  ctx(T`Um carro vale R$ 40.000 e perde 10% do valor a cada ano. Quanto ele valerá (em reais) depois de 2 anos?`,
+    T`<b>Traduzindo:</b> perde 10% ⇒ \(q = 1 - 0{,}10 = 0{,}9 = \tfrac{9}{10}\). Valor atual: \(a_1 = 40000\). Depois de 2 anos é o 3º termo ⇒ \(n = 3\).`, stepsAn(f(40000), f(9, 10), 3),
+    'Queda de 10% ⇒ q = 0,9.');
+  ctx(T`Uma pessoa conta um boato para 3 pessoas (1ª rodada). Cada uma delas conta para outras 3 pessoas que ainda não sabiam (2ª rodada), e assim por diante. Quantas pessoas ouvem o boato <b>pela primeira vez na 4ª rodada</b>?`,
+    T`<b>Traduzindo:</b> 1ª rodada: 3 pessoas ⇒ \(a_1 = 3\). Cada rodada triplica ⇒ \(q = 3\). A 4ª rodada é o 4º termo ⇒ \(n = 4\).`, stepsAn(f(3), f(3), 4),
+    '1ª rodada = a₁. Cada rodada multiplica por 3.');
+  ctx(T`No mesmo boato (3 pessoas na 1ª rodada, triplicando a cada rodada), quantas pessoas já souberam dele <b>ao todo</b> ao final da 4ª rodada? (Não conte quem começou o boato.)`,
+    T`<b>Traduzindo:</b> queremos <b>somar</b> as pessoas das 4 primeiras rodadas: \(a_1 = 3\), \(q = 3\), \(n = 4\). Use a soma dos \(n\) primeiros termos.`, stepsSn(f(3), f(3), 4),
+    'Soma das quatro primeiras rodadas: 3 + 9 + 27 + 81.');
+  ctx(T`Uma bola é solta de 8 m de altura. Cada vez que quica, ela volta a \(\tfrac{1}{2}\) da altura anterior. Qual é a altura (em metros) que ela atinge depois do 3º quique?`,
+    T`<b>Traduzindo:</b> altura inicial \(a_1 = 8\); cada quique multiplica por \(q = \tfrac{1}{2}\). Depois do 1º quique é \(a_2\), do 2º é \(a_3\), do 3º é \(a_4\) ⇒ \(n = 4\).`, stepsAn(f(8), f(1, 2), 4),
+    'A altura inicial é o 1º termo, então o 3º quique leva ao 4º termo.');
+  ctx(T`Um tanque tem 500 litros de água e perde 20% da água que tem a cada hora. Quantos litros restam depois de 3 horas?`,
+    T`<b>Traduzindo:</b> perde 20% ⇒ \(q = 1 - 0{,}20 = 0{,}8 = \tfrac{4}{5}\). Início: \(a_1 = 500\). Depois de 3 horas é o 4º termo ⇒ \(n = 4\).`, stepsAn(f(500), f(4, 5), 4),
+    'q = 0,8 = 4/5. Depois de 3 horas, n = 4.');
+  ctx(T`(Lenda do xadrez) Na 1ª casa do tabuleiro coloca-se 1 grão de trigo, na 2ª casa 2 grãos, na 3ª casa 4 grãos, e assim por diante, dobrando a cada casa. Quantos grãos há <b>ao todo</b> nas 10 primeiras casas?`,
+    T`<b>Traduzindo:</b> \(a_1 = 1\), \(q = 2\), e somamos \(n = 10\) casas.`, stepsSn(f(1), f(2), 10),
+    'É uma soma dos 10 primeiros termos de (1, 2, 4, 8, …).');
+  ctx(T`Um funcionário recebe 1 centavo no 1º dia, 2 centavos no 2º, 4 centavos no 3º, dobrando a cada dia. Quantos <b>centavos</b> ele recebe no 15º dia?`,
+    T`<b>Traduzindo:</b> \(a_1 = 1\), \(q = 2\), \(n = 15\) (queremos o valor do 15º dia, não a soma).`, stepsAn(f(1), f(2), 15),
+    'Termo geral com n = 15.');
+
+  /* N13 — desafios */
+  const ch = (expr, steps, ans, hint) => add(13, { expr, steps, ans: (ans instanceof F ? ans : f(ans)), hint });
+  ch(T`Em uma P.G., \(a_3 = 12\) e \(a_6 = 96\). Qual é o primeiro termo \(a_1\)?`, [
+    T`De \(a_3\) até \(a_6\) são \(6 - 3 = 3\) saltos: \(a_6 = a_3 \cdot q^{3}\).`, T`\(96 = 12 \cdot q^3\), então \(q^3 = 96 \div 12 = 8\), logo \(q = 2\).`,
+    T`Agora use \(a_3 = a_1 \cdot q^{2}\): \(12 = a_1 \cdot 2^2 = a_1 \cdot 4\).`, T`\(a_1 = 12 \div 4 = 3\).`, T`<b>Conferência:</b> \((3,\;6,\;12,\;24,\;48,\;96)\): o 3º é 12 e o 6º é 96 ✓.`], 3,
+    'Use a_n = a_m · q^(n−m) para achar q primeiro.');
+  ch(T`A soma dos 3 primeiros termos de uma P.G. de razão \(q = 2\) é \(21\). Qual é o primeiro termo?`, [
+    T`Use \(S_3 = \dfrac{a_1(q^3 - 1)}{q - 1}\) com \(q = 2\): \(S_3 = \dfrac{a_1(2^3 - 1)}{2 - 1}\).`, T`\(2^3 = 8\), então \(S_3 = \dfrac{a_1 \cdot 7}{1} = 7a_1\).`, T`\(7a_1 = 21\), logo \(a_1 = 3\).`,
+    T`<b>Conferência:</b> \(3 + 6 + 12 = 21\) ✓.`], 3, 'Escreva S₃ em função de a₁ e iguale a 21.');
+  ch(T`Quantos termos da P.G. \((1,\;2,\;4,\;8,\;\ldots)\) é preciso somar, a partir do primeiro, para obter \(1023\)?`, [
+    T`Dados: \(a_1 = 1\), \(q = 2\), \(S_n = 1023\). Use \(S_n = \dfrac{a_1(q^n - 1)}{q - 1}\).`, T`\(1023 = \dfrac{1 \cdot (2^n - 1)}{2 - 1} = 2^n - 1\).`, T`Então \(2^n = 1024\).`,
+    T`Lista das potências de 2: 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 — a 10ª é 1024. Logo \(n = 10\).`], 10, 'Chegue em 2ⁿ = 1024 e use a tabela de potências de 2.');
+  ch(T`Três números em P.G. têm soma \(14\) e produto \(64\). Qual é o maior deles?`, [
+    T`Escreva os números como \(\dfrac{x}{q},\; x,\; x \cdot q\). O produto é \(x^3\).`, T`\(x^3 = 64\), então \(x = 4\).`, T`Soma: \(\dfrac{4}{q} + 4 + 4q = 14\), ou seja, \(\dfrac{4}{q} + 4q = 10\).`,
+    T`Multiplique tudo por \(q\): \(4 + 4q^2 = 10q\), que vira \(2q^2 - 5q + 2 = 0\).`, T`Bhaskara: \(\Delta = 25 - 16 = 9\); \(q = \dfrac{5 \pm 3}{4}\), então \(q = 2\) ou \(q = \tfrac{1}{2}\).`,
+    T`Com \(q = 2\): \((2,\;4,\;8)\). Com \(q = \tfrac{1}{2}\): \((8,\;4,\;2)\). Os mesmos números! O maior é <b>8</b>.`, T`<b>Conferência:</b> \(2 + 4 + 8 = 14\) e \(2 \cdot 4 \cdot 8 = 64\) ✓.`], 8,
+    'Use x/q, x, x·q. O produto vira x³.');
+  ch(T`A soma de todos os termos de uma P.G. infinita é \(12\) e seu primeiro termo é \(6\). Qual é a razão?`, [
+    T`Use \(S = \dfrac{a_1}{1 - q}\): \(12 = \dfrac{6}{1 - q}\).`, T`Passe \((1 - q)\) multiplicando: \(12(1 - q) = 6\).`, T`\(1 - q = 6 \div 12 = \tfrac{1}{2}\).`, T`\(q = 1 - \tfrac{1}{2} = \tfrac{1}{2}\) (está entre −1 e 1 ✓).`], f(1, 2),
+    'Isole (1 − q) na fórmula da soma infinita. Digite 1/2.');
+  ch(T`Uma P.G. tem \(a_1 = 2\), último termo \(a_n = 1458\) e soma dos termos \(S_n = 2186\). Quantos termos ela tem?`, [
+    T`Use a variante da soma que usa o último termo: \(S_n = \dfrac{a_n \cdot q - a_1}{q - 1}\). Fica \(2186 = \dfrac{1458q - 2}{q - 1}\).`,
+    T`Multiplique em cruz: \(2186(q - 1) = 1458q - 2\), isto é, \(2186q - 2186 = 1458q - 2\).`, T`\(2186q - 1458q = 2186 - 2\), então \(728q = 2184\) e \(q = 3\).`,
+    T`Agora ache \(n\): \(1458 = 2 \cdot 3^{n-1}\) ⇒ \(729 = 3^{n-1}\).`, T`Potências de 3: 3, 9, 27, 81, 243, 729 — o 729 é \(3^6\). Então \(n - 1 = 6\) e \(n = 7\).`, T`<b>Conferência:</b> \(2 + 6 + 18 + 54 + 162 + 486 + 1458 = 2186\) ✓.`], 7,
+    'Primeiro ache q com S = (aₙ·q − a₁)/(q − 1); depois use o termo geral.');
+  ch(T`Em uma P.G. de termos positivos, \(a_2 = 6\) e \(a_5 = 162\). Calcule a soma dos 5 primeiros termos.`, [
+    T`De \(a_2\) até \(a_5\) são 3 saltos: \(162 = 6 \cdot q^3\), então \(q^3 = 27\) e \(q = 3\).`, T`Ache \(a_1\): \(a_2 = a_1 \cdot q\), então \(6 = a_1 \cdot 3\) e \(a_1 = 2\).`,
+    T`Some os 5 primeiros termos: \(S_5 = \dfrac{2 \cdot (3^5 - 1)}{3 - 1} = \dfrac{2 \cdot 242}{2} = 242\).`, T`<b>Conferência:</b> \(2 + 6 + 18 + 54 + 162 = 242\) ✓.`], 242,
+    'Ache q (a₅ = a₂·q³), depois a₁ e então some.');
+  return E;
+}
+// ==ENGINE-END==
+// ==UI-START==
+const $ = id => document.getElementById(id);
+function renderMath(el) {
+  if (!window.renderMathInElement) return false;
+  try {
+    renderMathInElement(el || document.body, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }], throwOnError: false });
+  } catch (e) { /* ignora */ }
+  return true;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignora */ } }
+};
+const fmtN = x => {
+  if (!isFinite(x)) return '∞';
+  if (Math.abs(x) >= 1e9) return x.toExponential(2).replace('.', ',');
+  return x.toLocaleString('pt-BR', { maximumFractionDigits: 4 });
+};
+const money = x => x.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+/* ---------- Abas e navegação ---------- */
+const SECTIONS = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+function showTab(t) {
+  SECTIONS.forEach(s => $('sec-' + s).classList.toggle('hidden', s !== t));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  if (t === 'laboratorio') updateAllLabs();
+  if (t === 'exercicios') renderExercises();
+  window.scrollTo({ top: 0 });
+}
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-goto]');
+  if (g) { setLevel(g.dataset.goto); showTab('exercicios'); return; }
+  const t = e.target.closest('[data-gotab]');
+  if (t) { showTab(t.dataset.gotab); return; }
+  const l = e.target.closest('[data-lesson]');
+  if (l) { e.preventDefault(); showTab('teoria'); setTimeout(() => { const el = $(l.dataset.lesson); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
+});
+
+/* ---------- Teste rápido ---------- */
+const QUICK = [
+  { q: T`Quanto vale \((-3)^3\)?`, a: '-27' },
+  { q: T`Quanto vale \(3 \cdot 2^4\)?`, a: '48' },
+  { q: T`Qual é a razão da P.G. \((4,\;12,\;36,\;\ldots)\)?`, a: '3' },
+  { q: T`Qual é a razão da P.G. \((80,\;40,\;20,\;\ldots)\)? (digite como fração, ex.: 1/2)`, a: '1/2' },
+  { q: T`Qual é o 5º termo da P.G. com \(a_1 = 2\) e \(q = 3\)?`, a: '162' },
+  { q: T`Qual é o 4º termo da P.G. com \(a_1 = 5\) e \(q = -2\)?`, a: '-40' },
+  { q: T`Em uma P.G. com \(q = 3\), o 4º termo vale 54. Qual é o primeiro termo?`, a: '2' },
+  { q: T`Em uma P.G. com \(a_1 = 2\) e \(q = 2\), que posição ocupa o termo 64?`, a: '6' },
+  { q: T`Para que valor de \(x\) a sequência \((x,\;10,\;50)\) é uma P.G.?`, a: '2' },
+  { q: T`Some os 5 primeiros termos da P.G. com \(a_1 = 1\) e \(q = 2\).`, a: '31' },
+  { q: T`Qual é a soma de todos os termos da P.G. infinita com \(a_1 = 10\) e \(q = \tfrac{1}{2}\)?`, a: '20' }
+];
+function initQuick() {
+  document.querySelectorAll('.quick').forEach(box => {
+    const d = QUICK[+box.dataset.qi]; if (!d) return;
+    box.innerHTML = `<div class="text-[11px] font-black uppercase tracking-widest text-sky-700">✋ Teste rápido</div>
+      <p style="margin-top:.4rem">${d.q}</p>
+      <div class="flex flex-wrap items-center gap-2 mt-3">
+        <input type="text" placeholder="Sua resposta" autocomplete="off">
+        <button class="qc bg-sky-600 text-white rounded-lg px-3 py-1.5 text-sm font-bold">Conferir</button>
+        <button class="qs text-xs text-slate-500 underline">ver resposta</button>
+        <span class="qf text-sm font-bold"></span>
+      </div>`;
+    const inp = box.querySelector('input'), fb = box.querySelector('.qf');
+    const check = () => {
+      const v = parseF(inp.value);
+      if (!v) { fb.className = 'qf text-sm font-bold text-amber-600'; fb.textContent = 'Digite um número.'; return; }
+      if (v.eq(parseF(d.a))) { fb.className = 'qf text-sm font-bold text-emerald-600'; fb.textContent = '✓ Certo! Pode seguir.'; }
+      else { fb.className = 'qf text-sm font-bold text-red-600'; fb.textContent = '✗ Ainda não. Releia a lição e tente de novo.'; }
+    };
+    box.querySelector('.qc').addEventListener('click', check);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    box.querySelector('.qs').addEventListener('click', () => { fb.className = 'qf text-sm font-bold text-slate-600'; fb.textContent = 'Resposta: ' + d.a.replace('-', '−'); });
+  });
+}
+
+/* ---------- Laboratório ---------- */
+function updateLab1() {
+  const a1 = +$('l1-a1').value, q = +$('l1-q').value, n = +$('l1-n').value;
+  $('l1-a1-label').textContent = fmtN(a1); $('l1-q-label').textContent = fmtN(q); $('l1-n-label').textContent = n;
+  const terms = []; let c = a1;
+  for (let i = 0; i < n; i++) { terms.push(c); c *= q; }
+  const mx = Math.max(...terms.map(Math.abs)) || 1;
+  const hasNeg = terms.some(v => v < 0), hasPos = terms.some(v => v > 0);
+  $('l1-bars').innerHTML = terms.map(v => {
+    const h = v === 0 ? 0 : Math.max(Math.abs(v) / mx * 100, 2), pos = v >= 0;
+    const topCls = (hasPos || !hasNeg) ? 'flex-1 flex items-end' + (hasNeg ? '' : ' border-b-2 border-slate-400') : 'hidden';
+    const botCls = hasNeg ? 'flex-1 flex items-start border-t-2 border-slate-400' + (hasPos ? '' : ' border-t-0') : 'hidden';
+    return `<div class="flex-1 flex flex-col h-full">
+      <div class="${topCls}">${pos ? `<div class="w-full bg-pink-500 rounded-t bar-col" style="height:${h}%"></div>` : ''}</div>
+      <div class="${botCls}">${!pos ? `<div class="w-full bg-sky-500 rounded-b bar-col" style="height:${h}%"></div>` : ''}</div></div>`;
+  }).join('');
+  $('l1-vals').innerHTML = terms.map((v, i) => `<div class="flex-1 text-center text-[10px] leading-4 min-w-0"><div class="text-slate-400">a<sub>${i + 1}</sub></div><b class="break-all">${fmtN(v)}</b></div>`).join('');
+  let tipo;
+  if (a1 === 0) tipo = 'Com \\(a_1 = 0\\) todos os termos são zero: não é uma P.G. de verdade. Mude o primeiro termo.';
+  else if (q === 0) tipo = 'Com \\(q = 0\\) a sequência vira (a, 0, 0, …) e perde o padrão: <b>a razão não pode ser zero</b>.';
+  else if (q === 1) tipo = 'Razão 1: P.G. <b>constante</b> (todos os termos iguais).';
+  else if (q < 0) tipo = `Razão negativa: P.G. <b>alternante</b> — o sinal troca a cada termo. ${Math.abs(q) > 1 ? 'Como \\(|q| > 1\\), os valores se afastam de zero.' : 'Como \\(|q| < 1\\), os valores se aproximam de zero.'}`;
+  else if (q > 1) tipo = a1 > 0 ? 'Razão maior que 1 e \\(a_1 > 0\\): P.G. <b>crescente</b> (explosiva!).' : 'Razão maior que 1 e \\(a_1 < 0\\): P.G. <b>decrescente</b> (os negativos “explodem” para baixo).';
+  else tipo = a1 > 0 ? 'Razão entre 0 e 1 e \\(a_1 > 0\\): P.G. <b>decrescente</b> (encolhe rumo a zero).' : 'Razão entre 0 e 1 e \\(a_1 < 0\\): P.G. <b>crescente</b> (os negativos sobem rumo a zero).';
+  $('l1-info').innerHTML = tipo;
+  const qt = q < 0 ? `(${fmtN(q)})` : fmtN(q);
+  $('l1-seq').innerHTML = `\\(a_n = ${fmtN(a1)} \\cdot ${qt}^{\\,n-1}\\)`;
+  renderMath($('l1-info')); renderMath($('l1-seq'));
+}
+function updateLab2() {
+  const a1 = +$('l2-a1').value, s = +$('l2-s').value;
+  $('l2-a1-label').textContent = a1; $('l2-s-label').textContent = s;
+  const rows = [];
+  for (let n = 1; n <= 10; n++) rows.push({ n, pa: a1 + (n - 1) * s, pg: a1 * Math.pow(s, n - 1) });
+  const mx = Math.max(...rows.map(r => Math.max(r.pa, r.pg)));
+  $('l2-out').innerHTML = rows.map(r => `<div class="grid grid-cols-[2.2rem_1fr] items-center gap-2 mb-2">
+    <span class="text-xs font-bold text-slate-500">a<sub>${r.n}</sub></span>
+    <div class="space-y-1">
+      <div class="flex items-center gap-2"><div class="h-3 rounded bg-sky-500 bar-col" style="width:${Math.max(r.pa / mx * 78, 1)}%"></div><span class="text-[11px] text-slate-600 whitespace-nowrap">${fmtN(r.pa)}</span></div>
+      <div class="flex items-center gap-2"><div class="h-3 rounded bg-pink-500 bar-col" style="width:${Math.max(r.pg / mx * 78, 1)}%"></div><span class="text-[11px] text-slate-600 whitespace-nowrap">${fmtN(r.pg)}</span></div>
+    </div></div>`).join('');
+}
+function updateLab3() {
+  const v = +$('l3-v').value, p = +$('l3-p').value, t = +$('l3-t').value;
+  $('l3-v-label').textContent = money(v); $('l3-p-label').textContent = (p > 0 ? '+' : '') + p + '%'; $('l3-t-label').textContent = t;
+  const i = p / 100, q = 1 + i;
+  let html = `<table class="tb" style="display:table"><thead><tr><th>Período</th><th>P.G. (composto: × ${fmtN(q)})</th><th>P.A. (simples: ${i >= 0 ? '+' : '−'} ${money(Math.abs(v * i))})</th><th>Diferença</th></tr></thead><tbody>`;
+  for (let k = 0; k <= t; k++) {
+    const pg = v * Math.pow(q, k), pa = v * (1 + i * k);
+    html += `<tr><td><b>${k}</b> <span class="text-xs text-slate-400">(a<sub>${k + 1}</sub>)</span></td><td><b>${money(pg)}</b></td><td>${money(pa)}</td><td class="${pg - pa >= 0 ? 'text-emerald-600' : 'text-red-600'}">${money(pg - pa)}</td></tr>`;
+  }
+  $('l3-out').innerHTML = html + '</tbody></table>';
+  $('l3-info').innerHTML = `Razão: \\(q = 1 ${i >= 0 ? '+' : '-'} ${fmtN(Math.abs(i))} = ${fmtN(q)}\\).<br>Valor após ${t} período(s) = \\(a_{${t + 1}} = ${fmtN(v)} \\cdot ${fmtN(q)}^{${t}}\\).`;
+  renderMath($('l3-info'));
+}
+function updateLab4() {
+  const q = Math.round(+$('l4-q').value * 10) / 10, n = +$('l4-n').value;
+  $('l4-q-label').textContent = fmtN(q); $('l4-n-label').textContent = n;
+  const sums = []; let s = 0, t = 1;
+  for (let k = 1; k <= 20; k++) { s += t; sums.push(s); t *= q; }
+  const lim = 1 / (1 - q), mx = Math.max(lim, ...sums);
+  $('l4-bars').innerHTML = sums.map((v, k) => `<div class="flex-1 h-full flex items-end"><div class="w-full rounded-t bar-col ${k < n ? 'bg-pink-500' : 'bg-slate-200'}" style="height:${v / mx * 100}%"></div></div>`).join('') +
+    `<div class="absolute left-0 right-0 border-t-2 border-dashed border-emerald-500 pointer-events-none" style="bottom:${lim / mx * 100}%"></div>`;
+  $('l4-info').innerHTML = `\\(S_{${n}} = ${fmtN(sums[n - 1])}\\)<br>\\(S_\\infty = \\dfrac{1}{1 - ${q < 0 ? '(' + fmtN(q) + ')' : fmtN(q)}} = ${fmtN(lim)}\\)<br>Falta para o limite: <b>${fmtN(lim - sums[n - 1])}</b>`;
+  renderMath($('l4-info'));
+}
+function updateAllLabs() { updateLab1(); updateLab2(); updateLab3(); updateLab4(); }
+[['l1-a1', updateLab1], ['l1-q', updateLab1], ['l1-n', updateLab1], ['l2-a1', updateLab2], ['l2-s', updateLab2], ['l3-v', updateLab3], ['l3-p', updateLab3], ['l3-t', updateLab3], ['l4-q', updateLab4], ['l4-n', updateLab4]]
+  .forEach(([id, fn]) => $(id).addEventListener('input', fn));
+
+/* ---------- Calculadoras ---------- */
+function stepsHTML(S) { return S.map((s, i) => `<div class="step text-sm" data-step="${i + 1}">${s}</div>`).join(''); }
+const fld = (id, label, value) => ({ id, label, value });
+const needInt = (F_, name, min, max) => {
+  if (!F_ || !F_.isInt()) throw new Error(`${name} deve ser um número inteiro.`);
+  const v = Number(F_.n);
+  if (v < min || v > max) throw new Error(`${name} deve estar entre ${min} e ${max}.`);
+  return v;
+};
+const need = (s, name) => { const v = parseF(s); if (!v) throw new Error(`Valor inválido em “${name}”. Use números como 3, -2, 1/2 ou 0,25.`); return v; };
+const TOOLS = [
+  {
+    id: 'razao', title: 'Descobrir a razão (e checar se é P.G.)', btn: 'bg-pink-600',
+    fields: [fld('terms', 'Termos (separe com ; ou espaço)', '3; 6; 12; 24')],
+    run(v) {
+      const terms = v.terms.split(/[;\s]+/).filter(Boolean).map(x => need(x, 'termos'));
+      const S = stepsRazao(terms);
+      return { S, final: S.res ? T`Razão: \(q = ${tex(S.res)}\)` : 'Não é uma P.G.' };
+    }
+  },
+  {
+    id: 'an', title: 'Descobrir um termo (aₙ)', btn: 'bg-pink-600',
+    fields: [fld('a1', 'Início (a₁)', '3'), fld('q', 'Razão (q)', '2'), fld('n', 'Posição (n)', '5')],
+    run(v) { const a1 = need(v.a1, 'a₁'), q = need(v.q, 'q'), n = needInt(need(v.n, 'n'), 'n', 1, 100); const S = stepsAn(a1, q, n); return { S, final: T`Resposta: \(a_{${n}} = ${texAns(S.res)}\)` }; }
+  },
+  {
+    id: 'n', title: 'Descobrir a posição (n)', btn: 'bg-amber-600',
+    fields: [fld('a1', 'Início (a₁)', '5'), fld('q', 'Razão (q)', '3'), fld('an', 'Termo (aₙ)', '405')],
+    run(v) {
+      const a1 = need(v.a1, 'a₁'), q = need(v.q, 'q'), an = need(v.an, 'aₙ');
+      if (a1.isZero()) throw new Error('a₁ não pode ser zero.');
+      const S = stepsN(a1, q, an);
+      return { S, final: S.res ? T`Resposta: \(n = ${S.res}\)` : 'Esse valor não ocupa nenhuma posição da P.G.' };
+    }
+  },
+  {
+    id: 'a1', title: 'Descobrir o primeiro termo (a₁)', btn: 'bg-amber-600',
+    fields: [fld('q', 'Razão (q)', '2'), fld('n', 'Posição (n)', '5'), fld('an', 'Termo (aₙ)', '48')],
+    run(v) {
+      const q = need(v.q, 'q'), n = needInt(need(v.n, 'n'), 'n', 1, 100), an = need(v.an, 'aₙ');
+      if (q.isZero()) throw new Error('A razão não pode ser zero.');
+      const S = stepsA1(q, n, an); return { S, final: T`Resposta: \(a_1 = ${texAns(S.res)}\)` };
+    }
+  },
+  {
+    id: 'q', title: 'Descobrir a razão (q) com a₁, n e aₙ', btn: 'bg-sky-600',
+    fields: [fld('a1', 'Início (a₁)', '2'), fld('n', 'Posição (n)', '4'), fld('an', 'Termo (aₙ)', '54')],
+    run(v) {
+      const a1 = need(v.a1, 'a₁'), n = needInt(need(v.n, 'n'), 'n', 2, 100), an = need(v.an, 'aₙ');
+      if (a1.isZero()) throw new Error('a₁ não pode ser zero.');
+      const S = stepsQ(a1, n, an); return { S, final: S.res ? T`Resposta: \(q = ${texAns(S.res)}\)` : 'Não há razão racional exata (veja o passo a passo).' };
+    }
+  },
+  {
+    id: 'sn', title: 'Somar n termos (Sₙ)', btn: 'bg-emerald-600',
+    fields: [fld('a1', 'Início (a₁)', '2'), fld('q', 'Razão (q)', '3'), fld('n', 'Quantos termos (n)', '4')],
+    run(v) { const a1 = need(v.a1, 'a₁'), q = need(v.q, 'q'), n = needInt(need(v.n, 'n'), 'n', 1, 100); const S = stepsSn(a1, q, n); return { S, final: T`Soma: \(S_{${n}} = ${texAns(S.res)}\)` }; }
+  },
+  {
+    id: 'inf', title: 'Somar infinitos termos (S)', btn: 'bg-emerald-600',
+    fields: [fld('a1', 'Início (a₁)', '4'), fld('q', 'Razão (q)', '1/2')],
+    run(v) {
+      const a1 = need(v.a1, 'a₁'), q = need(v.q, 'q'); const S = stepsInf(a1, q);
+      return { S, final: S.res ? T`Soma infinita: \(S = ${texAns(S.res)}\)` : 'A soma diverge (não existe valor finito).' };
+    }
+  },
+  {
+    id: 'lista', title: 'Listar os primeiros termos', btn: 'bg-violet-600',
+    fields: [fld('a1', 'Início (a₁)', '3'), fld('q', 'Razão (q)', '2'), fld('n', 'Quantos termos (n)', '8')],
+    run(v) {
+      const a1 = need(v.a1, 'a₁'), q = need(v.q, 'q'), n = needInt(need(v.n, 'n'), 'n', 1, 20);
+      const t = termsList(a1, q, n);
+      const S = [T`Comece em \(a_1 = ${tex(a1)}\).`];
+      for (let i = 1; i < n; i++) S.push(T`\(a_{${i + 1}} = a_{${i}} \cdot q = ${tex(t[i - 1])} \cdot ${texP(q)} = ${tex(t[i])}\)`);
+      return { S, final: T`\((${listTex(t)})\)` };
+    }
+  }
+];
+function initTools() {
+  $('tools-grid').innerHTML = TOOLS.map(t => `<div class="bg-white rounded-2xl border p-6 shadow-sm" data-tool="${t.id}">
+    <h2 class="font-black text-lg">${t.title}</h2>
+    <div class="grid gap-2 mt-4 ${t.fields.length === 1 ? 'grid-cols-1' : t.fields.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}">
+      ${t.fields.map(x => `<div><label class="text-xs font-bold text-slate-500 mb-1 block">${x.label}</label><input data-f="${x.id}" type="text" value="${x.value}" autocomplete="off" class="border rounded-xl p-2 w-full text-sm"></div>`).join('')}
+    </div>
+    <button data-run="${t.id}" class="mt-3 w-full ${t.btn} text-white rounded-xl py-3 font-bold">Resolver passo a passo</button>
+    <div class="out paper rounded-xl p-5 mt-4 hidden text-sm space-y-3"></div></div>`).join('');
+}
+function runTool(card) {
+  const t = TOOLS.find(x => x.id === card.dataset.tool), out = card.querySelector('.out');
+  const v = {}; card.querySelectorAll('[data-f]').forEach(i => v[i.dataset.f] = i.value);
+  out.classList.remove('hidden');
+  try {
+    const r = t.run(v);
+    out.innerHTML = stepsHTML(r.S) + `<div class="success rounded-xl p-4 font-bold text-center">${r.final}</div>`;
+  } catch (e) {
+    out.innerHTML = `<div class="warning rounded-xl p-4">${e.message || 'Não consegui calcular com esses valores.'}</div>`;
+  }
+  renderMath(out);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-run]'); if (b) runTool(b.closest('[data-tool]')); });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('[data-tool] input')) runTool(e.target.closest('[data-tool]')); });
+
+/* ---------- Exercícios ---------- */
+const EX = buildExercises();
+const SOLVED_KEY = 'pgSolved_v2';
+let solved = new Set(store.get(SOLVED_KEY, []));
+let curLevel = 'all';
+const NLV = LEVELS.length - 1;
+
+function setLevel(l) { curLevel = String(l); renderFilters(); renderExercises(); }
+function renderFilters() {
+  let html = `<button data-level="all" class="level-btn ${curLevel === 'all' ? 'active' : 'bg-slate-100'} rounded-lg px-3 py-2 text-xs font-bold">Todos · ${solved.size}/${EX.length}</button>`;
+  for (let lv = 1; lv <= NLV; lv++) {
+    const items = EX.filter(e => e.level === lv), done = items.filter(e => solved.has(e.id)).length;
+    html += `<button data-level="${lv}" title="${LEVELS[lv].name.replace(/"/g, '')}" class="level-btn ${curLevel === String(lv) ? 'active' : 'bg-slate-100'} rounded-lg px-3 py-2 text-xs font-bold">Nível ${lv} · ${done}/${items.length}${done === items.length ? ' ✓' : ''}</button>`;
+  }
+  $('filters').innerHTML = html;
+}
+function updateProgress() {
+  $('progress-text').textContent = `${solved.size} / ${EX.length}`;
+  $('progress-bar').style.width = (solved.size / EX.length * 100) + '%';
+}
+const plainText = s => s.replace(/\\\(.*?\\\)/g, ' ').replace(/<[^>]+>/g, ' ');
+function levelHeader(lv) {
+  const L = LEVELS[lv];
+  return `<div class="md:col-span-2 lvl-head mt-3"><div class="text-[11px] font-black uppercase tracking-widest text-pink-200">Nível ${lv} de ${NLV}</div>
+    <div class="text-xl font-black">${L.name}</div><div class="text-sm text-pink-100 mt-1">${L.desc}</div>
+    <div class="mt-2 text-sm bg-white/15 rounded-lg px-3 py-2">💡 Lembrete: ${L.rem} <a href="#${L.lesson}" data-lesson="${L.lesson}" class="underline font-bold ml-1">Rever a lição</a></div></div>`;
+}
+function exCard(ex) {
+  const done = solved.has(ex.id);
+  const input = ex.kind === 'yn'
+    ? `<div class="flex gap-2 mt-4"><button data-act="yn" data-v="sim" class="flex-1 bg-pink-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Sim</button><button data-act="yn" data-v="não" class="flex-1 bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Não</button></div>`
+    : `<div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm min-w-0" placeholder="Sua resposta (ex.: 12, -3, 1/2)" autocomplete="off"><button data-act="check" class="bg-pink-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>`;
+  return `<article id="ex-${ex.id}" data-id="${ex.id}" class="bg-white rounded-2xl border-2 ${done ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm">
+    <div class="flex justify-between gap-3 items-center"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-pink-50 text-pink-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">Nível ${ex.level}</span></div>
+    <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-5 text-center text-base sm:text-lg text-slate-700 leading-8">${ex.expr}</div>
+    ${input}
+    <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px] ${done ? 'text-emerald-600' : ''}">${done ? '✓ Já resolvido' : ''}</div>
+    <div class="flex gap-5 mt-1"><button data-act="hint" class="text-sm font-bold text-amber-700 hover:underline">💡 Dica</button><button data-act="sol" class="text-sm font-bold text-pink-700 hover:underline">👁 Resolução passo a passo</button></div>
+    <div id="hint-${ex.id}" class="hidden tip rounded-xl p-3 mt-3 text-sm"></div>
+    <div id="solution-${ex.id}" class="hidden mt-4 border-t pt-4"></div></article>`;
+}
+function renderExercises() {
+  const q = ($('search').value || '').trim().toLowerCase(), only = $('only-open').checked;
+  const list = EX.filter(e => (curLevel === 'all' || String(e.level) === curLevel) && (!only || !solved.has(e.id)) &&
+    (!q || (plainText(e.expr) + ' ' + LEVELS[e.level].name + ' ' + LEVELS[e.level].desc).toLowerCase().includes(q)));
+  let html = '', last = 0;
+  list.forEach(ex => { if (ex.level !== last) { last = ex.level; html += levelHeader(ex.level); } html += exCard(ex); });
+  if (!list.length) html = '<div class="md:col-span-2 text-center text-slate-500 py-10">Nenhum exercício encontrado com esses filtros.</div>';
+  $('exercise-list').innerHTML = html;
+  renderMath($('exercise-list'));
+  renderFilters(); updateProgress();
+}
+function markSolved(ex) {
+  solved.add(ex.id); store.set(SOLVED_KEY, [...solved]);
+  const card = $('ex-' + ex.id); if (card) { card.classList.remove('border-slate-200'); card.classList.add('border-emerald-400'); }
+  renderFilters(); updateProgress();
+}
+function answerText(ex) { return ex.kind === 'yn' ? ex.ansTex : texAns(ex.ans); }
+function giveFeedback(ex, ok, msg) {
+  const fb = $('feedback-' + ex.id);
+  fb.className = 'text-sm font-bold mt-2 min-h-[20px] ' + (ok ? 'text-emerald-600' : 'text-red-600');
+  fb.textContent = msg;
+}
+function checkNum(ex) {
+  const inp = $('answer-' + ex.id), v = parseF(inp.value);
+  if (!v) { giveFeedback(ex, false, 'Digite um número (frações como 1/2 e decimais como 0,25 também valem).'); return; }
+  if (v.eq(ex.ans)) { giveFeedback(ex, true, '✓ Perfeito! Resposta correta.'); markSolved(ex); }
+  else {
+    const c = ex.common.find(c => v.eq(c.v));
+    giveFeedback(ex, false, c ? '✗ Quase! ' + c.msg : '✗ Ainda não. Use a 💡 Dica ou veja a resolução passo a passo.');
+  }
+}
+function checkYN(ex, v) {
+  if (v === ex.ans) { giveFeedback(ex, true, '✓ Perfeito! Resposta correta.'); markSolved(ex); }
+  else giveFeedback(ex, false, '✗ Ainda não. Faça as divisões entre termos vizinhos e compare os resultados.');
+}
+$('exercise-list').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const card = b.closest('[data-id]'), ex = EX.find(x => x.id === +card.dataset.id), act = b.dataset.act;
+  if (act === 'check') checkNum(ex);
+  else if (act === 'yn') checkYN(ex, b.dataset.v);
+  else if (act === 'hint') {
+    const h = $('hint-' + ex.id);
+    if (!h.dataset.ready) { h.innerHTML = '<b>💡 Dica:</b> ' + ex.hint; h.dataset.ready = '1'; renderMath(h); }
+    h.classList.toggle('hidden');
+  } else if (act === 'sol') {
+    const s = $('solution-' + ex.id);
+    if (!s.dataset.ready) {
+      s.innerHTML = `<div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução passo a passo</div>${stepsHTML(ex.steps)}<div class="success rounded-xl p-4 text-center font-bold">Resposta certa: \\(${answerText(ex)}\\)</div>`.replace('\\(Sim\\)', 'Sim').replace('\\(Não\\)', 'Não');
+      s.dataset.ready = '1'; renderMath(s);
+    }
+    s.classList.toggle('hidden');
+  }
+});
+$('exercise-list').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id && e.target.id.startsWith('answer-')) checkNum(EX.find(x => x.id === +e.target.id.slice(7)));
+});
+$('filters').addEventListener('click', e => { const b = e.target.closest('[data-level]'); if (b) setLevel(b.dataset.level); });
+$('search').addEventListener('input', renderExercises);
+$('only-open').addEventListener('change', renderExercises);
+$('reset-progress').addEventListener('click', () => {
+  if (confirm('Zerar todo o seu progresso nos exercícios?')) { solved = new Set(); store.set(SOLVED_KEY, []); renderExercises(); }
+});
+
+/* ---------- Índice das lições (destaque ao rolar) ---------- */
+function initTOC() {
+  const links = [...document.querySelectorAll('.toc a')];
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id)); });
+  }, { rootMargin: '-25% 0px -65% 0px' });
+  document.querySelectorAll('.lesson').forEach(l => io.observe(l));
+}
+
+/* ---------- Início ---------- */
+function init() {
+  $('total-ex').textContent = EX.length;
+  initQuick(); initTools(); initTOC(); updateAllLabs(); renderFilters(); renderExercises();
+  if (!renderMath(document.body)) window.addEventListener('load', () => renderMath(document.body));
+}
+if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', init); else init();
+// ==UI-END==
+  </script>
+</body>
+</html>

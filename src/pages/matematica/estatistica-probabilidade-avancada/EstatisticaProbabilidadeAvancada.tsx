@@ -1,0 +1,7 @@
+import { AdvancedStatisticsTools, BinomialDistributionLab, NormalDistributionLab } from '../../../components/exercises/matematica/estatistica-probabilidade-avancada/Ferramentas';
+import { ExerciseList } from '../../../components/UI/ExerciseList';
+import { TopicPageLayout } from '../../../components/UI/TopicPageLayout';
+import { AdvancedStatisticsTheory } from '../../../components/content/matematica/estatistica-probabilidade-avancada/Conteudo';
+import { advancedStatisticsExercises } from '../../../data/matematica/estatistica-probabilidade-avancada/exercicios';
+
+export default function AdvancedStatisticsPage(){return <TopicPageLayout title="🧬 Estatística e Probabilidade Avançada" tagline="A matemática da ciência de dados e dos vestibulares" footer="Material interativo de Estatística e Probabilidade Avançada" tabs={[{id:'teoria',label:'📚 Teoria',content:<AdvancedStatisticsTheory/>},{id:'laboratorio',label:'📈 Curva Normal',content:<NormalDistributionLab/>},{id:'ferramentas',label:'⚙️ Bayes & Binomial',content:<AdvancedStatisticsTools/>},{id:'binomial',label:'📊 Curva Binomial',content:<BinomialDistributionLab/>},{id:'exercicios',label:'✏️ 100 Exercícios',content:<ExerciseList data={advancedStatisticsExercises} storageKey="advStatsSolved" total={100} instructions="Informe frações ou valores decimais, conforme solicitado no enunciado." levels={['L1 Regras base','L2 Valor esperado','L3 Distribuição binomial','L4 Bayes e árvores','L5 Normal e Z-score','L6 Desafios']}/>} ]}/>}

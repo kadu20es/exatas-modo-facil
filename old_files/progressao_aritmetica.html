@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progressão Aritmética — Aprenda Passo a Passo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root { --ink: #243044; --paper: #fffdf8; --accent: #4f46e5 }
+    body { background: #fbf7ee; color: var(--ink); font-family: sans-serif; }
+    .tab-btn.active { color: #4f46e5; border-bottom-color: #4f46e5; font-weight: 800 }
+    .paper {
+      background: var(--paper);
+      background-image: linear-gradient(#e8e2d8 1px, transparent 1px);
+      background-size: 100% 2rem;
+      border: 1px solid #ddd5c8;
+      box-shadow: 0 8px 24px #2b21120d;
+    }
+    .step { position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: white; }
+    .step::before { content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #eef2ff; color: #4338ca; font-weight: 800; display: grid; place-items: center; font-size: .8rem; }
+    .level-btn.active { background: #4f46e5; color: white; }
+    .tip { border-left: 4px solid #f59e0b; background: #fffbeb; }
+    .success { border-left: 4px solid #10b981; background: #ecfdf5; }
+    .warning { border-left: 4px solid #ef4444; background: #fef2f2; }
+    .bar-col { transition: all 0.3s ease; }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+      <div>
+        <div class="font-black text-xl text-indigo-900">📈 Progressão Aritmética</div>
+        <div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, sem sofrer</div>
+      </div>
+      <nav class="flex gap-1 overflow-x-auto ml-4">
+        <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Lab</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Ferramentas</button>
+        <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-7">
+    <!-- TEORIA -->
+    <section id="sec-teoria" class="space-y-7">
+      <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+        <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do Zero</span>
+        <h1 class="text-3xl sm:text-5xl font-black mt-2">P.A. Simplificada</h1>
+        <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Entenda o padrão por trás da progressão aritmética com analogias visuais e exemplos claros. Sem decorar montanhas de regras!</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <article class="bg-white rounded-2xl border p-6 shadow-sm">
+          <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma P.A.?</h2></div>
+          <p class="mt-4 text-slate-600 leading-7">Imagine que você tem um cofrinho. No primeiro dia, você tem R$ 5,00. Esse é o seu <b>primeiro termo</b> (\(a_1\)). A partir de amanhã, você guarda sempre R$ 2,00 por dia. O valor que aumenta (ou diminui) fixamente a cada passo é chamado de <b>Razão</b> (\(r\)).</p>
+          <div class="my-5 paper rounded-xl p-5 text-center text-xl font-mono text-indigo-800">
+            (5, 7, 9, 11, 13, ...)
+          </div>
+          <div class="grid sm:grid-cols-2 gap-3 text-sm">
+            <div class="bg-indigo-50 rounded-xl p-4"><b>\(a_1\) (Primeiro Termo)</b><br>O ponto de partida. No exemplo: 5.</div>
+            <div class="bg-amber-50 rounded-xl p-4"><b>\(r\) (Razão)</b><br>O tamanho do passo. No exemplo: +2.</div>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-2xl border p-6 shadow-sm">
+          <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Descobrindo o Futuro (Termo Geral)</h2></div>
+          <p class="mt-4 text-slate-600 leading-7">Como saber quanto teremos no 10º dia sem precisar somar dedo por dedo? Para chegar ao 10º dia, você dá <b>9 passos</b> a partir do primeiro. Você multiplica o número de passos pela razão e soma com o início.</p>
+          <div class="paper rounded-xl p-5 mt-4 text-center text-lg">
+            \[a_n = a_1 + (n - 1) \cdot r\]
+          </div>
+          <div class="success rounded-xl p-4 mt-4 text-sm"><b>Por que \((n-1)\)?</b> Porque o primeiro dia já está lá! Para achar o 10º termo, pulamos apenas 9 vezes.</div>
+        </article>
+      </div>
+
+      <article class="bg-white rounded-2xl border p-6 shadow-sm">
+        <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">A Mágica da Soma (Truque de Gauss)</h2></div>
+        <div class="grid lg:grid-cols-2 gap-6 mt-5">
+          <div>
+            <p class="text-slate-600">Para somar todos os números de 1 até 100, um garoto chamado Gauss percebeu que somar as pontas dava sempre o mesmo valor: 1+100=101, 2+99=101... São 50 pares de 101. A regra para somar termos de qualquer P.A. é exatamente essa!</p>
+            <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[S_n = \frac{(a_1 + a_n) \cdot n}{2}\]</div>
+          </div>
+          <div class="paper rounded-xl p-5">
+            <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO GUIADO: Somar de 1 até 10</div>
+            <div class="space-y-3 text-sm">
+              <div class="step" data-step="1"><b>Descubra as pontas:</b> \(a_1 = 1\) e \(a_{10} = 10\).</div>
+              <div class="step" data-step="2"><b>Some as pontas:</b> \(1 + 10 = 11\).</div>
+              <div class="step" data-step="3"><b>Quantos números tem?</b> \(n = 10\).</div>
+              <div class="step" data-step="4"><b>Multiplique e divida por 2:</b> \(\frac{11 \times 10}{2} = \frac{110}{2} = 55\).</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- LAB -->
+    <section id="sec-laboratorio" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span>
+        <h1 class="text-3xl font-black mt-2">Mova os controles e veja a escada</h1>
+        <p class="text-slate-600 mt-2">Entenda visualmente como uma P.A. se comporta construindo "degraus".</p>
+      </div>
+      <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+          <label class="font-bold text-sm block">Primeiro termo (\(a_1\)): <span id="lab-a1-label" class="text-indigo-600">5</span></label>
+          <input id="lab-a1" type="range" min="-10" max="20" value="5" class="w-full mt-3">
+          
+          <label class="font-bold text-sm block mt-6">Razão (\(r\)): <span id="lab-r-label" class="text-indigo-600">2</span></label>
+          <input id="lab-r" type="range" min="-5" max="10" value="2" class="w-full mt-3">
+          
+          <div class="tip rounded-xl p-3 mt-6 text-sm">Observe como uma razão negativa inverte a escada, fazendo ela descer.</div>
+        </div>
+        <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col justify-end min-h-[300px]">
+          <div id="lab-bars" class="flex items-end gap-2 h-full border-b-4 border-slate-300 pb-2 w-full">
+            <!-- Barras injetadas via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FERRAMENTAS -->
+    <section id="sec-ferramentas" class="hidden space-y-7">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Ferramentas pedagógicas</span>
+        <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+        <p class="text-slate-600 mt-2">Coloque os valores das questões que você não conseguiu fazer e veja a resolução detalhada.</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+          <h2 class="font-black text-xl">Descobrir um termo (\(a_n\))</h2>
+          <div class="grid grid-cols-3 gap-2 mt-4">
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block">Início (\(a_1\))</label><input id="tool-an-a1" type="number" value="2" class="border rounded-xl p-2 w-full"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block">Passo (\(r\))</label><input id="tool-an-r" type="number" value="3" class="border rounded-xl p-2 w-full"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block">Posição (\(n\))</label><input id="tool-an-n" type="number" min="1" value="10" class="border rounded-xl p-2 w-full"></div>
+          </div>
+          <button onclick="renderAnTool()" class="mt-3 w-full bg-indigo-600 text-white rounded-xl py-3 font-bold">Resolver Passo a Passo</button>
+          <div id="tool-an-out" class="paper rounded-xl p-5 mt-4 hidden text-sm space-y-3"></div>
+        </div>
+
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+          <h2 class="font-black text-xl">Somar todos (\(S_n\))</h2>
+          <div class="grid grid-cols-3 gap-2 mt-4">
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block">1º Termo (\(a_1\))</label><input id="tool-sn-a1" type="number" value="1" class="border rounded-xl p-2 w-full"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block">Último (\(a_n\))</label><input id="tool-sn-an" type="number" value="100" class="border rounded-xl p-2 w-full"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block">Quantos (\(n\))</label><input id="tool-sn-n" type="number" min="1" value="100" class="border rounded-xl p-2 w-full"></div>
+          </div>
+          <button onclick="renderSnTool()" class="mt-3 w-full bg-emerald-600 text-white rounded-xl py-3 font-bold">Resolver Passo a Passo</button>
+          <div id="tool-sn-out" class="paper rounded-xl p-5 mt-4 hidden text-sm space-y-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIOS -->
+    <section id="sec-exercicios" class="hidden space-y-6">
+      <div class="bg-white rounded-3xl border p-7 shadow-sm flex flex-col lg:flex-row justify-between gap-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+          <h1 class="text-3xl font-black mt-2">40 Exercícios com Resolução</h1>
+          <p class="text-slate-600 mt-2">Tente sozinho e só clique no "olho" para conferir se ficar travado.</p>
+        </div>
+        <div class="min-w-[210px]">
+          <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 40</span></div>
+          <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all w-0"></div></div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl border p-4 shadow-sm flex flex-wrap gap-2" id="filters">
+        <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+        <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 (Razão)</button>
+        <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 (Fórmula an)</button>
+        <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 (Posição n)</button>
+        <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 (Soma)</button>
+        <input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]">
+      </div>
+      
+      <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+    </section>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const exercisesData = [{"id": 1, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((-3, -1, 1, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "2", "rawAns": "2", "type": "pa_r", "a1": -3, "a2": -1}, {"id": 2, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((-1, 2, 5, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "3", "rawAns": "3", "type": "pa_r", "a1": -1, "a2": 2}, {"id": 3, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((1, 5, 9, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "4", "rawAns": "4", "type": "pa_r", "a1": 1, "a2": 5}, {"id": 4, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((3, 8, 13, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "5", "rawAns": "5", "type": "pa_r", "a1": 3, "a2": 8}, {"id": 5, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((5, 11, 17, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "6", "rawAns": "6", "type": "pa_r", "a1": 5, "a2": 11}, {"id": 6, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((7, 14, 21, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "7", "rawAns": "7", "type": "pa_r", "a1": 7, "a2": 14}, {"id": 7, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((9, 17, 25, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "8", "rawAns": "8", "type": "pa_r", "a1": 9, "a2": 17}, {"id": 8, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((11, 20, 29, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "9", "rawAns": "9", "type": "pa_r", "a1": 11, "a2": 20}, {"id": 9, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((13, 23, 33, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "10", "rawAns": "10", "type": "pa_r", "a1": 13, "a2": 23}, {"id": 10, "level": 1, "title": "N\u00edvel 1: Descobrir a Raz\u00e3o", "expr": "Na P.A. \\((15, 26, 37, \\dots)\\), qual \u00e9 a raz\u00e3o \\((r)\\)?", "ans": "11", "rawAns": "11", "type": "pa_r", "a1": 15, "a2": 26}, {"id": 11, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 7\u00ba termo \\((a_{7})\\) da P.A. onde \\(a_1 = 3\\) e \\(r = 3\\)?", "ans": "21", "rawAns": "21", "type": "pa_an", "a1": 3, "r": 3, "n": 7}, {"id": 12, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 9\u00ba termo \\((a_{9})\\) da P.A. onde \\(a_1 = 6\\) e \\(r = 4\\)?", "ans": "38", "rawAns": "38", "type": "pa_an", "a1": 6, "r": 4, "n": 9}, {"id": 13, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 11\u00ba termo \\((a_{11})\\) da P.A. onde \\(a_1 = 9\\) e \\(r = 5\\)?", "ans": "59", "rawAns": "59", "type": "pa_an", "a1": 9, "r": 5, "n": 11}, {"id": 14, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 13\u00ba termo \\((a_{13})\\) da P.A. onde \\(a_1 = 12\\) e \\(r = 6\\)?", "ans": "84", "rawAns": "84", "type": "pa_an", "a1": 12, "r": 6, "n": 13}, {"id": 15, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 15\u00ba termo \\((a_{15})\\) da P.A. onde \\(a_1 = 15\\) e \\(r = 2\\)?", "ans": "43", "rawAns": "43", "type": "pa_an", "a1": 15, "r": 2, "n": 15}, {"id": 16, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 17\u00ba termo \\((a_{17})\\) da P.A. onde \\(a_1 = 18\\) e \\(r = 3\\)?", "ans": "66", "rawAns": "66", "type": "pa_an", "a1": 18, "r": 3, "n": 17}, {"id": 17, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 19\u00ba termo \\((a_{19})\\) da P.A. onde \\(a_1 = 21\\) e \\(r = 4\\)?", "ans": "93", "rawAns": "93", "type": "pa_an", "a1": 21, "r": 4, "n": 19}, {"id": 18, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 21\u00ba termo \\((a_{21})\\) da P.A. onde \\(a_1 = 24\\) e \\(r = 5\\)?", "ans": "124", "rawAns": "124", "type": "pa_an", "a1": 24, "r": 5, "n": 21}, {"id": 19, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 23\u00ba termo \\((a_{23})\\) da P.A. onde \\(a_1 = 27\\) e \\(r = 6\\)?", "ans": "159", "rawAns": "159", "type": "pa_an", "a1": 27, "r": 6, "n": 23}, {"id": 20, "level": 2, "title": "N\u00edvel 2: O Termo Geral", "expr": "Qual \u00e9 o 25\u00ba termo \\((a_{25})\\) da P.A. onde \\(a_1 = 30\\) e \\(r = 2\\)?", "ans": "78", "rawAns": "78", "type": "pa_an", "a1": 30, "r": 2, "n": 25}, {"id": 21, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -2\\) e \\(r = 4\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(46\\)?", "ans": "13", "rawAns": "13", "type": "pa_n", "a1": -2, "r": 4, "an": 46}, {"id": 22, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -4\\) e \\(r = 5\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(71\\)?", "ans": "16", "rawAns": "16", "type": "pa_n", "a1": -4, "r": 5, "an": 71}, {"id": 23, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -6\\) e \\(r = 6\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(102\\)?", "ans": "19", "rawAns": "19", "type": "pa_n", "a1": -6, "r": 6, "an": 102}, {"id": 24, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -8\\) e \\(r = 3\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(55\\)?", "ans": "22", "rawAns": "22", "type": "pa_n", "a1": -8, "r": 3, "an": 55}, {"id": 25, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -10\\) e \\(r = 4\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(86\\)?", "ans": "25", "rawAns": "25", "type": "pa_n", "a1": -10, "r": 4, "an": 86}, {"id": 26, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -12\\) e \\(r = 5\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(123\\)?", "ans": "28", "rawAns": "28", "type": "pa_n", "a1": -12, "r": 5, "an": 123}, {"id": 27, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -14\\) e \\(r = 6\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(166\\)?", "ans": "31", "rawAns": "31", "type": "pa_n", "a1": -14, "r": 6, "an": 166}, {"id": 28, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -16\\) e \\(r = 3\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(83\\)?", "ans": "34", "rawAns": "34", "type": "pa_n", "a1": -16, "r": 3, "an": 83}, {"id": 29, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -18\\) e \\(r = 4\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(126\\)?", "ans": "37", "rawAns": "37", "type": "pa_n", "a1": -18, "r": 4, "an": 126}, {"id": 30, "level": 3, "title": "N\u00edvel 3: Encontrar a Posi\u00e7\u00e3o", "expr": "Em uma P.A. com \\(a_1 = -20\\) e \\(r = 5\\), qual \u00e9 a posi\u00e7\u00e3o \\((n)\\) do termo que vale \\(175\\)?", "ans": "40", "rawAns": "40", "type": "pa_n", "a1": -20, "r": 5, "an": 175}, {"id": 31, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 10 primeiros termos da P.A. onde \\(a_1 = -4\\) e \\(a_{10} = 23\\).", "ans": "95", "rawAns": "95", "type": "pa_sn", "a1": -4, "an": 23, "n": 10}, {"id": 32, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 14 primeiros termos da P.A. onde \\(a_1 = -3\\) e \\(a_{14} = 49\\).", "ans": "322", "rawAns": "322", "type": "pa_sn", "a1": -3, "an": 49, "n": 14}, {"id": 33, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 18 primeiros termos da P.A. onde \\(a_1 = -2\\) e \\(a_{18} = 32\\).", "ans": "270", "rawAns": "270", "type": "pa_sn", "a1": -2, "an": 32, "n": 18}, {"id": 34, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 22 primeiros termos da P.A. onde \\(a_1 = -1\\) e \\(a_{22} = 62\\).", "ans": "671", "rawAns": "671", "type": "pa_sn", "a1": -1, "an": 62, "n": 22}, {"id": 35, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 26 primeiros termos da P.A. onde \\(a_1 = 0\\) e \\(a_{26} = 100\\).", "ans": "1300", "rawAns": "1300", "type": "pa_sn", "a1": 0, "an": 100, "n": 26}, {"id": 36, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 30 primeiros termos da P.A. onde \\(a_1 = 1\\) e \\(a_{30} = 59\\).", "ans": "900", "rawAns": "900", "type": "pa_sn", "a1": 1, "an": 59, "n": 30}, {"id": 37, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 34 primeiros termos da P.A. onde \\(a_1 = 2\\) e \\(a_{34} = 101\\).", "ans": "1751", "rawAns": "1751", "type": "pa_sn", "a1": 2, "an": 101, "n": 34}, {"id": 38, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 38 primeiros termos da P.A. onde \\(a_1 = 3\\) e \\(a_{38} = 151\\).", "ans": "2926", "rawAns": "2926", "type": "pa_sn", "a1": 3, "an": 151, "n": 38}, {"id": 39, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 42 primeiros termos da P.A. onde \\(a_1 = 4\\) e \\(a_{42} = 86\\).", "ans": "1890", "rawAns": "1890", "type": "pa_sn", "a1": 4, "an": 86, "n": 42}, {"id": 40, "level": 4, "title": "N\u00edvel 4: Soma dos Termos", "expr": "Calcule a soma dos 46 primeiros termos da P.A. onde \\(a_1 = 5\\) e \\(a_{46} = 140\\).", "ans": "3335", "rawAns": "3335", "type": "pa_sn", "a1": 5, "an": 140, "n": 46}];
+    let solved = new Set(JSON.parse(localStorage.getItem('paSolved') || '[]'));
+    let currentLevel = 'all';
+
+    function renderAll() {
+      if (window.renderMathInElement) {
+        document.querySelectorAll('body').forEach(el => {
+          renderMathInElement(el, { delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }] })
+        });
+      }
+    }
+
+    // Tabs
+    const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+      const t = btn.dataset.tab;
+      sections.forEach(s => $('sec-' + s).classList.toggle('hidden', s !== t));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      if (t === 'exercicios') renderExercises();
+      if (t === 'laboratorio') updateLab();
+    }));
+
+    // Lab
+    function updateLab() {
+      const a1 = +$('lab-a1').value;
+      const r = +$('lab-r').value;
+      $('lab-a1-label').textContent = a1;
+      $('lab-r-label').textContent = r;
+      
+      let html = '';
+      const n = 10;
+      let current = a1;
+      let maxVal = Math.max(a1, a1 + r * 9);
+      let minVal = Math.min(0, a1, a1 + r * 9);
+      let range = (maxVal - minVal) || 1;
+
+      for (let i = 1; i <= n; i++) {
+        let heightPct = ((current - minVal) / range) * 100;
+        if (heightPct < 3) heightPct = 3;
+        html += `<div class="flex flex-col items-center flex-1 h-full justify-end group">
+                   <span class="text-[10px] font-bold mb-1 opacity-50 group-hover:opacity-100 transition-opacity">${current}</span>
+                   <div class="w-full bg-indigo-500 rounded-t-sm transition-all shadow-sm" style="height: ${heightPct}%"></div>
+                   <span class="text-[10px] text-slate-400 mt-1">a${i}</span>
+                 </div>`;
+        current += r;
+      }
+      $('lab-bars').innerHTML = html;
+    }
+    $('lab-a1').addEventListener('input', updateLab);
+    $('lab-r').addEventListener('input', updateLab);
+
+    // Ferramentas
+    function renderAnTool() {
+      const a1 = +$('tool-an-a1').value, r = +$('tool-an-r').value, n = +$('tool-an-n').value;
+      if (n < 1) return;
+      const an = a1 + (n - 1) * r;
+      let html = `<div class="step" data-step="1">A fórmula é: \\(a_n = a_1 + (n - 1) \\cdot r\\).</div>`;
+      html += `<div class="step" data-step="2">Trocando as letras pelos números: \\(a_{${n}} = ${a1} + (${n} - 1) \\cdot ${r}\\).</div>`;
+      html += `<div class="step" data-step="3">Resolver primeiro os parênteses: \\(a_{${n}} = ${a1} + ${n - 1} \\cdot ${r}\\).</div>`;
+      html += `<div class="step" data-step="4">Fazer a multiplicação: \\(a_{${n}} = ${a1} + ${(n - 1) * r}\\).</div>`;
+      html += `<div class="success rounded-xl p-4 font-bold text-center">Resposta Final: \\(a_{${n}} = ${an}\\)</div>`;
+      $('tool-an-out').innerHTML = html; $('tool-an-out').classList.remove('hidden'); renderAll();
+    }
+    function renderSnTool() {
+      const a1 = +$('tool-sn-a1').value, an = +$('tool-sn-an').value, n = +$('tool-sn-n').value;
+      if (n < 1) return;
+      const sn = (a1 + an) * n / 2;
+      let html = `<div class="step" data-step="1">A fórmula de Gauss é: \\(S_n = \\frac{(a_1 + a_n) \\cdot n}{2}\\).</div>`;
+      html += `<div class="step" data-step="2">Substituindo: \\(S_{${n}} = \\frac{(${a1} + ${an}) \\cdot ${n}}{2}\\).</div>`;
+      html += `<div class="step" data-step="3">Somando as pontas: \\(S_{${n}} = \\frac{${a1 + an} \\cdot ${n}}{2}\\).</div>`;
+      html += `<div class="step" data-step="4">Multiplicando tudo: \\(S_{${n}} = \\frac{${(a1 + an) * n}}{2}\\).</div>`;
+      html += `<div class="success rounded-xl p-4 font-bold text-center">Soma Total: \\(S_{${n}} = ${sn}\\)</div>`;
+      $('tool-sn-out').innerHTML = html; $('tool-sn-out').classList.remove('hidden'); renderAll();
+    }
+
+    // Exercícios Engine
+    function solutionSteps(ex) {
+      const S = [];
+      if (ex.type === 'pa_r') {
+        S.push(['1', 'A razão da P.A. é o que precisa somar num número para achar o próximo. O jeito mais fácil é pegar o segundo e subtrair o primeiro.']);
+        S.push(['2', `Segundo termo menos o primeiro: \\(${ex.a2} - (${ex.a1}) = ${ex.ans}\\).`]);
+      } else if (ex.type === 'pa_an') {
+        S.push(['1', 'Use a fórmula mestre: \\(a_n = a_1 + (n - 1) \\cdot r\\).']);
+        S.push(['2', `Você tem: \\(a_1 = ${ex.a1}\\), razão \\(r = ${ex.r}\\) e quer achar a posição \\(n = ${ex.n}\\).`]);
+        S.push(['3', `Substitua: \\(a_{${ex.n}} = ${ex.a1} + (${ex.n} - 1) \\cdot ${ex.r}\\).`]);
+        S.push(['4', `Diminua o parêntese: \\(a_{${ex.n}} = ${ex.a1} + ${ex.n - 1} \\cdot ${ex.r}\\).`]);
+        S.push(['5', `Multiplique: \\(a_{${ex.n}} = ${ex.a1} + ${(ex.n - 1) * ex.r}\\).`]);
+        S.push(['6', `E some no fim: \\(a_{${ex.n}} = ${ex.ans}\\).`]);
+      } else if (ex.type === 'pa_n') {
+        S.push(['1', 'Use a mesma fórmula geral: \\(a_n = a_1 + (n - 1) \\cdot r\\).']);
+        S.push(['2', `Substitua o que você sabe: \\(${ex.an} = ${ex.a1} + (n - 1) \\cdot ${ex.r}\\).`]);
+        S.push(['3', `Passe o início para o outro lado diminuindo: \\(${ex.an} - (${ex.a1}) = (n - 1) \\cdot ${ex.r}\\).`]);
+        S.push(['4', `Fica \\(${ex.an - ex.a1} = (n - 1) \\cdot ${ex.r}\\).`]);
+        S.push(['5', `Passe a razão dividindo: \\(${ex.an - ex.a1} \\div ${ex.r} = n - 1\\). O que dá \\(${(ex.an - ex.a1)/ex.r}\\).`]);
+        S.push(['6', `Então \\(n = ${(ex.an - ex.a1)/ex.r} + 1\\), que resulta em \\(${ex.ans}\\).`]);
+      } else if (ex.type === 'pa_sn') {
+        S.push(['1', 'Para somar tudo sem se cansar, aplique a fórmula de Gauss: \\(S_n = \\frac{(a_1 + a_n) \\cdot n}{2}\\).']);
+        S.push(['2', `Preenchendo: \\(S_{${ex.n}} = \\frac{(${ex.a1} + ${ex.an}) \\cdot ${ex.n}}{2}\\).`]);
+        S.push(['3', `Some os parênteses (as pontas): \\(${ex.a1} + ${ex.an} = ${ex.a1 + ex.an}\\).`]);
+        S.push(['4', `Multiplique pela quantidade (\(n=${ex.n}\)): \\(${ex.a1 + ex.an} \\times ${ex.n} = ${(ex.a1 + ex.an) * ex.n}\\).`]);
+        S.push(['5', `Divida a metade: \\(${(ex.a1 + ex.an) * ex.n} \\div 2 = ${ex.ans}\\).`]);
+      }
+      return S;
+    }
+
+    function renderExercises() {
+      const q = ($('search').value || '').toLowerCase();
+      let list = exercisesData.filter(e => (currentLevel === 'all' || e.level == currentLevel) && (q === '' || (`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+      
+      $('exercise-list').innerHTML = list.map(ex => {
+        const done = solved.has(ex.id);
+        return `<article class="bg-white rounded-2xl border ${done ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm">
+          <div class="flex justify-between gap-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400">${ex.title}</span>
+          </div>
+          <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-lg text-slate-700">${ex.expr}</div>
+          <div class="flex gap-2 mt-4">
+            <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta (número)">
+            <button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button>
+          </div>
+          <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+          <button onclick="$('solution-${ex.id}').classList.toggle('hidden')" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+          <div id="solution-${ex.id}" class="hidden mt-4 border-t pt-4">
+            <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução Passo a Passo</div>
+            ${solutionSteps(ex).map(s => `<div class="step mb-3 text-sm" data-step="${s[0]}">${s[1]}</div>`).join('')}
+            <div class="success rounded-xl p-4 text-center font-bold">Resposta Certa: \\(${ex.ans}\\)</div>
+          </div>
+        </article>`;
+      }).join('');
+      
+      $('progress-text').textContent = `${solved.size} / 40`;
+      $('progress-bar').style.width = ((solved.size / 40) * 100) + '%';
+      renderAll();
+    }
+
+    function check(id) {
+      const ex = exercisesData.find(x => x.id === id);
+      const val = $('answer-' + id).value.trim();
+      const fb = $('feedback-' + id);
+      if (val === ex.rawAns) {
+        solved.add(id);
+        localStorage.setItem('paSolved', JSON.stringify([...solved]));
+        fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fb.textContent = '✓ Perfeito! Resposta correta.';
+      } else {
+        fb.className = 'text-sm font-bold mt-2 text-red-600';
+        fb.textContent = '✗ Ainda não. Reveja os passos na resolução se precisar de ajuda!';
+      }
+      renderExercises();
+    }
+
+    document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+      currentLevel = b.dataset.level;
+      document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      renderExercises();
+    });
+    $('search').addEventListener('input', renderExercises);
+
+    window.addEventListener('DOMContentLoaded', () => { updateLab(); renderAll(); renderExercises(); });
+  </script>
+</body>
+</html>
